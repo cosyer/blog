@@ -3849,3 +3849,6 @@ chkdsk F: /f
 ```bash
 ifconfig | grep "inet"
 ```
+
+## cssbase64图片
+- 如果base64后面含有\u0000,img src能够识别但是css属性background识别不了需要replace

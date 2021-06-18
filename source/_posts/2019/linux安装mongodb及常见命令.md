@@ -31,6 +31,7 @@ mv mongodb-linux-x86_64-3.6.5/ /usr/local/mongodb
 export PATH=/usr/local/mongodb/bin:$PATH
 
 ## 到根目录创建文件夹 或者mongodb下
+mkdir data
 mkdir data/db
 mkdir data/log
 
@@ -46,13 +47,15 @@ source /etc/profile
 
 ```shell
 ## mongodb.conf
-dbpath=/usr/local/mongodb/db
-logpath=/usr/local/mongodb/log/mongodb.log
+dbpath=/usr/local/mongodb/data/db
+logpath=/usr/local/mongodb/data/log/mongodb.log
 bind_ip=0.0.0.0
 fork=true
 ```
 
 ```shell
+## 查看
+ps aux | grep -v grep | grep mongod
 ## 关闭
 ps -ef|grep mongod
 kill -9
@@ -63,9 +66,27 @@ nohup mongod --auth -f /usr/local/mongodb/mongodb.conf > myLog.log 2>&1 &
 nohup mongod -f /usr/local/mongodb/mongodb.conf > myLog.log 2>&1 &
 ```
 
-## 常见命令
+## brew安装
+```shell
+brew tap mongodb/brew
+brew install mongodb-community@4.4
 
-### 设置用户和命令
+# 启动
+brew services start mongodb-community@4.4
+
+# 停止
+brew services stop mongodb-community@4.4
+
+# 停止
+db.adminCommand({ "shutdown" : 1 })
+```
+- 配置文件：/usr/local/etc/mongod.conf
+- 日志文件路径：/usr/local/var/log/mongodb
+- 数据存放路径：/usr/local/var/mongodb
+
+### 常见命令
+
+#### 设置用户和命令
 ```shell
 ## 权限登录
 mongo admin -u cosyer -p xxx
@@ -101,7 +122,7 @@ db.changeUserPassword('tank2','test')
 db.updateUser("cosyer",{roles:[ {role:"root",db:"admin"} ]})
 ```
 
-### mongoose账号密码连接
+#### mongoose账号密码连接
 ```js
 // mongodb://admin:123456@localhost:27017 //有用户名密码的情况
 mongoose.connect("mongodb://user:pwd@111.231.121.29/ticket", {
@@ -110,19 +131,22 @@ mongoose.connect("mongodb://user:pwd@111.231.121.29/ticket", {
 });
 ```
 
-## 导入导出表字段
+#### 导入导出表字段
 ```js
 mongoexport -d book -c books -o books.json --type json
 
 mongoimport -d book -c books --file /home/mongodump/articles.json --type json
 ```
 
-## 备份恢复数据库
+#### 备份恢复数据库
 ```js
 mongodump -h 127.0.0.1 -d book -o D:\iview-book-admin\static\js
 
 mongorestore -h dbhost -d book --dir D:\iview-book-admin\static\js\book
 ```
+
+### 可视化工具
+- https://robomongo.org/download
 
 ## homebrew安装go
 - [mac 使用brew 安装Python](https://www.jianshu.com/p/b821a8d1d8dc)

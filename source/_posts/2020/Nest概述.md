@@ -17,6 +17,19 @@ photos:
 npm i -g @nestjs/cli
 
 nest new project
+
+# 或者 git 安装
+git clone https://github.com/nestjs/typescript-starter.git nest-crud-demo
+
+# 操作数据库
+npm install mongoose @nestjs/mongoose --save
+```
+
+### 启动服务
+```bash
+cd nest-crud-demo
+npm run start:dev 或者 yarn run start:dev
+# dev 模式启动，这样 Nest 会自动检测文件变化，然后自动重启服务。
 ```
 
 ### 初始项目结构

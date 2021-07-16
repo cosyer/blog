@@ -3852,3 +3852,32 @@ ifconfig | grep "inet"
 
 ## cssbase64图片
 - 如果base64后面含有\u0000,img src能够识别但是css属性background识别不了需要replace
+
+## document.write
+```js
+// 需要加转义不然会提前闭合
+document.write('<script>alert("oops!!!")<\/script>');
+String.raw`<script>window.jQuery || document.write('<script src=\"scripts/jquery-3.5.1.min.js\"><\/script>')`
+```
+
+## python test
+```py
+#!/usr/bin/python
+# encoding: utf-8
+import flask
+import platform
+import datetime
+
+app = flask.Flask(__name__)
+
+@app.route('/')
+def hello():
+    return "Hello from: " + platform.node() + ", timestamp: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+@app.route('/health')
+def health():
+    return "Very health: " + platform.node() + ", timestamp: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=3003)
+```

@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+
+<!--
+                           _ooOoo_
+                          o8888888o
+                          88" . "88
+                          (| -_- |)
+                          O\  =  /O
+                       ____/`---'\____
+                     .'  \\|     |//  `.
+                    /  \\|||  :  |||//  \
+                   /  _||||| -:- |||||-  \
+                   |   | \\\  -  /// |   |
+                   | \_|  ''\---/''  |   |
+                   \  .-\__  `-`  ___/-. /
+                 ___`. .'  /--.--\  `. . __
+              ."" '<  `.___\_<|>_/___.'  >'"".
+             | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+             \  \ `-.   \_ __\ /__ _/   .-` /  /
+        ======`-.____`-.___\_____/___.-`____.-'======
+                           `=---='
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 佛祖保佑       永无BUG 
+-->
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<link href="//mydearest.cn" rel="dns-prefetch">
+<link href="//www.mydearest.cn" rel="dns-prefetch">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+	<meta name="description" content="陈宇的博客" />
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+  <meta name="keywords" content="解决方案," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="cosyer's Blog" type="application/atom+xml" />
+
+
+
+
+  
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+
+
+
+
+
+
+<meta name="description" content="Immer 中文文档前言Immer 是 mobx 的作者写的一个 immutable 库，核心实现是利用 ES6 的 proxy，几乎以最小的成本实现了 js 的不可变数据结构，简单易用、体量小巧、设计巧妙，满足了我们对JS不可变数据结构的需求。无奈网络上完善的文档实在太少，所以自己写了一份，本篇文章以贴近实战的思路和流程，对 Immer 进行了全面的讲解。 目录 数据处理存在的问题 解决引用类型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Immer中文文档">
+<meta property="og:url" content="http://mydearest.cn/2020/Immer%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3.html">
+<meta property="og:site_name" content="cosyer&#39;s Blog">
+<meta property="og:description" content="Immer 中文文档前言Immer 是 mobx 的作者写的一个 immutable 库，核心实现是利用 ES6 的 proxy，几乎以最小的成本实现了 js 的不可变数据结构，简单易用、体量小巧、设计巧妙，满足了我们对JS不可变数据结构的需求。无奈网络上完善的文档实在太少，所以自己写了一份，本篇文章以贴近实战的思路和流程，对 Immer 进行了全面的讲解。 目录 数据处理存在的问题 解决引用类型">
+<meta property="og:image" content="http://cdn.mydearest.cn/blog/images/change-tree.gif">
+<meta property="article:published_time" content="2020-04-15T14:51:45.000Z">
+<meta property="article:modified_time" content="2021-03-26T09:48:32.292Z">
+<meta property="article:author" content="陈宇（cosyer）">
+<meta property="article:tag" content="解决方案">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.mydearest.cn/blog/images/change-tree.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://mydearest.cn/2020/Immer中文文档.html"/>
+
+
+
+
+
+  <title>Immer中文文档 | cosyer's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?653a4be35cb6c7b26817038a17c3f0d6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+<link href="https://mydearest.cn/css/all-9097fb9016.css" rel="stylesheet" type="text/css">
+<style>
+// scrollbar滚动条样式优化
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 7px;
+  background-color: #b4babf;
+  border-radius: 7px;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  width: 15px;
+}
+
+::-webkit-scrollbar:hover {
+  background-color: transparent;
+}
+
+* {
+    cursor: url("http://cdn.mydearest.cn/blog/images/miku1.png"),auto!important
+}
+:active {
+    cursor: url("http://cdn.mydearest.cn/blog/images/miku2.png"),auto!important
+}
+a:hover {
+    cursor: url("http://cdn.mydearest.cn/blog/images/miku2.png"),auto!important
+}
+</style>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <div id="loader">
+    <div></div>
+  </div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+    <a href="https://github.com/cosyer" target="_blank" rel="noopener" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">cosyer's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Blog</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" class="faa-parent animated-hover" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home faa-wrench"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" class="faa-parent animated-hover" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link faa-shake"></i> <br />
+            
+            友链
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook/" class="faa-parent animated-hover" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comment-o faa-tada"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" class="faa-parent animated-hover" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive faa-float"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" class="faa-parent animated-hover" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user faa-horizontal"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger faa-parent animated-hover">
+          
+            
+              <i class="menu-item-icon fa fa-search faa-burst fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-date" data-datetime="2021-03-26T17:48:32+08:00">
+    <div class="post-time-text">3月</div>
+    <div class="post-time-count">26</div>
+    <div class="text-desc">
+			<div class="date-text">更新于</div>
+      <div class="post-tiem">3月26</div>
+      <div class="post-year">2021</div>
+		</div>
+  </div>
+  
+  
+  
+
+  <div class="post-badge">
+    
+            <span class="post-category" >
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+    
+  </div>
+
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://mydearest.cn/2020/Immer%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈宇（cosyer）">
+      <meta itemprop="description" content="不去做的话永远也做不到。">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cosyer's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Immer中文文档</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="发表于" itemprop="dateCreated datePublished" datetime="2020-04-15T22:51:45+08:00">
+                2020-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/Immer%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3.html" class="leancloud_visitors" data-flag-title="Immer中文文档">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span> ℃
+             </span>
+          
+
+          
+
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计：</span>
+                
+                <span title="字数统计：">
+                  2,615 (字)
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长：</span>
+                
+                <span title="阅读时长：">
+                  11 (分钟)
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Immer-中文文档"><a href="#Immer-中文文档" class="headerlink" title="Immer 中文文档"></a>Immer 中文文档</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a href="https://github.com/mweststrate/immer" target="_blank" rel="noopener">Immer</a> 是 mobx 的作者写的一个 immutable 库，核心实现是利用 ES6 的 proxy，几乎以最小的成本实现了 js 的不可变数据结构，简单易用、体量小巧、设计巧妙，满足了我们对JS不可变数据结构的需求。<br>无奈网络上完善的文档实在太少，所以自己写了一份，本篇文章以贴近实战的思路和流程，对 Immer 进行了全面的讲解。</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="#数据处理存在的问题">数据处理存在的问题</a></li>
+<li><a href="#解决引用类型对象被修改的办法">解决引用类型对象被修改的办法</a></li>
+<li><a href="#immer功能介绍">immer功能介绍</a><ul>
+<li><a href="#安装immer">安装immer</a></li>
+<li><a href="#immer如何fix掉那些不爽的问题">immer如何fix掉那些不爽的问题</a></li>
+<li><a href="#概念说明">概念说明</a></li>
+<li><a href="#常用api介绍">常用api介绍</a></li>
+</ul>
+</li>
+<li><a href="#用immer优化react项目的探索">用immer优化react项目的探索</a><ul>
+<li><a href="#抛出需求">抛出需求</a></li>
+<li><a href="#优化setState方法">优化setState方法</a></li>
+<li><a href="#优化reducer">优化reducer</a></li>
+</ul>
+</li>
+<li><a href="#参考文档">参考文档</a></li>
+</ul>
+<hr>
+<a id="more"></a>
+<h2 id="数据处理存在的问题"><a href="#数据处理存在的问题" class="headerlink" title="数据处理存在的问题"></a>数据处理存在的问题</h2><p>先定义一个初始对象，供后面例子使用：
+首先定义一个<code>currentState</code>对象，后面的例子使用到变量<code>currentState</code>时，如无特殊声明，都是指这个<code>currentState</code>对象
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> currentState = &#123;</span><br><span class="line">  p: &#123;</span><br><span class="line">    x: [<span class="number">2</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>哪些情况会一不小心修改原始对象？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Q1</span></span><br><span class="line"><span class="keyword">let</span> o1 = currentState;</span><br><span class="line">o1.p = <span class="number">1</span>; <span class="comment">// currentState 被修改了</span></span><br><span class="line">o1.p.x = <span class="number">1</span>; <span class="comment">// currentState 被修改了</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Q2</span></span><br><span class="line">fn(currentState); <span class="comment">// currentState 被修改了</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  o.p1 = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> o;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Q3</span></span><br><span class="line"><span class="keyword">let</span> o3 = &#123;</span><br><span class="line">  ...currentState</span><br><span class="line">&#125;;</span><br><span class="line">o3.p.x = <span class="number">1</span>; <span class="comment">// currentState 被修改了</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Q4</span></span><br><span class="line"><span class="keyword">let</span> o4 = currentState;</span><br><span class="line">o4.p.x.push(<span class="number">1</span>); <span class="comment">// currentState 被修改了</span></span><br></pre></td></tr></table></figure>
+<h2 id="解决引用类型对象被修改的办法"><a href="#解决引用类型对象被修改的办法" class="headerlink" title="解决引用类型对象被修改的办法"></a>解决引用类型对象被修改的办法</h2><ol>
+<li>深度拷贝，但是深拷贝的成本较高，会影响性能；</li>
+<li><a href="https://github.com/facebook/immutable-js" target="_blank" rel="noopener">ImmutableJS</a>，非常棒的一个不可变数据结构的库，可以解决上面的问题，But，跟 Immer 比起来，ImmutableJS 有两个较大的不足：  <ul>
+<li>需要使用者学习它的数据结构操作方式，没有 Immer 提供的使用原生对象的操作方式简单、易用；</li>
+<li>它的操作结果需要通过<code>toJS</code>方法才能得到原生对象，这使得在操作一个对象的时候，时刻要主要操作的是原生对象还是 ImmutableJS 的返回结果，稍不注意，就会产生意想不到的 bug。</li>
+</ul>
+</li>
+</ol>
+<p>看来目前已知的解决方案，我们都不甚满意，那么 Immer 又有什么高明之处呢？</p>
+<h2 id="immer功能介绍"><a href="#immer功能介绍" class="headerlink" title="immer功能介绍"></a>immer功能介绍</h2><h3 id="安装immer"><a href="#安装immer" class="headerlink" title="安装immer"></a>安装immer</h3><p>欲善其事必先利其器，安装 Immer 是当前第一要务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i --save immer</span><br></pre></td></tr></table></figure>
+<h3 id="immer如何fix掉那些不爽的问题"><a href="#immer如何fix掉那些不爽的问题" class="headerlink" title="immer如何fix掉那些不爽的问题"></a>immer如何fix掉那些不爽的问题</h3><p>Fix Q1、Q3
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> produce <span class="keyword">from</span> <span class="string">'immer'</span>;</span><br><span class="line"><span class="keyword">let</span> o1 = produce(currentState, draft =&gt; &#123;</span><br><span class="line">  draft.p.x = <span class="number">1</span>;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>Fix Q2
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> produce <span class="keyword">from</span> <span class="string">'immer'</span>;</span><br><span class="line">fn(currentState); <span class="comment">// currentState 被修改了</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> produce(o, draft =&gt; &#123;</span><br><span class="line">    draft.p1 = <span class="number">1</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>Fix Q4
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> produce <span class="keyword">from</span> <span class="string">'immer'</span>;</span><br><span class="line"><span class="keyword">let</span> o4 = produce(currentState, draft =&gt; &#123;</span><br><span class="line">  draft.p.x.push(<span class="number">1</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>是不是使用非常简单，通过小试牛刀，我们简单的了解了 Immer ，下面将对 Immer 的常用 api 分别进行介绍。</p>
+<h3 id="概念说明"><a href="#概念说明" class="headerlink" title="概念说明"></a>概念说明</h3><p>Immer 涉及概念不多，在此将涉及到的概念先行罗列出来，阅读本文章过程中遇到不明白的概念，可以随时来此处查阅。</p>
+<ul>
+<li><p>currentState<br>被操作对象的最初状态</p>
+</li>
+<li><p>draftState<br>根据 currentState 生成的草稿状态，它是 currentState 的代理，对 draftState 所做的任何修改都将被记录并用于生成 nextState 。在此过程中，currentState 将不受影响</p>
+</li>
+<li><p>nextState<br>根据 draftState 生成的最终状态</p>
+</li>
+<li><p>produce 生产<br>用来生成 nextState 或 producer 的函数</p>
+</li>
+<li><p>producer 生产者<br>通过 produce 生成，用来生产 nextState ，每次执行相同的操作</p>
+</li>
+<li><p>recipe 生产机器<br>用来操作 draftState 的函数</p>
+</li>
+</ul>
+<h3 id="常用api介绍"><a href="#常用api介绍" class="headerlink" title="常用api介绍"></a>常用api介绍</h3><p>使用 Immer 前，请确认将<code>immer</code>包引入到模块中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> produce <span class="keyword">from</span> <span class="string">'immer'</span></span><br></pre></td></tr></table></figure>
+<p>or<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; produce &#125; <span class="keyword">from</span> <span class="string">'immer'</span></span><br></pre></td></tr></table></figure></p>
+<p>这两种引用方式，produce 是完全相同的</p>
+<h4 id="produce"><a href="#produce" class="headerlink" title="produce"></a>produce</h4><p><em>备注：出现<code>PatchListener</code>先行跳过，后面章节会做介绍</em></p>
+<h5 id="第1种使用方式："><a href="#第1种使用方式：" class="headerlink" title="第1种使用方式："></a>第1种使用方式：</h5><p>语法：<br><code>produce(currentState, recipe: (draftState) =&gt; void | draftState, ?PatchListener): nextState</code></p>
+<p>例子1：
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nextState = produce(currentState, (draft) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">currentState === nextState; <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>例子2：
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> currentState = &#123;</span><br><span class="line">  a: [],</span><br><span class="line">  p: &#123;</span><br><span class="line">    x: <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> nextState = produce(currentState, (draft) =&gt; &#123;</span><br><span class="line">  draft.a.push(<span class="number">2</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">currentState.a === nextState.a; <span class="comment">// false</span></span><br><span class="line">currentState.p === nextState.p; <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>由此可见，对 draftState 的修改都会反应到 nextState 上，而 Immer 使用的结构是共享的，nextState 在结构上又与 currentState 共享未修改的部分，共享效果如图：</p>
+<p><img src="http://cdn.mydearest.cn/blog/images/change-tree.gif" alt="change-tree"></p>
+<h5 id="自动冻结功能"><a href="#自动冻结功能" class="headerlink" title="自动冻结功能"></a>自动冻结功能</h5><p>Immer 还在内部做了一件很巧妙的事情，那就是通过 produce 生成的 nextState 是被冻结（freeze）的，（Immer 内部使用<code>Object.freeze</code>方法，只冻结 nextState 跟 currentState 相比修改的部分），这样，当直接修改 nextState 时，将会报错。
+这使得 nextState 成为了真正的不可变数据。</p>
+<p>例子：
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nextState = produce(currentState, (draft) =&gt; &#123;</span><br><span class="line">  draft.p.x.push(<span class="number">2</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">currentState === nextState; <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="第2种使用方式"><a href="#第2种使用方式" class="headerlink" title="第2种使用方式"></a>第2种使用方式</h5><p>利用高阶函数的特点，提前生成一个生产者 producer</p>
+<p>语法：<br><code>produce(recipe: (draftState) =&gt; void | draftState, ?PatchListener)(currentState): nextState</code></p>
+<p>例子：
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> producer = produce(<span class="function">(<span class="params">draft</span>) =&gt;</span> &#123;</span><br><span class="line">  draft.x = <span class="number">2</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">let</span> nextState = producer(currentState);</span><br></pre></td></tr></table></figure></p>
+<h5 id="recipe的返回值"><a href="#recipe的返回值" class="headerlink" title="recipe的返回值"></a>recipe的返回值</h5><p>recipe 是否有返回值，nextState 的生成过程是不同的：<br>recipe 没有返回值时：nextState 是根据 recipe 函数内的 draftState 生成的；<br>recipe 有返回值时：nextState 是根据 recipe 函数的返回值生成的；  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nextState = produce(</span><br><span class="line">  currentState, </span><br><span class="line">  (draftState) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      x: <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>此时，nextState 不再是通过 draftState 生成的了，而是通过 recipe 的返回值生成的。</p>
+<h5 id="recipe中的this"><a href="#recipe中的this" class="headerlink" title="recipe中的this"></a>recipe中的this</h5><p> recipe 函数内部的<code>this</code>指向 draftState ，也就是修改<code>this</code>与修改 recipe 的参数 draftState ，效果是一样的。<br><strong>注意：此处的 recipe 函数不能是箭头函数，如果是箭头函数，<code>this</code>就无法指向 draftState 了</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">produce(currentState, <span class="function"><span class="keyword">function</span>(<span class="params">draft</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// 此处，this 指向 draftState</span></span><br><span class="line">  draft === <span class="keyword">this</span>; <span class="comment">// true</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="patch补丁功能"><a href="#patch补丁功能" class="headerlink" title="patch补丁功能"></a>patch补丁功能</h4><p>通过此功能，可以方便进行详细的代码调试和跟踪，可以知道 recipe 内的做的每次修改，还可以实现时间旅行。</p>
+<p>Immer 中，一个 patch 对象是这样的:
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Patch &#123;</span><br><span class="line">  op: <span class="string">"replace"</span> | <span class="string">"remove"</span> | <span class="string">"add"</span> <span class="comment">// 一次更改的动作类型</span></span><br><span class="line">  path: (<span class="built_in">string</span> | <span class="built_in">number</span>)[] <span class="comment">// 此属性指从树根到被更改树杈的路径</span></span><br><span class="line">  value?: <span class="built_in">any</span> <span class="comment">// op为 replace、add 时，才有此属性，表示新的赋值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>语法：
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">produce(</span><br><span class="line">  currentState, </span><br><span class="line">  recipe,</span><br><span class="line">  <span class="comment">// 通过 patchListener 函数，暴露正向和反向的补丁数组</span></span><br><span class="line">  patchListener: <span class="function">(<span class="params">patches: Patch[], inversePatches: Patch[]</span>) =&gt;</span> <span class="built_in">void</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">applyPatches(currentState, changes: (patches | inversePatches)[]): nextState</span><br></pre></td></tr></table></figure></p>
+<p>例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> produce, &#123; applyPatches &#125; <span class="keyword">from</span> <span class="string">"immer"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> state = &#123;</span><br><span class="line">  x: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> replaces = [];</span><br><span class="line"><span class="keyword">let</span> inverseReplaces = [];</span><br><span class="line"></span><br><span class="line">state = produce(</span><br><span class="line">  state,</span><br><span class="line">  draft =&gt; &#123;</span><br><span class="line">    draft.x = <span class="number">2</span>;</span><br><span class="line">    draft.y = <span class="number">2</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  (patches, inversePatches) =&gt; &#123;</span><br><span class="line">    replaces = patches.filter(<span class="function"><span class="params">patch</span> =&gt;</span> patch.op === <span class="string">'replace'</span>);</span><br><span class="line">    inverseReplaces = inversePatches.filter(<span class="function"><span class="params">patch</span> =&gt;</span> patch.op === <span class="string">'replace'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">state = produce(state, draft =&gt; &#123;</span><br><span class="line">  draft.x = <span class="number">3</span>;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'state1'</span>, state); <span class="comment">// &#123; x: 3, y: 2 &#125;</span></span><br><span class="line"></span><br><span class="line">state = applyPatches(state, replaces);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'state2'</span>, state); <span class="comment">// &#123; x: 2, y: 2 &#125;</span></span><br><span class="line"></span><br><span class="line">state = produce(state, draft =&gt; &#123;</span><br><span class="line">  draft.x = <span class="number">4</span>;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'state3'</span>, state); <span class="comment">// &#123; x: 4, y: 2 &#125;</span></span><br><span class="line"></span><br><span class="line">state = applyPatches(state, inverseReplaces);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'state4'</span>, state); <span class="comment">// &#123; x: 1, y: 2 &#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>state.x</code>的值4次打印结果分别是：<code>3、2、4、1</code>，实现了时间旅行，
+可以分别打印<code>patches</code>和<code>inversePatches</code>看下，</p>
+<p><code>patches</code>数据如下：
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    op: <span class="string">"replace"</span>,</span><br><span class="line">    path: [<span class="string">"x"</span>],</span><br><span class="line">    value: <span class="number">2</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    op: <span class="string">"add"</span>,</span><br><span class="line">    path: [<span class="string">"y"</span>],</span><br><span class="line">    value: <span class="number">2</span></span><br><span class="line">  &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p><code>inversePatches</code>数据如下：
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    op: <span class="string">"replace"</span>,</span><br><span class="line">    path: [<span class="string">"x"</span>],</span><br><span class="line">    value: <span class="number">1</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    op: <span class="string">"remove"</span>,</span><br><span class="line">    path: [<span class="string">"y"</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>可见，<code>patchListener</code>内部对数据操作做了记录，并分别存储为正向操作记录和反向操作记录，供我们使用。</p>
+<p>至此，Immer 的常用功能和 api 我们就介绍完了。</p>
+<p>接下来，我们看如何用 Immer ，提高 React 、Redux 项目的开发效率。</p>
+<h2 id="用immer优化react项目的探索"><a href="#用immer优化react项目的探索" class="headerlink" title="用immer优化react项目的探索"></a>用immer优化react项目的探索</h2><p>首先定义一个<code>state</code>对象，后面的例子使用到变量<code>state</code>或访问<code>this.state</code>时，如无特殊声明，都是指这个<code>state</code>对象
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">state = &#123;</span><br><span class="line">  members: [</span><br><span class="line">    &#123;</span><br><span class="line">      name: <span class="string">'ronffy'</span>,</span><br><span class="line">      age: <span class="number">30</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="抛出需求"><a href="#抛出需求" class="headerlink" title="抛出需求"></a>抛出需求</h3><p>就上面定义的<code>state</code>，我们先抛一个需求出来，好让后面的讲解有的放矢：<br><strong>members 成员中的第1个成员，年龄增加1岁</strong></p>
+<h3 id="优化setState方法"><a href="#优化setState方法" class="headerlink" title="优化setState方法"></a>优化setState方法</h3><h4 id="错误示例"><a href="#错误示例" class="headerlink" title="错误示例"></a>错误示例</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.state.members[<span class="number">0</span>].age++;</span><br></pre></td></tr></table></figure>
+<p>只所以有的新手同学会犯这样的错误，很大原因是这样操作实在是太方便了，以至于忘记了操作 State 的规则。</p>
+<p>下面看下正确的实现方法</p>
+<h4 id="setState的第1种实现方法"><a href="#setState的第1种实现方法" class="headerlink" title="setState的第1种实现方法"></a>setState的第1种实现方法</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; members &#125; = <span class="keyword">this</span>.state;</span><br><span class="line"><span class="keyword">this</span>.setState(&#123;</span><br><span class="line">  members: [</span><br><span class="line">    &#123;</span><br><span class="line">      ...members[<span class="number">0</span>],</span><br><span class="line">      age: members[<span class="number">0</span>].age + <span class="number">1</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    ...members.slice(<span class="number">1</span>),</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="setState的第2种实现方法"><a href="#setState的第2种实现方法" class="headerlink" title="setState的第2种实现方法"></a>setState的第2种实现方法</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.setState(<span class="function"><span class="params">state</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; members &#125; = state;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    members: [</span><br><span class="line">      &#123;</span><br><span class="line">        ...members[<span class="number">0</span>],</span><br><span class="line">        age: members[<span class="number">0</span>].age + <span class="number">1</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      ...members.slice(<span class="number">1</span>)</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>以上2种实现方式，就是<code>setState</code>的两种使用方法，相比大家都不陌生了，所以就不过多说明了，接下来看下，如果用 Immer 解决，会有怎样的烟火？</p>
+<h4 id="用immer更新state"><a href="#用immer更新state" class="headerlink" title="用immer更新state"></a>用immer更新state</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.setState(produce(<span class="function"><span class="params">draft</span> =&gt;</span> &#123;</span><br><span class="line">  draft.members[<span class="number">0</span>].age++;</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+<p>是不是瞬间代码量就少了很多，阅读起来舒服了很多，而且更易于阅读了。</p>
+<h3 id="优化reducer"><a href="#优化reducer" class="headerlink" title="优化reducer"></a>优化reducer</h3><h4 id="immer的produce的拓展用法"><a href="#immer的produce的拓展用法" class="headerlink" title="immer的produce的拓展用法"></a>immer的produce的拓展用法</h4><p>在开始正式探索之前，我们先来看下 produce <a href="#第2种使用方式">第2种使用方式</a>的拓展用法:</p>
+<p>例子：
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> producer = produce(<span class="function">(<span class="params">draft, arg</span>) =&gt;</span> &#123;</span><br><span class="line">  obj === arg; <span class="comment">// true</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">let</span> nextState = producer(currentState, obj);</span><br></pre></td></tr></table></figure></p>
+<p>相比 produce 第2种使用方式的例子，多定义了一个<code>obj</code>对象，并将其作为 producer 方法的第2个参数传了进去；可以看到， produce 内的 recipe 回调函数的第2个参数与<code>obj</code>对象是指向同一块内存。<br>ok，我们在知道了 produce 的这种拓展用法后，看看能够在 Redux 中发挥什么功效?</p>
+<h4 id="普通reducer怎样解决上面抛出的需求"><a href="#普通reducer怎样解决上面抛出的需求" class="headerlink" title="普通reducer怎样解决上面抛出的需求"></a>普通reducer怎样解决上面抛出的需求</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> reducer = <span class="function">(<span class="params">state, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'ADD_AGE'</span>:</span><br><span class="line">      <span class="keyword">const</span> &#123; members &#125; = state;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        ...state,</span><br><span class="line">        members: [</span><br><span class="line">          &#123;</span><br><span class="line">            ...members[<span class="number">0</span>],</span><br><span class="line">            age: members[<span class="number">0</span>].age + <span class="number">1</span>,</span><br><span class="line">          &#125;,</span><br><span class="line">          ...members.slice(<span class="number">1</span>),</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="集合immer-reducer可以怎样写"><a href="#集合immer-reducer可以怎样写" class="headerlink" title="集合immer,reducer可以怎样写"></a>集合immer,reducer可以怎样写</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> reducer = <span class="function">(<span class="params">state, action</span>) =&gt;</span> produce(state, draft =&gt; &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'ADD_AGE'</span>:</span><br><span class="line">      draft.members[<span class="number">0</span>].age++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>可以看到，通过 produce ，我们的代码量已经精简了很多；<br>不过仔细观察不难发现，利用 produce 能够先制造出 producer 的特点，代码还能更优雅：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> reducer = produce(<span class="function">(<span class="params">draft, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'ADD_AGE'</span>:</span><br><span class="line">      draft.members[<span class="number">0</span>].age++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>好了，至此，Immer 优化 reducer 的方法也讲解完毕。</p>
+<p>Immer 的使用非常灵活，多多思考，相信你还可以发现 Immer 更多其他的妙用！</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="https://github.com/mweststrate/immer" target="_blank" rel="noopener">官方文档</a></li>
+<li><a href="https://hackernoon.com/introducing-immer-immutability-the-easy-way-9d73d8f71cb3" target="_blank" rel="noopener">Introducing Immer: Immutability the easy way</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div class="text-center line pages-end">
+				<span>本文结束<i class="fa fa-meh-o fa-fw"></i>感谢您的阅读</span>
+        </div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert@1.0.0/dist/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/sweetalert@1.0.0/dist/sweetalert.css">
+  <p><span>本文标题:</span><a href="/2020/Immer%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3.html">Immer中文文档</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 陈宇（cosyer） 的个人博客">陈宇（cosyer）</a></p>
+  <p><span>发布时间:</span>2020年04月15日 - 22:04</p>
+  <p><span>最后更新:</span>2021年03月26日 - 17:03</p>
+  <p><span>原始链接:</span><a href="/2020/Immer%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3.html" title="Immer中文文档">http://mydearest.cn/2020/Immer%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3.html</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://mydearest.cn/2020/Immer%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3.html"  aria-label=" 复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({
+          title: "",     
+          text: '复制成功',   
+          timer: 500,
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="陈宇（cosyer） WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="陈宇（cosyer） Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag"><i class="fa fa-tag fa-fw"></i> 解决方案</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB%E7%88%B1%E5%BF%83%E5%92%8C%E5%AF%8C%E5%BC%BA%E7%89%B9%E6%95%88.html" rel="next" title="鼠标点击爱心和富强特效">
+                <i class="fa fa-chevron-left"></i> 鼠标点击爱心和富强特效
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/vueInterview.html" rel="prev" title="vue面试题记录">
+                vue面试题记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+            
+  <div class="comments" id="comments">
+    
+      <div class="comments v" id="comments"></div>
+    
+  </div>
+
+
+          
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="陈宇（cosyer）" />
+          <p class="site-author-name" itemprop="name">陈宇（cosyer）</p>
+           
+              <p class="site-description motion-element" itemprop="description">不去做的话永远也做不到。</p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">159</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a rel="external nofollow" href="https://github.com/cosyer" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a rel="external nofollow" href="https://twitter.com/yzchenyu1995" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                    
+                      Twitter
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a rel="external nofollow" href="mailto:yzchenyu1995@gmail.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a rel="external nofollow" href="https://www.facebook.com/profile.php?id=100025666071215" target="_blank" title="FB Page">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                    
+                      FB Page
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              推荐阅读
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a rel="external nofollow" href="http://callmesoul.cn" title="Callmesoul" target="_blank">Callmesoul</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a rel="external nofollow" href="https://www.jstips.co/" title="JsTips" target="_blank">JsTips</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a rel="external nofollow" href="http://dir.mydearest.cn/motion/" title="Personal Site" target="_blank">Personal Site</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a rel="external nofollow" href="http://resume.mydearest.cn/" title="Resume" target="_blank">Resume</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Immer-中文文档"><span class="nav-number">1.</span> <span class="nav-text">Immer 中文文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.2.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据处理存在的问题"><span class="nav-number">1.3.</span> <span class="nav-text">数据处理存在的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决引用类型对象被修改的办法"><span class="nav-number">1.4.</span> <span class="nav-text">解决引用类型对象被修改的办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#immer功能介绍"><span class="nav-number">1.5.</span> <span class="nav-text">immer功能介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装immer"><span class="nav-number">1.5.1.</span> <span class="nav-text">安装immer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#immer如何fix掉那些不爽的问题"><span class="nav-number">1.5.2.</span> <span class="nav-text">immer如何fix掉那些不爽的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概念说明"><span class="nav-number">1.5.3.</span> <span class="nav-text">概念说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用api介绍"><span class="nav-number">1.5.4.</span> <span class="nav-text">常用api介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#produce"><span class="nav-number">1.5.4.1.</span> <span class="nav-text">produce</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第1种使用方式："><span class="nav-number">1.5.4.1.1.</span> <span class="nav-text">第1种使用方式：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自动冻结功能"><span class="nav-number">1.5.4.1.2.</span> <span class="nav-text">自动冻结功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第2种使用方式"><span class="nav-number">1.5.4.1.3.</span> <span class="nav-text">第2种使用方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#recipe的返回值"><span class="nav-number">1.5.4.1.4.</span> <span class="nav-text">recipe的返回值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#recipe中的this"><span class="nav-number">1.5.4.1.5.</span> <span class="nav-text">recipe中的this</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#patch补丁功能"><span class="nav-number">1.5.4.2.</span> <span class="nav-text">patch补丁功能</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用immer优化react项目的探索"><span class="nav-number">1.6.</span> <span class="nav-text">用immer优化react项目的探索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#抛出需求"><span class="nav-number">1.6.1.</span> <span class="nav-text">抛出需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化setState方法"><span class="nav-number">1.6.2.</span> <span class="nav-text">优化setState方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#错误示例"><span class="nav-number">1.6.2.1.</span> <span class="nav-text">错误示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setState的第1种实现方法"><span class="nav-number">1.6.2.2.</span> <span class="nav-text">setState的第1种实现方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setState的第2种实现方法"><span class="nav-number">1.6.2.3.</span> <span class="nav-text">setState的第2种实现方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用immer更新state"><span class="nav-number">1.6.2.4.</span> <span class="nav-text">用immer更新state</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化reducer"><span class="nav-number">1.6.3.</span> <span class="nav-text">优化reducer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#immer的produce的拓展用法"><span class="nav-number">1.6.3.1.</span> <span class="nav-text">immer的produce的拓展用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#普通reducer怎样解决上面抛出的需求"><span class="nav-number">1.6.3.2.</span> <span class="nav-text">普通reducer怎样解决上面抛出的需求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集合immer-reducer可以怎样写"><span class="nav-number">1.6.3.3.</span> <span class="nav-text">集合immer,reducer可以怎样写</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文档"><span class="nav-number">1.7.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈宇（cosyer）</span>
+</div>
+<div>
+ <span class="alive"></span>
+ </div>
+<div class="powered-by">
+  <i class="fa fa-users fa-fw"></i>
+  <span id="busuanzi_container_site_uv">
+    终于等到你(UV): <span id="busuanzi_value_site_uv"></span>
+  </span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <i class="fa fa-bar-chart-o fa-fw"></i>
+  <span id="busuanzi_container_site_pv">
+    欢迎再来(PV): <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+  <div class="theme-info">
+    <div class="powered-by"></div>
+    <span class="post-count">Blog总字数: 314.1k字</span>
+  </div>
+
+  <div class="theme-info">
+    <div class="powered-by"></div>
+    <a class="post-count" href="http://www.beian.miit.gov.cn/" target="_blank">苏ICP备17005342号-1</a>
+  </div>
+</div>
+
+<!--
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Mist
+  </a>
+</div>
+
+-->
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+<script type="text/javascript" src="https://cdn.lishaoy.net/js/index.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+  
+
+  
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.lishaoy.net/js/av-min.js"></script>
+  
+  <script src='https://cdn.lishaoy.net/js/Valine.min.js'></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = '';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        av: AV,
+        el: '#comments' ,
+        appId: 'SKflNaQWS70153r2kOqgcGge-gzGzoHsz',
+        appKey: 'gE9ySnRyOkS4UNzYJ7GOCa56',
+        placeholder: '想说点什么 ：）',
+        avatar: 'retro'
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0&&datas.length>0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content =  data.content&&data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content&&content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text&&text.toLowerCase();
+                        word = word&&word.toLowerCase();
+                      }
+                      while ((position = text&&text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+
+  
+  <script src="https://cdn.lishaoy.net/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("SKflNaQWS70153r2kOqgcGge-gzGzoHsz", "gE9ySnRyOkS4UNzYJ7GOCa56");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src=""></script>
+  
+
+
+  
+
+  
+
+
+  <div id="load" style=""></div>
+  <!-- 新增看娘
+  <script async src="/live2dw/js/perTips.js"></script>
+  <script src="/live2dw/lib/L2Dwidget.min.js"></script>
+  -->
+  <!-- 页面点击小红心
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  -->
+
+  <!-- 背景动画
+  <script type="text/javascript" src="/js/src/particle.js"></script>
+  -->
+
+   <!-- 输入爆炸效果来自 http://xiaowiba.com （小尾巴） 如有侵权，请通知我撤销
+  <script type="text/javascript" src="/js/src/activate-power-mode.js"></script>
+  -->
+
+   <!-- UV、PV统计 不蒜子
+   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  -->
+  <script type="text/javascript" src="https://cdn.lishaoy.net/js/all-min-d98fa596b6.js"></script>
+   <!-- 自己的脚本
+  <script type="text/javascript" src="/js/src/cosyer.js"></script>
+  -->
+  <script>
+// 下雪
+//(function($){$.fn.snow=function(options){var $flake=$('<div id="flake" />').css({'position':'absolute','top':'-50px'}).html('&#10052;'),documentHeight=$(document).height(),documentWidth=$(document).width(),defaults={minSize:10,maxSize:20,newOn:500,flakeColor:"#FFFFFF"},options=$.extend({},defaults,options);var interval=setInterval(function(){var startPositionLeft=Math.random()*documentWidth-100,startOpacity=0.5+Math.random(),sizeFlake=options.minSize+Math.random()*options.maxSize,endPositionTop=documentHeight-40,endPositionLeft=startPositionLeft-100+Math.random()*200,durationFall=documentHeight*10+Math.random()*5000;$flake.clone().appendTo('body').css({left:startPositionLeft,opacity:startOpacity,'font-size':sizeFlake,color:options.flakeColor}).animate({top:endPositionTop,left:endPositionLeft,opacity:0.2},durationFall,'linear',function(){$(this).remove()});},options.newOn);};})(jQuery);
+//$.fn.snow({ minSize: 5, maxSize: 50, newOn: 1000, flakeColor: '#00F' });
+
+// 点线连接
+!function () { function o(w, v, i) { return w.getAttribute(v) || i } function j(i) { return document.getElementsByTagName(i) } function l() { var i = j("script"), w = i.length, v = i[w - 1]; return { l: w, z: o(v, "zIndex", -1), o: o(v, "opacity", 1), c: o(v, "color", "255, 255, 255"), n: o(v, "count", 99) } } function k() { r = u.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth, n = u.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight } function b() { e.clearRect(0, 0, r, n); var w = [f].concat(t); var x, v, A, B, z, y; t.forEach(function (i) { i.x += i.xa, i.y += i.ya, i.xa *= i.x > r || i.x < 0 ? -1 : 1, i.ya *= i.y > n || i.y < 0 ? -1 : 1, e.fillRect(i.x - 0.5, i.y - 0.5, 1, 1); for (v = 0; v < w.length; v++) { x = w[v]; if (i !== x && null !== x.x && null !== x.y) { B = i.x - x.x, z = i.y - x.y, y = B * B + z * z; y < x.max && (x === f && y >= x.max / 2 && (i.x -= 0.03 * B, i.y -= 0.03 * z), A = (x.max - y) / x.max, e.beginPath(), e.lineWidth = A / 2, e.strokeStyle = "rgba(" + s.c + "," + (A + 0.2) + ")", e.moveTo(i.x, i.y), e.lineTo(x.x, x.y), e.stroke()) } } w.splice(w.indexOf(i), 1) }), m(b) } var u = document.createElement("canvas"), s = l(), c = "c_n" + s.l, e = u.getContext("2d"), r, n, m = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (i) { window.setTimeout(i, 1000 / 45) }, a = Math.random, f = { x: null, y: null, max: 20000 }; u.id = c; u.style.cssText = "position:fixed;top:0;left:0;z-index:" + s.z + ";opacity:" + s.o; j("body")[0].appendChild(u); k(), window.onresize = k; window.onmousemove = function (i) { i = i || window.event, f.x = i.clientX, f.y = i.clientY }, window.onmouseout = function () { f.x = null, f.y = null }; for (var t = [], p = 0; s.n > p; p++) { var h = a() * r, g = a() * n, q = 2 * a() - 1, d = 2 * a() - 1; t.push({ x: h, y: g, xa: q, ya: d, max: 6000 }) } setTimeout(function () { b() }, 100) }();
+
+// 崩溃欺骗
+var OriginTitle = document.title;
+var titleTime;
+document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+        $('[rel="icon"]').attr('href', "/img/TEP.ico");
+        document.title = '╭(°A°`)╮ 页面崩溃啦 ~';
+        clearTimeout(titleTime);
+    }
+    else {
+        $('[rel="icon"]').attr('href', "/favicon.ico");
+        document.title = '(ฅ>ω<*ฅ) 噫又好了~' + OriginTitle;
+        titleTime = setTimeout(function () {
+            document.title = OriginTitle;
+        }, 2000);
+    }
+});
+
+// 存活时间
+var aliveList=document.getElementsByClassName("alive")
+setInterval(function() { 
+var time = new Date(); 
+// 程序计时的月从0开始取值后+1 
+//根据自己博客的创建时间更改数值 
+var t = "博客存活了"+Math.floor((+new Date - 1527868800000) / (1000 * 60 * 60 * 24)) + "天 " + time.getHours() + "小时" 
++ time.getMinutes() + "分" + time.getSeconds() + "秒"; 
+aliveList[0].innerHTML = t; 
+}, 1000); 
+// 统计页面加载时间
+window.onload = function () {
+  var loadTime = window.performance.timing.domContentLoadedEventEnd-window.performance.timing.navigationStart; 
+  console.log('Page load time is '+ loadTime);
+}
+</script>
+  <script> $(function(){ $('#loader').css('display','none');});</script>
+<style>
+    .comments.no-post {
+      background: transparent;
+    }
+    .no-post.v *{
+      color: #ddd;
+    }
+    .v .vlist p {
+      margin: 12px 0;
+    }
+    .v .vbtn {
+      background: #fbfbfb;
+      padding: .3rem 1.2em;
+      border: 1px solid #dddddd75;
+    }
+    .no-post.v .vbtn {
+      background: #2222220a;
+    }
+    .no-post.v .vbtn:active, .no-post.v .vbtn:hover {
+      background-color: #fff;
+    }
+    .no-post.v .vwrap {
+      border: 1px solid #f0f0f036;;
+    }
+    .no-post.v a {
+      color: #ddd;
+    }
+    .v ul {
+      padding-left: 25px;
+    }
+    .v ul li {
+      list-style: disc;
+      padding: 2px 15px 0 0;
+    }
+    .v .vlist strong , .vinput.vpreview strong {
+        color: #87daff;
+        font-size: 108%;
+    }
+    .v .vlist .vcard .vhead .vsys {
+        background: #87daff17;
+        color: #aaa;
+        border: 1px solid #87daff1f;
+        padding: 1px 5px;
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .no-post.v .vlist .vcard .vhead .vsys{
+      background: #ededed1f;
+      color: #808080;
+      padding: 1px 5px;
+      font-size: 12px;
+      line-height: 1.4;
+      border: none;
+    }
+
+    .v .vlist .vcard .vcontent a {
+      color: #86dbff;
+      border-bottom-color: #86dbff99;
+    }
+
+    .v .vlist .vcard .vcontent a:hover {
+        color: #d7191a;
+        border-bottom-color: #222;
+    }
+
+    .no-post.v .vlist .vcard section {
+        border-bottom: 1px dashed #f5f5f55e;
+    }
+
+    .v .vwrap .vheader .vinput {
+        width: 33.33%;
+        border-bottom: 1px dashed #dedede45;
+    }
+    .no-post.v .vwrap .vheader .vinput::-webkit-input-placeholder {
+        color: #808080;
+    }
+    .no-post.v .vwrap .vheader .vinput:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+        color: #808080;
+    }
+    .v .txt-right {
+        display: none;
+    }
+
+    .v .vlist .vcard .vcontent .code, .v .vlist .vcard .vcontent code, .v .vlist .vcard .vcontent pre , .vinput.vpreview code , .vinput.vpreview pre {
+      color: #005098fc;
+      background: #87daffb8;
+      border-radius: 4px;
+      box-shadow: 0 0 2px #87daff;
+      font-size: 90%;
+      padding: 2px 6px;
+    }
+    .v .vlist .vcard .vcontent img {
+      max-width: 18px;
+      display: inline-block;
+    }
+
+    .v .vlist .vcard .vcontent img{
+      max-width:18px;
+      display:inline-block
+    }
+
+    .v .vwrap .vheader .vinput:focus {
+      border-bottom: 1px solid #87daff;
+    }
+    .v .vlist .vcard .vcontent pre , .vinput.vpreview pre {
+        background: #87daff21;
+        border-radius: 4px;
+        box-shadow: 0 0 2px #ffffff33;
+    }
+    .v .vlist .vcard .vcontent pre code ,.vinput.vpreview pre code {
+        color: #87daff;
+        background: #87daff00;
+        border-radius: 4px;
+        box-shadow: 0 0 2px #87daff05;
+    }
+    .v .vlist .vcard .vcontent.expand:after {
+      color: #ff0000de;
+      font-size: 110%;
+      font-weight: bold;
+      background: #87daff38;
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+    .comments.no-post .vlist .vcard .vcontent.expand:after {
+      color: #fff;
+    }
+    @media screen and (max-width: 414px) {
+        .v .vlist {
+            padding-left: 0;
+        }
+    }
+    .v .vlist .vcard .vcontent.expand:before {
+        background: linear-gradient(180deg,hsla(0, 0%, 100%, 0),hsla(199, 100%, 76%, 0.22));
+        background: -webkit-gradient(linear,left top,left bottom,from(hsla(0,0%,100%,0)),to(hsla(199, 100%, 76%, 0.22));
+    }
+</style>
+
+</body>
+</html>

@@ -64,3 +64,17 @@ xattr -rc directory
 继续按住全部四个按键 7 秒钟，然后松开这些按键。
 等待几秒钟，然后按下电源按钮以将 Mac 开机。
 ```
+
+## vscode插件
+1. 韭菜盒子
+2. Bookmarks
+3. Chinese
+4. Code Spell Checker
+5. ESlint
+6. filesize
+7. Live Server
+8. Path Intellisense
+9. Prettier
+10. Qwerty Learner
+11. TODO Tree
+12. Vetur

@@ -91,6 +91,8 @@ const body = {
     skills: undefined,
 };
 console.log(JSON.stringify(body)); // {"name":"cosyer"}
+// 格式化JSON
+JSON.stringify(obj, null, '\t')
 ```
 
 ```javascript

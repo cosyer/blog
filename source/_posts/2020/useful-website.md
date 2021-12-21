@@ -158,6 +158,9 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 - https://convertio.co/zh/
 - https://www.aconvert.com/cn/
 
+## 博客群发平台
+- https://openwrite.cn/
+
 ## 神曲
 - 拔剑神曲 GC-βίος
 - 核爆神曲 AZ-aLIEz MKAlieZ

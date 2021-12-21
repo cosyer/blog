@@ -3633,6 +3633,14 @@ window.addEventListener("setItemEvent", function (e) {
 });
 ```
 
+## 监听tab关闭
+```js
+window.onbeforeunload = function (){
+  confirm('确定要离开本页面吗?')
+};
+// react-beforeunload
+```
+
 ## mac启动台没有应用程序图标
 ```bash
 mv ~/L*/Application\ Support/Dock/*.db ~/Desktop; killall Dock; exit;

@@ -10,15 +10,19 @@ photos:
 top: 124
 ---
 
-### 什么是chrome extensions
-Chrome Extensions，中文名叫 “Chrome浏览器扩展程序”。引用官方文档的描述，翻译一下就是 “可以修改和增强浏览器功能的 H5 小程序”。
+### 什么是 chrome extensions
+
+Chrome Extensions，中文名叫 “Chrome 浏览器扩展程序”。引用官方文档的描述，翻译一下就是 “可以修改和增强浏览器功能的 H5 小程序”。
 它的入口在浏览器窗口的右上角，地址栏的最右边
 
 ---
+
 <!-- more -->
 
 ### 入门
+
 #### manifest.json
+
 manifest.json 是整个插件扩展程序中最重要的一个描述文件，这个 json 格式的文件包含了你整个扩展程序的一些重要描述，比如 “扩展程序名称”、“扩展程序图标”、“权限申请” 等。
 
 ```json
@@ -121,8 +125,10 @@ manifest.json 是整个插件扩展程序中最重要的一个描述文件，这
 }
 ```
 
-#### 学做一个demo
-1. manifestjson(该文本文件需要用UTF8字符集保存)
+#### 学做一个 demo
+
+1. manifestjson(该文本文件需要用 UTF8 字符集保存)
+
 ```json
 {
   "name": "第一个Chrome插件",
@@ -142,18 +148,20 @@ manifest.json 是整个插件扩展程序中最重要的一个描述文件，这
 ```
 
 2. test.js
+
 ```javascript
 alert("Hello World");
-document.body.style.backgroundColor="gray";
+document.body.style.backgroundColor = "gray";
 ```
-content_scripts是运行在打开页面的脚本，可以拿到整个页面的DOM对象，所以可以利用该脚本对页面进行操作。
 
-3. 添加图片1.png
+content_scripts 是运行在打开页面的脚本，可以拿到整个页面的 DOM 对象，所以可以利用该脚本对页面进行操作。
 
-4. 打开chrome，打开菜单，找到扩展程序选项更多工具>扩展程序路径下。点击加载已解压的扩展程序，添加文件夹就OK啦！
+3. 添加图片 1.png
 
+4. 打开 chrome，打开菜单，找到扩展程序选项更多工具>扩展程序路径下。点击加载已解压的扩展程序，添加文件夹就 OK 啦！
 
-### 常用api 
+### 常用 api
+
 - bookmarks: 书签管理接口，可以对浏览器的书签进行增删改查等管理
 - tabs: 标签管理接口，可以对浏览器的标签进行增删改查等管理
 - contextMenus: 右键菜单管理
@@ -163,43 +171,50 @@ content_scripts是运行在打开页面的脚本，可以拿到整个页面的DO
 - i18n: 国际化（多语言支持）
 
 ### 程序发布和分享
-打包扩展程序，第一次打包只需要设置根目录，打包完成后会生成.crx和.pem密钥文件(版本的迭代需要此文件，否则则会生成新的程序文件)，将.crx文件发给其他人拖入扩展程序页面即可安装。
 
-### 发布到chrome商店
+打包扩展程序，第一次打包只需要设置根目录，打包完成后会生成.crx 和.pem 密钥文件(版本的迭代需要此文件，否则则会生成新的程序文件)，将.crx 文件发给其他人拖入扩展程序页面即可安装。
+
+### 发布到 chrome 商店
+
 当一切准备就绪，就可以准备发布上线了，Chrome 有个官方的插件扩展程序市场，还自带了发布和更新等一体化管理的流程，非常方便。
-传送门：[Chrome商店dashboard](https://chrome.google.com/webstore/developer/dashboard)
+传送门：[Chrome 商店 dashboard](https://chrome.google.com/webstore/developer/dashboard)
 
 注意，上传的是 zip 而不是生成的 crx 文件，具体参考：[https://developer.chrome.com/webstore/publish](https://developer.chrome.com/webstore/publish)
 
 ### 常见问题
+
 1. 引入外部 js 时报 Refused to load the script 的问题
+
 ```javascript
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 ```
+
 解决方案：修改 content_security_policy，把对应的域名加上去即可，比如以上的问题可以解决：
 
 ```json
 {
-    "content_security_policy": "https://code.jquery.com"
+  "content_security_policy": "https://code.jquery.com"
 }
 ```
-> 以上表示允许 https://code.jquery.com 域名下的外部 js 的引入。
-2. Chrome 插件扩展程序是开源的方式安装的，可以去安装目录通过扩展程序 ID 来找到源码。
-正常情况下，Chrome 插件扩展程序的默认安装目录如下：
+
+> 以上表示允许 https://code.jquery.com 域名下的外部 js 的引入。 2. Chrome 插件扩展程序是开源的方式安装的，可以去安装目录通过扩展程序 ID 来找到源码。
+> 正常情况下，Chrome 插件扩展程序的默认安装目录如下：
 
 - Windows XP：C:\Documents and Settings\用户名\Local Settings\Application Data\Google\Chrome\User Data\Default\Extensions
 - Windows7：C:\Users\用户名\AppData\Local\Google\Chrome\User Data\Default\Extensions
 - Mac：~/Library/Application Support/Google/Chrome/Default/Extensions
 - Ubuntu：~/.config/google-chrome/Default/Extensions
-如果在这些不同操作系统中的默认安装位置没找到插件，那么还有一种方法可以查询到。
+  如果在这些不同操作系统中的默认安装位置没找到插件，那么还有一种方法可以查询到。
 
 地址栏访问 chrome:version
 找到 “个人资料路径”，该路径下的 extensions 文件夹就是 Chrome 插件扩展程序的安装路径了
 安装路径下的插件扩展程序，是以 ID 为目录区分的
 地址栏访问 chrome://extensions/，可以查看每个插件扩展程序的 ID
 
-### 高级教程-chrome插件合集
+### 高级教程-chrome 插件合集
+
 [项目地址](https://github.com/cosyer/chrome-extensions)
 
 ### 参考资料
+
 [官方文档](https://developer.chrome.com/extensions/overview)

@@ -14,19 +14,24 @@ photos:
 
 ## 环境安装
 
-### homebrew安装go
-- [mac 使用brew 安装Python](https://www.jianshu.com/p/b821a8d1d8dc)
+### homebrew 安装 go
+
+- [mac 使用 brew 安装 Python](https://www.jianshu.com/p/b821a8d1d8dc)
+
 #### 安装
+
 ```bash
-brew install go 
+brew install go
 ```
 
 ### 官网下载安装(https://golang.google.cn/dl/)
 
-### 配置golang的相关环境变量
-***默认go 安装的文件地址是 /usr/local/go/***
+### 配置 golang 的相关环境变量
 
-### 将go的配置写入环境
+**_默认 go 安装的文件地址是 /usr/local/go/_**
+
+### 将 go 的配置写入环境
+
 ```bash
 cd ~
 vim ./bash_profile
@@ -41,12 +46,14 @@ source ~/.bash_profile
 ```
 
 ### 检查环境变量和版本
+
 ```go
 go env
 go version
 ```
 
 ### 示例
+
 ```go
 go mod init hello
 
@@ -72,32 +79,37 @@ import (
 import ("fmt"; "os")
 
 // 重命名
-import fm "fmt" 
+import fm "fmt"
 ```
 
 ### go install
-`go install`表示安装的意思，它先编译源代码得到可执行文件，然后将可执行文件移动到GOPATH的bin目录下。因为我们的环境变量中配置了GOPATH下的bin目录，所以我们就可以在任意地方直接执行可执行文件了。
+
+`go install`表示安装的意思，它先编译源代码得到可执行文件，然后将可执行文件移动到 GOPATH 的 bin 目录下。因为我们的环境变量中配置了 GOPATH 下的 bin 目录，所以我们就可以在任意地方直接执行可执行文件了。
 
 ### go proxy
-默认GoPROXY配置是：GOPROXY=https://proxy.golang.org,direct，由于国内访问不到https://proxy.golang.org，所以我们需要换一个PROXY，这里推荐使用https://goproxy.io或https://goproxy.cn。
 
-可以执行下面的命令修改GOPROXY：
+默认 GoPROXY 配置是：GOPROXY=https://proxy.golang.org,direct，由于国内访问不到https://proxy.golang.org，所以我们需要换一个PROXY，这里推荐使用https://goproxy.io或https://goproxy.cn。
+
+可以执行下面的命令修改 GOPROXY：
+
 ```go
 go env -w GOPROXY=https://goproxy.cn,direct
 ```
 
-### 25个关键字/保留字
-|1|2|3|4|5|
-|:---|:---:|:---:|:---:|:---|
-|break|default|func|interface|select|
-|case|defer|go|map|struct|
-|chan|else|goto|package|switch|
-|const|fallthrough|if|range|type|
-|continue|for|import|return|var|
+### 25 个关键字/保留字
+
+| 1        |      2      |   3    |     4     | 5      |
+| :------- | :---------: | :----: | :-------: | :----- |
+| break    |   default   |  func  | interface | select |
+| case     |    defer    |   go   |    map    | struct |
+| chan     |    else     |  goto  |  package  | switch |
+| const    | fallthrough |   if   |   range   | type   |
+| continue |     for     | import |  return   | var    |
 
 ## 类型
+
 - int、float、bool、string
-- 结构化的（复合的），如：struct、array、slice、map、channel；默认值都是nil
+- 结构化的（复合的），如：struct、array、slice、map、channel；默认值都是 nil
 - 只描述类型的行为的，如：interface。
 
 ```go
@@ -155,6 +167,7 @@ fmt.Println(a,b,c,d,e,f,g,h,i)
 ```
 
 ### 类型转换
+
 > 在必要以及可行的情况下，一个类型的值可以被转换成另一种类型的值。由于 Go 语言不存在隐式类型转换，因此所有的转换都必须显式说明，就像调用一个函数一样（类型在这里的作用可以看作是一种函数）
 
 ```go
@@ -189,7 +202,8 @@ var (  // 这种因式分解关键字的写法一般用于声明全局变量
 )
 ```
 
-### for循环
+### for 循环
+
 ```go
 for key, value := range oldMap {
   newMap[key] = value
@@ -232,6 +246,7 @@ for i,x:= range numbers {
 ```
 
 ### 数组
+
 ```go
 // 初始化数组中 {} 中的元素个数不能大于 [] 中的数字。
 // 如果忽略 [] 中的数字不设置数组大小，Go 语言会根据元素的个数来设置数组的大小
@@ -239,6 +254,7 @@ var balance = [5]float32{1000.0, 2.0, 3.4, 7.0, 50.0}
 ```
 
 ### 结构体 Struct
+
 ```go
 type Books struct {
 	title string
@@ -252,6 +268,7 @@ type Books struct {
 ```
 
 ### 切片 Slice - 切片不需要说明长度
+
 ```go
 s :=[] int {1,2,3}
 
@@ -277,6 +294,7 @@ copy(numbers1, numbers)
 ```
 
 ### 语言范围 Range
+
 ```go
 nums := []int{2, 3, 4}
 sum := 0
@@ -290,6 +308,7 @@ for i, c := range "go" {
 ```
 
 ### 集合 Map
+
 ```go
 /* 声明变量，默认 map 是 nil */
 var map_variable map[key_data_type]value_data_type
@@ -327,6 +346,7 @@ delete(countryCapitalMap, "France")
 ```
 
 ### 接口 Interface
+
 ```go
 /* 定义接口 */
 type interface_name interface {
@@ -349,6 +369,7 @@ func (struct_name_variable struct_name) method_name1() [return_type] {
 ```
 
 ### 错误处理 Error
+
 ```go
 type error interface {
   Error() string
@@ -368,6 +389,7 @@ if err != nil {
 ```
 
 ### Go 并发
+
 ```go
 package main
 
@@ -391,6 +413,7 @@ func main() {
 ```
 
 ### 通道 Channel
+
 > 通道（channel）是用来传递数据的一个数据结构。
 
 - 通道可用于两个 goroutine 之间通过传递一个指定类型的值来同步运行和通讯。操作符 <- 用于指定通道的方向，发送或接收。如果未指定方向，则为双向通道。
@@ -443,6 +466,7 @@ fmt.Println(<-ch)
 ```
 
 ### 遍历通道和关闭 range close()
+
 ```go
 package main
 
@@ -473,13 +497,16 @@ func main() {
 ```
 
 ### defer
+
 - 特性
+
 1. 关键字 `defer` 用于注册延迟调用。
 2. 这些调用直到 return 前才被执。因此，可以用来做资源清理。
-3. 多个defer语句，按先进后出的方式执行。
-4. defer语句中的变量，在defer声明时就决定了。
+3. 多个 defer 语句，按先进后出的方式执行。
+4. defer 语句中的变量，在 defer 声明时就决定了。
 
 - 用途
+
 1. 关闭文件句柄
 2. 锁资源释放
 3. 数据库连接释放
@@ -514,6 +541,7 @@ func Print(i int) {
 ```
 
 ## 参考资料 读入-求值-打印-循环(Read-Eval-Print-Loop) REPL
+
 - [跟煎鱼学 Go](https://eddycjy.com/go-categories/)
 - [Go 入门指南](https://github.com/unknwon/the-way-to-go_ZH_CN/)
 - [Go 资料补给包](https://github.com/0voice/Introduction-to-Golang)

@@ -11,15 +11,16 @@ photos:
 
 # skywalking
 
-##  预安装JDK
+## 预安装 JDK
 
-[Linux系统（Centos yum）下安装Java环境](https://www.cnblogs.com/cosyer/p/7827995.html)
+[Linux 系统（Centos yum）下安装 Java 环境](https://www.cnblogs.com/cosyer/p/7827995.html)
 
 ## elasticsearch
 
 ### 官网下载 https://www.elastic.co/cn/downloads/elasticsearch
 
 ### 解压
+
 ```bash
 # 解压
 tar -zxvf elasticsearch-6.1.0.tar.gz
@@ -42,10 +43,12 @@ http://127.0.0.1:9200
 ```
 
 ### 常见问题
-1. 需要非root用户启动
+
+1. 需要非 root 用户启动
 
 2. 【报错】max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144] 内存过小
-解决:
+   解决:
+
 ```bash
 # 1.sudo vi /etc/sysctl.conf 文件最后添加一行
 #    vm.max_map_count=262144
@@ -54,14 +57,16 @@ http://127.0.0.1:9200
 ```
 
 ---
+
 <!--more-->
 
-## 下载 skywalking https://github.com/apache/skywalking (对于5.0版本的Skywalking要求ES的版本也为5.x)
+## 下载 skywalking https://github.com/apache/skywalking (对于 5.0 版本的 Skywalking 要求 ES 的版本也为 5.x)
+
 ```bash
 # 解压
 tar -xvzf apache-skywalking-apm-incubating-5.0.0-GA.tar.gz -C /usr/local/
 
-# 修改配置 /usr/local/apache-skywalking-apm-incubating/config/application.yml 
+# 修改配置 /usr/local/apache-skywalking-apm-incubating/config/application.yml
 host: 本机ip
 
 # 修改skywalking-webapp配置文件
@@ -75,6 +80,7 @@ http://127.0.0.1:8080
 ```
 
 # eureka
+
 ```bash
 # 启动
 nohup java -jar clustereureka-0.0.1-SNAPSHOT-ui.jar --spring.profiles.active=cluster2 > eureka_log.log &
@@ -85,7 +91,7 @@ jar xvf clustereureka-0.0.1-SNAPSHOT.jar
 jar xvf spring-cloud-netflix-eureka-server-2.1.0.RELEASE.jar
 # 重新打包
 jar -cfM0 clustereureka-0.0.1-SNAPSHOT.jar ./
-# /BOOT-INF/classes 
+# /BOOT-INF/classes
 application-cluster1.yml  application-cluster2.yml  application-cluster3.yml 对应修改hostname，defaultZone其他注册中心地址
 
 # 访问
@@ -93,7 +99,9 @@ http://127.0.0.1:7072
 ```
 
 # redis-stat
-## 预安装redis
+
+## 预安装 redis
+
 ```bash
 # 下载
 wget http://download.redis.io/releases/redis-4.0.8.tar.gz
@@ -110,7 +118,7 @@ make install PREFIX=/usr/local/redis
 # 移动配置文件
 cp ./redis.conf /usr/local/redis/bin/
 
-# 配置redis为后台启动 /usr/local/redis/redis.conf 
+# 配置redis为后台启动 /usr/local/redis/redis.conf
 将daemonize no 改成daemonize yes
 
 # 启动
@@ -130,6 +138,7 @@ cp /usr/local/redis/bin/redis-cli /usr/local/bin/
 ```
 
 ## 下载 https://github.com/junegunn/redis-stat
+
 ```bash
 # 启动 不支持nohup后台启动
 screen java -jar redis-stat-0.4.14.jar --server
@@ -139,7 +148,9 @@ http://127.0.0.1:63790
 ```
 
 # nginx
+
 ## 下载 https://nginx.org/download/
+
 ```bash
 # 一键安装上面四个依赖
 yum -y install gcc pcre-devel zlib-devel openssl openssl-devel

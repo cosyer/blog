@@ -28,36 +28,39 @@ photos:
 - 发布订阅模式：每家每户向牛奶订购中心订购了牛奶，但是各家的牛奶品牌不一样，有燕塘、蒙牛等等。当燕塘牛奶来货了，订阅中心就给订购燕塘的各家各户派发燕塘牛奶。同理，当蒙牛到货时，订阅中心发布蒙牛的牛奶。
 
 ---
+
 <!--more-->
 
 ## 观察者模式实现
+
 ![observer](http://cdn.mydearest.cn/blog/images/observer.jpeg)
 
 首先目标对象（被观察者）称为`Subject`，有若干个观察者`Observer`进行观察。当`Subject`被某些对应事件驱动了，则通知相对应的观察者，调用其回调操作。
 
 代码实现如下：
+
 ```js
 // 被观察者
 class Subject {
-    constructor () {
-        this.obs = [];
-    }
-    // 添加观察者
-    addObserver (ob) {
-        this.obs.push(ob);
-    }
-    // 通知所有观察者
-    notify () {
-        this.obs.forEach(ob => {
-            ob.update();
-        });
-    }
+  constructor() {
+    this.obs = [];
+  }
+  // 添加观察者
+  addObserver(ob) {
+    this.obs.push(ob);
+  }
+  // 通知所有观察者
+  notify() {
+    this.obs.forEach((ob) => {
+      ob.update();
+    });
+  }
 }
 
 // 观察者
-class Observer{
-  update(){
-    console.log('update');
+class Observer {
+  update() {
+    console.log("update");
   }
 }
 
@@ -67,17 +70,19 @@ let ob = new Observer();
 // 目标添加观察者了
 subject.addObserver(ob);
 // 目标发布消息调用观察者的更新方法了
-subject.notify();   //update
+subject.notify(); //update
 ```
 
 ## 发布订阅模式实现
+
 首先要构造一个总线控制中心，负责中间操作，实现以下三个功能：
 
-- 订阅xxx消息
-- 发布xxx消息
-- 取消订阅xxx消息
+- 订阅 xxx 消息
+- 发布 xxx 消息
+- 取消订阅 xxx 消息
 
 代码实现如下：
+
 ```js
 const eventProxy = {
   onList: {},
@@ -85,35 +90,35 @@ const eventProxy = {
   // 订阅
   on: function (key, fn) {
     if (!this.onList[key]) {
-      this.onList[key] = []
+      this.onList[key] = [];
     }
-    this.onList[key].push(fn)
+    this.onList[key].push(fn);
   },
 
   // 取消订阅
-  off: function(key, fn) {
-    if (!this.onList[key]) return false
+  off: function (key, fn) {
+    if (!this.onList[key]) return false;
 
-    let fnIndex = this.onList[key].indexOf(fn)
-    if (fnIndex === -1) return false
-    this.onList[key].splice(fnIndex, 1)
-    return true
+    let fnIndex = this.onList[key].indexOf(fn);
+    if (fnIndex === -1) return false;
+    this.onList[key].splice(fnIndex, 1);
+    return true;
   },
-  
+
   // 发布
-  emit: function(...args) {
-    if (!args.length) return
-	
-    // 如果没有任何订阅则返回  
-    const key = args[0]
-    if (!this.onList[key] || !this.onList[key].length) return
-	
+  emit: function (...args) {
+    if (!args.length) return;
+
+    // 如果没有任何订阅则返回
+    const key = args[0];
+    if (!this.onList[key] || !this.onList[key].length) return;
+
     // 发布对应的订阅事件
-    const subscriber = this.onList[key]
-    const newArgs = args.slice(1)
-    subscriber.forEach(cb => {
-      cb.apply(null, newArgs)
-    })
-  }
-}
+    const subscriber = this.onList[key];
+    const newArgs = args.slice(1);
+    subscriber.forEach((cb) => {
+      cb.apply(null, newArgs);
+    });
+  },
+};
 ```

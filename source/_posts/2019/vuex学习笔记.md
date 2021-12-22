@@ -11,54 +11,59 @@ top: 190
 ---
 
 ## vuex
+
 数据驱动模板（管理共享状态）
-核心store仓库（响应式的状态存储）
-提交mutation才能修改内部状态 记录每次改变保存状态快照
+核心 store 仓库（响应式的状态存储）
+提交 mutation 才能修改内部状态 记录每次改变保存状态快照
 
 ```js
 const store = new Vuex.Store({
-    state:{
-        count:0
+  state: {
+    count: 0,
+  },
+  mutations: {
+    increase(state) {
+      state.count++;
     },
-    mutations: {
-        increase(state){
-            state.count++;
-        }
-    },
-    // 开启严格模式
-    strict: process.env.NODE_ENV !== 'production'
-    // 在严格模式下，无论何时发生了状态变更且不是由 mutation 函数引起的，将会抛出错误。这能保证所有的状态变更都能被调试工具跟踪到。
-})
+  },
+  // 开启严格模式
+  strict: process.env.NODE_ENV !== "production",
+  // 在严格模式下，无论何时发生了状态变更且不是由 mutation 函数引起的，将会抛出错误。这能保证所有的状态变更都能被调试工具跟踪到。
+});
 
-store.commit('increase');
+store.commit("increase");
 store.state.count;
 ```
 
 不要在发布环境下启用严格模式！严格模式会深度监测状态树来检测不合规的状态变更——请确保在发布环境下关闭严格模式，以避免性能损失。
 
 ---
+
 <!--more-->
 
 ### state（单一状态树）
 
 用一个对象包含所有的应用层级状态
 
-- 从store实例中读取状态
+- 从 store 实例中读取状态
+
 ```js
 // 计算属性
 const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
-    count () {
-      return store.state.count
-    }
-  }
-}
+    count() {
+      return store.state.count;
+    },
+  },
+};
 ```
+
 - 从根组件注入实例
+
 ```js
 const app = new Vue({
-  el: '#app',
+  el: "#app",
   // 把 store 对象提供给 “store” 选项，这可以把 store 的实例注入所有的子组件
   store,
   components: { Counter },
@@ -66,24 +71,26 @@ const app = new Vue({
     <div class="app">
       <counter></counter>
     </div>
-  `
-})
+  `,
+});
 // 读取
-this.$store.state.count
+this.$store.state.count;
 ```
 
-- 多个属性使用mapState()辅助函数
+- 多个属性使用 mapState()辅助函数
+
 ```js
 computed: mapState({
-    count: state => state.count,
-    name: state=> state.name
-})
+  count: (state) => state.count,
+  name: (state) => state.name,
+});
 // 如果属性与state子节点名称相同 传入字符串数组
 // 映射 this.count 为 store.state.count
-mapState(['count'])
+mapState(["count"]);
 ```
 
-### getter对state数据的派生操作（共享数据的共享函数）
+### getter 对 state 数据的派生操作（共享数据的共享函数）
+
 ```js
 const store = new Vuex.Store({
     state:{
@@ -109,7 +116,9 @@ const store = new Vuex.Store({
 // 访问
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
 ```
+
 - mapGetters()辅助函数
+
 ```js
 computed: {
     // 使用对象展开运算符将 getter 混入 computed 对象中
@@ -126,21 +135,24 @@ mapGetters({
 ```
 
 ### mutation
-提交mutation
+
+提交 mutation
+
 ```js
-store.commit("increase")
+store.commit("increase");
 // 传参
-store.commit('increase', 10)
+store.commit("increase", 10);
 // 最好还是规范传payload对象
-store.commit('increase', {
-    amount:10
-})
+store.commit("increase", {
+  amount: 10,
+});
 // 对象风格提交
 store.commit({
-  type: 'increase',
-  amount: 10
-})
+  type: "increase",
+  amount: 10,
+});
 ```
+
 1.最好提前在你的 store 中初始化好所有所需属性。
 
 2.当需要在对象上添加新属性时，你应该
@@ -148,15 +160,18 @@ store.commit({
 •使用 Vue.set(obj, 'newProp', 123), 或者
 
 •以新对象替换老对象。
+
 ```js
-state.obj = { ...state.obj, newProp: 123 }
+state.obj = { ...state.obj, newProp: 123 };
 ```
 
 - 常量替代事件类型
+
 ```js
 // mutation-types.js
-export const SOME_MUTATION = 'SOME_MUTATION'
+export const SOME_MUTATION = "SOME_MUTATION";
 ```
+
 ```js
 // store.js
 import Vuex from 'vuex'
@@ -173,16 +188,19 @@ const store = new Vuex.Store({
 })
 ```
 
-**mutation必须是同步函数**
+**mutation 必须是同步函数**
 一条 mutation 被记录，devtools 都需要捕捉到前一状态和后一状态的快照。devtools 不知道什么时候回调函数实际上被调用——实质上任何在回调函数中进行的状态的改变都是不可追踪的。
 
-#### 组件中提交mutation
-1. 
+#### 组件中提交 mutation
+
+1.
+
 ```js
-this.$store.commit('xxx')
+this.$store.commit("xxx");
 ```
 
 2. mapMutations 辅助函数
+
 ```js
 methods: {
     ...mapMutations([
@@ -198,8 +216,9 @@ methods: {
 ```
 
 ### action
+
 ```js
-store.commit('increment')
+store.commit("increment");
 // 任何由 "increment" 导致的状态变更都应该在此刻完成。
 ```
 
@@ -210,47 +229,51 @@ Action 类似于 mutation，不同在于：
 ```js
 const store = new Vuex.Store({
   state: {
-    count: 0
+    count: 0,
   },
   mutations: {
-    increase (state) {
-      state.count++
-    }
+    increase(state) {
+      state.count++;
+    },
   },
   actions: {
-    increase (context) {
-      context.commit('increase')
+    increase(context) {
+      context.commit("increase");
     },
-    increaseOr({commit}) {
-      commit('increase')
+    increaseOr({ commit }) {
+      commit("increase");
     },
-    increaseAsync ({ commit }) {
-        // 支持异步操作
-        setTimeout(() => {
-        commit('increment')
-        }, 1000)
-    }
-  }
-})
+    increaseAsync({ commit }) {
+      // 支持异步操作
+      setTimeout(() => {
+        commit("increment");
+      }, 1000);
+    },
+  },
+});
 ```
+
 Action 函数接受一个与 store 实例具有相同方法和属性的 context 对象，因此你可以调用 context.commit 提交一个 mutation，或者通过 context.state 和 context.getters 来获取 state 和 getters。
 
-- 触发action
+- 触发 action
+
 ```js
-store.dispatch('increase')
+store.dispatch("increase");
 ```
+
 - 支持同样的载荷方式和对象方式分发
+
 ```js
 // 以载荷形式分发
-store.dispatch('increaseAsync', {
-  amount: 10
-})
+store.dispatch("increaseAsync", {
+  amount: 10,
+});
 
 // 以对象形式分发
 store.dispatch({
-  type: 'increaseAsync',
-  amount: 10
-})
+  type: "increaseAsync",
+  amount: 10,
+});
 ```
 
 ```js
@@ -273,29 +296,33 @@ actions: {
 }
 ```
 
-#### 组件中分发action
+#### 组件中分发 action
+
 在组件中使用 this.$store.dispatch('xxx') 分发 action，或者使用 mapActions 辅助函数将组件的 methods 映射为 store.dispatch 调用（需要先在根节点注入 store）
+
 ```js
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 
 export default {
   // ...
   methods: {
     ...mapActions([
-      'increase', // 将 `this.increase()` 映射为 `this.$store.dispatch('increase')`
+      "increase", // 将 `this.increase()` 映射为 `this.$store.dispatch('increase')`
 
       // `mapActions` 也支持载荷：
-      'increaseBy' // 将 `this.increaseBy(amount)` 映射为 `this.$store.dispatch('increaseBy', amount)`
+      "increaseBy", // 将 `this.increaseBy(amount)` 映射为 `this.$store.dispatch('increaseBy', amount)`
     ]),
     ...mapActions({
-      add: 'increase' // 将 `this.add()` 映射为 `this.$store.dispatch('increase')`
-    })
-  }
-}
+      add: "increase", // 将 `this.add()` 映射为 `this.$store.dispatch('increase')`
+    }),
+  },
+};
 ```
 
-#### action组合嵌套
+#### action 组合嵌套
+
 store.dispatch 可以处理被触发的 action 的处理函数返回的 Promise，并且 store.dispatch 仍旧返回 Promise
+
 ```js
 actions: {
   actionA ({ commit }) {
@@ -318,7 +345,7 @@ store.dispatch('actionA').then(() => {
 })
 ```
 
-采用async await
+采用 async await
 
 ```js
 // getData() 和 getOtherData() 返回的是 Promise
@@ -333,7 +360,8 @@ actions: {
 }
 ```
 
-### module切分模块
+### module 切分模块
+
 ```js
 const moduleA = {
   state: { ... },
@@ -359,26 +387,28 @@ store.state.a // -> moduleA 的状态
 store.state.b // -> moduleB 的状态
 ```
 
-- 模块内部的action
+- 模块内部的 action
+
 ```js
 const moduleA = {
   // ...
   actions: {
-    incrementIfOddOnRootSum ({ state, commit, rootState }) {
+    incrementIfOddOnRootSum({ state, commit, rootState }) {
       if ((state.count + rootState.count) % 2 === 1) {
-        commit('increment')
+        commit("increment");
       }
-    }
+    },
   },
-   getters: {
-    sumWithRootCount (state, getters, rootState) {
-      return state.count + rootState.count
-    }
-  }
-}
+  getters: {
+    sumWithRootCount(state, getters, rootState) {
+      return state.count + rootState.count;
+    },
+  },
+};
 ```
 
 - 命名空间
+
 ```js
 const store = new Vuex.Store({
   modules: {
@@ -423,6 +453,7 @@ const store = new Vuex.Store({
 ```
 
 - 在带命名空间的模块内访问全局内容（Global Assets）
+
 ```js
 modules: {
   foo: {
@@ -458,7 +489,8 @@ modules: {
 ```
 
 - 在带命名空间的模块注册全局 action
-若需要在带命名空间的模块注册全局 action，可添加 root: true，并将这个 action 的定义放在函数 handler 中。
+  若需要在带命名空间的模块注册全局 action，可添加 root: true，并将这个 action 的定义放在函数 handler 中。
+
 ```js
 {
   actions: {
@@ -482,6 +514,7 @@ modules: {
 ```
 
 - 带命名空间的绑定函数
+
 ```js
 computed: {
   ...mapState({
@@ -498,6 +531,7 @@ methods: {
 ```
 
 简化
+
 ```js
 computed: {
   ...mapState('some/nested/module', {
@@ -514,52 +548,56 @@ methods: {
 ```
 
 也可以通过使用 createNamespacedHelpers 创建基于某个命名空间辅助函数。它返回一个对象，对象里有新的绑定在给定命名空间值上的组件绑定辅助函数
-```js
-import { createNamespacedHelpers } from 'vuex'
 
-const { mapState, mapActions } = createNamespacedHelpers('some/nested/module')
+```js
+import { createNamespacedHelpers } from "vuex";
+
+const { mapState, mapActions } = createNamespacedHelpers("some/nested/module");
 
 export default {
   computed: {
     // 在 `some/nested/module` 中查找
     ...mapState({
-      a: state => state.a,
-      b: state => state.b
-    })
+      a: (state) => state.a,
+      b: (state) => state.b,
+    }),
   },
   methods: {
     // 在 `some/nested/module` 中查找
-    ...mapActions([
-      'foo',
-      'bar'
-    ])
-  }
-}
+    ...mapActions(["foo", "bar"]),
+  },
+};
 ```
 
 ## 定义插件
+
 ```js
-const myPlugin = store => {
-    // 传入store初始化时调用
-    store.subscribe((mutation, state)=>{
-        // 每次mutation之后调用
-        // mutation 的格式为 {type, payload}
-    })
-}
+const myPlugin = (store) => {
+  // 传入store初始化时调用
+  store.subscribe((mutation, state) => {
+    // 每次mutation之后调用
+    // mutation 的格式为 {type, payload}
+  });
+};
 ```
 
 ## 表单处理
-因为提交mutation才能修改状态，所以v-model不适合绑定vuex里的state，不符合vuex的思想。
+
+因为提交 mutation 才能修改状态，所以 v-model 不适合绑定 vuex 里的 state，不符合 vuex 的思想。
+
 ```html
-<input v-model="obj.message">
+<input v-model="obj.message" />
 ```
+
 假设这里的 obj 是在计算属性中返回的一个属于 Vuex store 的对象，在用户输入时，v-model 会试图直接修改 obj.message。在严格模式中，由于这个修改不是在 mutation 函数中执行的, 这里会抛出一个错误。
 
-1. 不采用v-model
-所以需要input绑定value，然后调用input或者change提交mutation修改状态
+1. 不采用 v-model
+   所以需要 input 绑定 value，然后调用 input 或者 change 提交 mutation 修改状态
+
 ```html
-<input :value="message" @input="updateMessage">
+<input :value="message" @input="updateMessage" />
 ```
+
 ```js
 computed: {
     ...mapState({
@@ -573,7 +611,8 @@ method: {
 }
 ```
 
-2. 采用v-model
+2. 采用 v-model
+
 ```js
 // ...
 computed: {

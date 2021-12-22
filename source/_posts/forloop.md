@@ -10,6 +10,7 @@ categories: JS
 今天要说的是最简单的 for 循环，一个简单的 for 循环看似没有任何优化的意义，但实质上优化前后差距挺大的，那么该如何优化呢？
 
 ---
+
 <!-- more -->
 
 从最简单的遍历数组说起。
@@ -19,8 +20,8 @@ categories: JS
 let i = 0;
 let arr = [];
 while (i < 50) {
-    arr.push(i);
-    i++;
+  arr.push(i);
+  i++;
 }
 ```
 
@@ -28,7 +29,7 @@ while (i < 50) {
 
 ```javascript
 for (let i = 0; i < arr.length; i++) {
-    // arr[i]
+  // arr[i]
 }
 ```
 
@@ -38,7 +39,7 @@ for (let i = 0; i < arr.length; i++) {
 
 ```javascript
 for (let i = 0, len = arr.length; i < len; i++) {
-    // arr[i]
+  // arr[i]
 }
 ```
 
@@ -47,72 +48,66 @@ for (let i = 0, len = arr.length; i < len; i++) {
 但是这并不是最完美的，因为会多了一次迭代操作，那么该如何进行优化呢？
 
 ```javascript
-for (let i = 0, item; item = arr[i++];) {
-    // item
+for (let i = 0, item; (item = arr[i++]); ) {
+  // item
 }
 ```
+
 这次迭代的时间空间复杂度为 O[n] ，完美做到了每次一迭代没有通过长度进行判断，而是直接通过下标进行取值的方式映射到了循环体内部。
 
-最后用5万条数据进行测试各种方式的循环时间：
+最后用 5 万条数据进行测试各种方式的循环时间：
 
 ```javascript
 // 定义一个数组arr（假设是从后台返回的数据）
 let index = 0;
 let arr = [];
 while (index < 50000) {
-    arr.push(index);
-    index++;
+  arr.push(index);
+  index++;
 }
 
-console.time('one');
-for (let i = 0; i < arr.length; i++) {
+console.time("one");
+for (let i = 0; i < arr.length; i++) {}
+console.timeEnd("one");
 
-}
-console.timeEnd('one');
+console.time("two");
+for (let i = 0, len = arr.length; i < len; i++) {}
+console.timeEnd("two");
 
-console.time('two');
-for (let i = 0, len = arr.length; i < len; i++) {
-
-}
-console.timeEnd('two');
-
-console.time('three');
-for (let i = 0, item; item = arr[i++];) {
-
-}
-console.timeEnd('three');
+console.time("three");
+for (let i = 0, item; (item = arr[i++]); ) {}
+console.timeEnd("three");
 
 // es6的数组遍历
-console.time('four');
+console.time("four");
 for (let i of arr) {
-
 }
-console.timeEnd('four');
+console.timeEnd("four");
 // 会访问可枚举属性和原型的遍历，数组不推荐使用
-console.time('five');
+console.time("five");
 for (let i in arr) {
-
 }
-console.timeEnd('five');
+console.timeEnd("five");
 // one: 0.711ms
 // two: 4.508ms
 // three: 0.006ms
 // four: 3.255ms
 // five: 11.144ms
 ```
+
 在数据量大的情况下，第三种循环方式效果显而易见。
 
 ## 为什么普通 for 循环的性能远远高于 forEach 的性能
 
 - 区别：
 
-一个按顺序遍历，一个使用iterator迭代器遍历；
+一个按顺序遍历，一个使用 iterator 迭代器遍历；
 
 - 从数据结构来说：
 
-for循环是随机访问元素，foreach是顺序链表访问元素；
+for 循环是随机访问元素，foreach 是顺序链表访问元素；
 
 - 性能上：
 
-对于arraylist，是顺序表，使用for循环可以顺序访问，速度较快；使用foreach会比for循环稍慢一些。
-对于linkedlist，是单链表，使用for循环每次都要从第一个元素读取next域来读取，速度非常慢；使用foreach可以直接读取当前结点，数据较快；
+对于 arraylist，是顺序表，使用 for 循环可以顺序访问，速度较快；使用 foreach 会比 for 循环稍慢一些。
+对于 linkedlist，是单链表，使用 for 循环每次都要从第一个元素读取 next 域来读取，速度非常慢；使用 foreach 可以直接读取当前结点，数据较快；

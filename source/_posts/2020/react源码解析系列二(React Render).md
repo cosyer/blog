@@ -10,40 +10,46 @@ photos:
 ---
 
 创建更新的方式
+
 1. render || hydrate
 2. setState
 3. forceUpdate
 
-render的步骤
+render 的步骤
+
 1. 创建 ReactRoot
-2. 创建FiberRoot RootFiber
+2. 创建 FiberRoot RootFiber
 3. 创建更新
 
 > 后续的是进入调度后，由调度器进行管理
 
---- 
+---
+
 <!--more-->
 
-1. 首先ReactDOM定义
+1. 首先 ReactDOM 定义
+
 ```jsx
 ReactDOM = {
   render(
     element: React$Element<any>,
     container: DOMContainer,
-    callback: ?Function,
+    callback: ?Function
   ) {
     return legacyRenderSubtreeIntoContainer(
       null,
       element,
       container,
       false,
-      callback,
-    )
+      callback
+    );
   },
-}
+};
 ```
-2. 创建ReactRoot对象，调用render方法
-调用DOMRenderer.createContainer创建FiberRoot
+
+2. 创建 ReactRoot 对象，调用 render 方法
+   调用 DOMRenderer.createContainer 创建 FiberRoot
+
 ```jsx
 // reactDom.js
 const ReactDOM: Object = {... hydrate, render...}
@@ -74,7 +80,7 @@ const ReactDOM: Object = {... hydrate, render...}
   },
 ```
 
-**render和hydrate更新的区别在于legacyRenderSubtreeIntoContainer第四个参数**
+**render 和 hydrate 更新的区别在于 legacyRenderSubtreeIntoContainer 第四个参数**
 
 ```jsx
 function legacyRenderSubtreeIntoContainer(
@@ -82,12 +88,12 @@ function legacyRenderSubtreeIntoContainer(
   children: ReactNodeList, // <App/>
   container: DOMContainer, // document.getElementById('root')
   forceHydrate: boolean, // 是否调和原来存在于dom节点的html节点主要用于服务端渲染
-  callback: ?Function, // 创建成功的回调
+  callback: ?Function // 创建成功的回调
 ) {
   // TODO: Ensure all entry points contain this check
   invariant(
     isValidContainer(container),
-    'Target container is not a DOM element.',
+    "Target container is not a DOM element."
   );
 
   if (__DEV__) {
@@ -101,31 +107,32 @@ function legacyRenderSubtreeIntoContainer(
     // Initial mount
     root = container._reactRootContainer = legacyCreateRootFromDOMContainer(
       container,
-      forceHydrate,
+      forceHydrate
     );
-    if (typeof callback === 'function') {
+    if (typeof callback === "function") {
       const originalCallback = callback;
-      callback = function() {
+      callback = function () {
         const instance = getPublicRootInstance(root._internalRoot);
         originalCallback.call(instance);
       };
     }
     // Initial mount should not be batched.
     unbatchedUpdates(() => {
-      if (parentComponent != null) {  // buchengli
+      if (parentComponent != null) {
+        // buchengli
         root.legacy_renderSubtreeIntoContainer(
           parentComponent,
           children,
-          callback,
+          callback
         );
       } else {
         root.render(children, callback);
       }
     });
   } else {
-    if (typeof callback === 'function') {
+    if (typeof callback === "function") {
       const originalCallback = callback;
-      callback = function() {
+      callback = function () {
         const instance = getPublicRootInstance(root._internalRoot);
         originalCallback.call(instance);
       };
@@ -135,7 +142,7 @@ function legacyRenderSubtreeIntoContainer(
       root.legacy_renderSubtreeIntoContainer(
         parentComponent,
         children,
-        callback,
+        callback
       );
     } else {
       root.render(children, callback);
@@ -145,22 +152,19 @@ function legacyRenderSubtreeIntoContainer(
 }
 ```
 
-
-
 ```jsx
 root = container._reactRootContainer = legacyCreateRootFromDOMContainer(
-      container,
-      forceHydrate,
-    );
+  container,
+  forceHydrate
+);
 ```
 
-这里调用legacyCreateRootFromDOMContainer函数
-
+这里调用 legacyCreateRootFromDOMContainer 函数
 
 ```jsx
 function legacyCreateRootFromDOMContainer(
   container: DOMContainer,
-  forceHydrate: boolean,
+  forceHydrate: boolean
 ): Root {
   const shouldHydrate =
     forceHydrate || shouldHydrateDueToLegacyHeuristic(container);
@@ -178,9 +182,9 @@ function legacyCreateRootFromDOMContainer(
           warned = true;
           warningWithoutStack(
             false,
-            'render(): Target node has markup rendered by React, but there ' +
-              'are unrelated nodes as well. This is most commonly caused by ' +
-              'white-space inserted around server-rendered markup.',
+            "render(): Target node has markup rendered by React, but there " +
+              "are unrelated nodes as well. This is most commonly caused by " +
+              "white-space inserted around server-rendered markup."
           );
         }
       }
@@ -192,27 +196,26 @@ function legacyCreateRootFromDOMContainer(
       warnedAboutHydrateAPI = true;
       lowPriorityWarning(
         false,
-        'render(): Calling ReactDOM.render() to hydrate server-rendered markup ' +
-          'will stop working in React v17. Replace the ReactDOM.render() call ' +
-          'with ReactDOM.hydrate() if you want React to attach to the server HTML.',
+        "render(): Calling ReactDOM.render() to hydrate server-rendered markup " +
+          "will stop working in React v17. Replace the ReactDOM.render() call " +
+          "with ReactDOM.hydrate() if you want React to attach to the server HTML."
       );
     }
   }
   // Legacy roots are not async by default.
-  const isConcurrent = false;  // 指定false
+  const isConcurrent = false; // 指定false
   return new ReactRoot(container, isConcurrent, shouldHydrate);
 }
 ```
 
-DOMRenderer的ReactFiberReconciler(与平台无关的调度调和代码)，方法updateContainer参数是超时时间，expirationTime。
-
+DOMRenderer 的 ReactFiberReconciler(与平台无关的调度调和代码)，方法 updateContainer 参数是超时时间，expirationTime。
 
 ```jsx
 export function updateContainer(
   element: ReactNodeList,
   container: OpaqueRoot,
   parentComponent: ?React$Component<any, any>,
-  callback: ?Function,
+  callback: ?Function
 ): ExpirationTime {
   const current = container.current;
   const currentTime = requestCurrentTime();
@@ -222,45 +225,45 @@ export function updateContainer(
     container,
     parentComponent,
     expirationTime,
-    callback,
+    callback
   );
 }
 ```
 
-3. 接下来 update，赋值给Fiber.updateQueue调用scheduleWork
+3. 接下来 update，赋值给 Fiber.updateQueue 调用 scheduleWork
 
 ```jsx
 function scheduleRootUpdate(
   current: Fiber,
   element: ReactNodeList,
   expirationTime: ExpirationTime,
-  callback: ?Function,
+  callback: ?Function
 ) {
-  const update = createUpdate(expirationTime)
+  const update = createUpdate(expirationTime);
 
-  update.payload = { element }
+  update.payload = { element };
 
-  callback = callback === undefined ? null : callback
+  callback = callback === undefined ? null : callback;
   if (callback !== null) {
     warningWithoutStack(
-      typeof callback === 'function',
-      'render(...): Expected the last optional `callback` argument to be a ' +
-        'function. Instead received: %s.',
-      callback,
-    )
-    update.callback = callback
+      typeof callback === "function",
+      "render(...): Expected the last optional `callback` argument to be a " +
+        "function. Instead received: %s.",
+      callback
+    );
+    update.callback = callback;
   }
-  enqueueUpdate(current, update)
+  enqueueUpdate(current, update);
 
-  scheduleWork(current, expirationTime)
-  return expirationTime
+  scheduleWork(current, expirationTime);
+  return expirationTime;
 }
 ```
 
-
-创建Reactroot => FiberRoot  开始整个应用的起点
+创建 Reactroot => FiberRoot 开始整个应用的起点
 
 ## fiberRoot
+
 ```jsx
 // root节点，render方法接收的第二个参数，顶层节点
  containerInfo: any,
@@ -320,7 +323,7 @@ function scheduleRootUpdate(
 |};
 ```
 
-## Fiber 
+## Fiber
 
 ```jsx
 // Fiber对应一个组件需要被处理或者已经处理了，一个组件可以有一个或者多个Fiber
@@ -354,10 +357,10 @@ type Fiber = {|
   index: number,
 
   // ref属性
-  ref: null | (((handle: mixed) => void) & {_stringRef: ?string}) | RefObject,
+  ref: null | (((handle: mixed) => void) & { _stringRef: ?string }) | RefObject,
 
   // 新的变动带来的新的props
-  pendingProps: any, 
+  pendingProps: any,
   // 上一次渲染完成之后的props
   memoizedProps: any,
 

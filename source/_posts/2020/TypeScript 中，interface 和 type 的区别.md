@@ -9,17 +9,19 @@ categories: JS
 photos:
 ---
 
-> interface是接口，type是类型，本身就是两个概念。只是碰巧表现上比较相似。希望定义一个变量类型，就用type，如果希望是能够继承并约束的，就
-用interface。如果你不知道该用哪个，说明你只是想定义一个类型而非接口，所以应该用type。
+> interface 是接口，type 是类型，本身就是两个概念。只是碰巧表现上比较相似。希望定义一个变量类型，就用 type，如果希望是能够继承并约束的，就
+> 用 interface。如果你不知道该用哪个，说明你只是想定义一个类型而非接口，所以应该用 type。
 
 在 `TypeScript` 中，`interface` 和 `type` 主要用于类型的声明，它们的相同点以及区别如下：
 
 ---
+
 <!--more-->
 
 ## 相同点
 
 ### 都可以描述一个对象或者函数
+
 ```js
 /* interface */
 interface User {
@@ -45,6 +47,7 @@ type SetUser = {
 ```
 
 ### 都可以进行拓展
+
 ```js
 /* interface */
 interface User {
@@ -90,21 +93,23 @@ type VipUserType = VipUserInterface & {
 ## 区别
 
 ### type 可以声明基本类型别名，联合类型，元组类型，而 interface 不可以
+
 ```js
 /* 基本类型 */
-type Name = string
+type Name = string;
 
 /* 联合类型 */
 interface Dog {}
 interface Cat {}
 
-type Pet = Dog | Cat
+type Pet = Dog | Cat;
 
 /* 元组类型 */
-type PetList = [Dog, Cat]
+type PetList = [Dog, Cat];
 ```
 
 ### interface 可以进行类型合并，而 type 不可以
+
 ```js
 interface Cloner {
   clone(animal: Animal): Animal

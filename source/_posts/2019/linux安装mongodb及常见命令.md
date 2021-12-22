@@ -12,17 +12,18 @@ top: 260
 
 {% fi http://cdn.mydearest.cn/blog/images/mongodb.jpg, MongoDB, MongoDB %}
 
-MongoDB 是一个基于分布式文件存储的数据库。由 C++ 语言编写。旨在为 WEB 应用提供可扩展的高性能数据存储解决方案。
----
+## MongoDB 是一个基于分布式文件存储的数据库。由 C++ 语言编写。旨在为 WEB 应用提供可扩展的高性能数据存储解决方案。
+
 <!--more-->
 
 ## 安装、配置
+
 ```shell
 ## 下载 http://dl.mongodb.org/dl/linux/
 curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.6.5.tgz
 
 ## 解压
-tar -zxvf mongodb-linux-x86_64-3.6.5.tgz 
+tar -zxvf mongodb-linux-x86_64-3.6.5.tgz
 
 ## 移动到指定目录
 mv mongodb-linux-x86_64-3.6.5/ /usr/local/mongodb
@@ -36,7 +37,7 @@ mkdir data/db
 mkdir data/log
 
 ## vim /etc/profile 添加到全局命令
-export PATH=/usr/local/mongodb/bin:$PATH 
+export PATH=/usr/local/mongodb/bin:$PATH
 
 ## 如果有多个
 export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:/usr/local/mongodb/bin:$PATH
@@ -66,7 +67,8 @@ nohup mongod --auth -f /usr/local/mongodb/mongodb.conf > myLog.log 2>&1 &
 nohup mongod -f /usr/local/mongodb/mongodb.conf > myLog.log 2>&1 &
 ```
 
-## brew安装
+## brew 安装
+
 ```shell
 brew tap mongodb/brew
 brew install mongodb-community@4.4
@@ -80,6 +82,7 @@ brew services stop mongodb-community@4.4
 # 停止
 db.adminCommand({ "shutdown" : 1 })
 ```
+
 - 配置文件：/usr/local/etc/mongod.conf
 - 日志文件路径：/usr/local/var/log/mongodb
 - 数据存放路径：/usr/local/var/mongodb
@@ -87,6 +90,7 @@ db.adminCommand({ "shutdown" : 1 })
 ### 常见命令
 
 #### 设置用户和命令
+
 ```shell
 ## 权限登录
 mongo admin -u cosyer -p xxx
@@ -122,16 +126,18 @@ db.changeUserPassword('tank2','test')
 db.updateUser("cosyer",{roles:[ {role:"root",db:"admin"} ]})
 ```
 
-#### mongoose账号密码连接
+#### mongoose 账号密码连接
+
 ```js
 // mongodb://admin:123456@localhost:27017 //有用户名密码的情况
 mongoose.connect("mongodb://user:pwd@111.231.121.29/ticket", {
   authSource: "admin",
-  useMongoClient: true
+  useMongoClient: true,
 });
 ```
 
 #### 导入导出表字段
+
 ```js
 mongoexport -d book -c books -o books.json --type json
 
@@ -139,6 +145,7 @@ mongoimport -d book -c books --file /home/mongodump/articles.json --type json
 ```
 
 #### 备份恢复数据库
+
 ```js
 mongodump -h 127.0.0.1 -d book -o D:\iview-book-admin\static\js
 
@@ -146,7 +153,9 @@ mongorestore -h dbhost -d book --dir D:\iview-book-admin\static\js\book
 ```
 
 ### 可视化工具
+
 - https://robomongo.org/download
 
-## 安装java
+## 安装 java
+
 - https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html

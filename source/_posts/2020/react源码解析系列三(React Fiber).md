@@ -11,33 +11,31 @@ photos:
 
 ## Fiber
 
-> 每一个ReactElement对应一个Fiber对象
+> 每一个 ReactElement 对应一个 Fiber 对象
 >
 > 记录节点的各种状态
 >
 > 串联整个应用形成的结构
 
-例如：FiberRoot的current指向RootFiber 的 child ---->App 的child ---> div 的child---->input 的sibling
+例如：FiberRoot 的 current 指向 RootFiber 的 child ---->App 的 child ---> div 的 child---->input 的 sibling
 
 属性：
 
 ```javascript
-return // 指向父节点（每个节点只会有一个父节点）
+return; // 指向父节点（每个节点只会有一个父节点）
 
-child // 子节点
+child; // 子节点
 
-sibling // 兄弟节点
+sibling; // 兄弟节点
 ```
 
 ### Update
 
 > 用于记录组件状态的改变
 >
-> 存放于Fiber对象的UpdateQueue中：UpdateQue单项链表的结构
+> 存放于 Fiber 对象的 UpdateQueue 中：UpdateQue 单项链表的结构
 >
-> 多个Update可以同时存在：例如一个事件里面存在三个setState，创建三个update放到UpdateQueue中
-
-
+> 多个 Update 可以同时存在：例如一个事件里面存在三个 setState，创建三个 update 放到 UpdateQueue 中
 
 ```javascript
 // 创建或更新updatequeue
@@ -62,7 +60,7 @@ export function enqueueUpdate<State>(fiber: Fiber, update: Update<State>) {
         // Neither fiber has an update queue. Create new ones.
         queue1 = fiber.updateQueue = createUpdateQueue(fiber.memoizedState);
         queue2 = alternate.updateQueue = createUpdateQueue(
-          alternate.memoizedState,
+          alternate.memoizedState
         );
       } else {
         // Only one fiber has an update queue. Clone to create a new one.
@@ -106,10 +104,10 @@ export function enqueueUpdate<State>(fiber: Fiber, update: Update<State>) {
     ) {
       warningWithoutStack(
         false,
-        'An update (setState, replaceState, or forceUpdate) was scheduled ' +
-          'from inside an update function. Update functions should be pure, ' +
-          'with zero side-effects. Consider using componentDidUpdate or a ' +
-          'callback.',
+        "An update (setState, replaceState, or forceUpdate) was scheduled " +
+          "from inside an update function. Update functions should be pure, " +
+          "with zero side-effects. Consider using componentDidUpdate or a " +
+          "callback."
       );
       didWarnUpdateInsideUpdate = true;
     }
@@ -127,19 +125,19 @@ export function updateContainer(
   element: ReactNodeList,
   container: OpaqueRoot,
   parentComponent: ?React$Component<any, any>,
-  callback: ?Function,
+  callback: ?Function
 ): ExpirationTime {
   const current = container.current; // Fiber对象
-    //!important
+  //!important
   const currentTime = requestCurrentTime();
-  const expirationTime = computeExpirationForFiber(currentTime, current); 
-    
+  const expirationTime = computeExpirationForFiber(currentTime, current);
+
   return updateContainerAtExpirationTime(
     element,
     container,
     parentComponent,
     expirationTime,
-    callback,
+    callback
   );
 }
 ```
@@ -179,15 +177,16 @@ function requestCurrentTime() {
 
 ```javascript
 function recomputeCurrentRendererTime() {
-    // 从js加载完成到现在为止的时间间隔
+  // 从js加载完成到现在为止的时间间隔
   const currentTimeMs = now() - originalStartTimeMs; // originalStartTimeMs： 初始的now（）
   currentRendererTime = msToExpirationTime(currentTimeMs);
 }
 ```
 
 ### msToExpirationTime
+
 ```javascript
-const UNIT_SIZE = 10
+const UNIT_SIZE = 10;
 export function msToExpirationTime(ms: number): ExpirationTime {
   // Always add an offset so that we don't clash with the magic number for NoWork.
   return ((ms / UNIT_SIZE) | 0) + MAGIC_NUMBER_OFFSET;
@@ -255,7 +254,7 @@ export function computeInteractiveExpiration(currentTime: ExpirationTime) {
   return computeExpirationBucket(
     currentTime,
     HIGH_PRIORITY_EXPIRATION,
-    HIGH_PRIORITY_BATCH_SIZE,
+    HIGH_PRIORITY_BATCH_SIZE
   );
 }
 ```
@@ -267,15 +266,14 @@ export const LOW_PRIORITY_EXPIRATION = 5000;
 export const LOW_PRIORITY_BATCH_SIZE = 250;
 
 export function computeAsyncExpiration(
-  currentTime: ExpirationTime,
+  currentTime: ExpirationTime
 ): ExpirationTime {
   return computeExpirationBucket(
     currentTime,
     LOW_PRIORITY_EXPIRATION,
-    LOW_PRIORITY_BATCH_SIZE,
+    LOW_PRIORITY_BATCH_SIZE
   );
 }
-
 ```
 
 ## computeExpirationBucket
@@ -284,16 +282,16 @@ export function computeAsyncExpiration(
 function computeExpirationBucket(
   currentTime,
   expirationInMs,
-  bucketSizeMs,
+  bucketSizeMs
 ): ExpirationTime {
   return (
     MAGIC_NUMBER_OFFSET +
     ceiling(
       currentTime - MAGIC_NUMBER_OFFSET + expirationInMs / UNIT_SIZE,
-      bucketSizeMs / UNIT_SIZE,
+      bucketSizeMs / UNIT_SIZE
     )
   );
 }
 ```
 
-计算为了将固定时间间断的，多次setState数据的更新当成一次更新，在这个时间间断内优先级是一样的
+计算为了将固定时间间断的，多次 setState 数据的更新当成一次更新，在这个时间间断内优先级是一样的

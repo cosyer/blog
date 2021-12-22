@@ -1,5 +1,5 @@
 ---
-title: JavaScript深入之从原型到原型链 
+title: JavaScript深入之从原型到原型链
 tags:
   - 原型链
 copyright: true
@@ -10,15 +10,15 @@ top: 107
 photos:
 ---
 
-{% centerquote %} 
+{% centerquote %}
 原型对象的用途是为每个实例对象存储共享的方法和属性，它仅仅是一个普通对象而已，仅有一份。
 {% endcenterquote %}
 
-每个对象都会在其内部初始化一个属性，就是prototype(原型)，当我们访问一个对象的属性时，
-如果这个对象内部不存在这个属性，那么它就会去prototype里找这个属性，这个prototype又会有自己的prototype，于是就这样一直找下去，也就是我们平时所说的原型链的概念
+每个对象都会在其内部初始化一个属性，就是 prototype(原型)，当我们访问一个对象的属性时，
+如果这个对象内部不存在这个属性，那么它就会去 prototype 里找这个属性，这个 prototype 又会有自己的 prototype，于是就这样一直找下去，也就是我们平时所说的原型链的概念
 
 - “prototype” 是什么？
-prototype 是所有公共方法和属性的宿主，从祖先派生的“子”对象可以从使用祖先的方法和属性。
+  prototype 是所有公共方法和属性的宿主，从祖先派生的“子”对象可以从使用祖先的方法和属性。
 
 原型是一个用于实现对象属性继承的对象。
 
@@ -83,7 +83,7 @@ console.log(person.__proto__ === Person.prototype); // true
 
 既然实例对象和构造函数都可以指向原型，那么原型是否有属性指向构造函数或者实例呢？
 
-> __proto__标准是浏览器实现的。
+> **proto**标准是浏览器实现的。
 
 ### constructor
 
@@ -200,7 +200,7 @@ person.constructor === Person.prototype.constructor;
 最后是关于继承，前面我们讲到“每一个对象都会从原型‘继承’属性”，实际上，继承是一个十分具有迷惑性的说法，引用《你不知道的 JavaScript》中的话，就是：继承意味着复制操作，然而 JavaScript 默认并不会复制对象的属性，相反，JavaScript 只是在两个对象之间创建一个关联，这样，一个对象就可以通过委托访问另一个对象的属性和函数，所以与其叫继承，委托的说法反而更准确些。
 
 - class 的引入只是语法糖本身还是基于原型的
-- 几乎所有 JavaScript 中的对象都是位于原型链顶端的Object的实例。
+- 几乎所有 JavaScript 中的对象都是位于原型链顶端的 Object 的实例。
 
 ```javascript
 class Cat {
@@ -221,7 +221,7 @@ Object.defineProperty(Cat.prototype, "say", {
 // es6 class是没有静态属性的 只有静态方法
 var cat = new Cat();
 cat.say(); // meow~
-Cat.say(); // error 加上static修饰正确  
+Cat.say(); // error 加上static修饰正确
 
 // 注解
 function isAnimal(target) {
@@ -239,15 +239,15 @@ console.log(Cat.isAnimal);    // true
 ```
 
 ### 描述符
+
 - Configurable 特性
-configurable 特性表示对象的属性是否可以被删除，以及除 writable 特性外的其他特性是否可以被修改。
+  configurable 特性表示对象的属性是否可以被删除，以及除 writable 特性外的其他特性是否可以被修改。
 
 - Enumerable 特性
-属性特性 enumerable 定义了对象的属性是否可以在 for...in 循环和 Object.keys() 中被枚举。
+  属性特性 enumerable 定义了对象的属性是否可以在 for...in 循环和 Object.keys() 中被枚举。
 
 - Writable 属性
-当属性特性（property attribute） writable 设置为false时，表示 non-writable，属性不能被修改。
-
+  当属性特性（property attribute） writable 设置为 false 时，表示 non-writable，属性不能被修改。
 
 ```javascript
 var p = Object.create(o);
@@ -280,49 +280,51 @@ var Tom = Object.create(Person, {
 ```
 
 ### 原型对象的添加属性
+
 ```javascript
-function Persion(){}
-Persion.prototype.sayName=function(){
-  console.log('darling')
-}
+function Persion() {}
+Persion.prototype.sayName = function () {
+  console.log("darling");
+};
 // Persion.prototype={
 //   sayName:function(){
 //     console.log('darling')
-//   } 
+//   }
 // }
-let persion =new Persion()
-persion.sayName() // darling
+let persion = new Persion();
+persion.sayName(); // darling
 
-function Persion(){}
-let persion=new Persion()
+function Persion() {}
+let persion = new Persion();
 // 这里重写了原型对象，实例对象和最初的原型对象断开了联系
 // persion的proto指向一个空对象
-Persion.prototype={
-  sayName:function(){
-    console.log('darling')
-  } 
-}
-persion.sayName() // error
+Persion.prototype = {
+  sayName: function () {
+    console.log("darling");
+  },
+};
+persion.sayName(); // error
 ```
 
 ### new 操作符具体干了什么
-1. 创建空对象，并且this变量引用该对象同时继承该函数的原型
-2. 属性和方法加入到this引用的对象中
-3. 新创建的对象用this引用，并且隐式地返回this
 
-1. 创建一个新对象(\_\_proto\_\_ 指向构造函数的prototype)
-2. 把作用域（this）指给这个对象
-3. 执行构造函数的代码
-4. 如果构造函数中没有返回其它对象，那么返回 this，即创建的这个的新对象，否则，返回构造函数中返回的对象
+1. 创建空对象，并且 this 变量引用该对象同时继承该函数的原型
+2. 属性和方法加入到 this 引用的对象中
+3. 新创建的对象用 this 引用，并且隐式地返回 this
+
+4. 创建一个新对象(\_\_proto\_\_ 指向构造函数的 prototype)
+5. 把作用域（this）指给这个对象
+6. 执行构造函数的代码
+7. 如果构造函数中没有返回其它对象，那么返回 this，即创建的这个的新对象，否则，返回构造函数中返回的对象
 
 ```javascript
-function Base(){
+function Base() {
   this.id = "base";
 }
 var obj = new Base();
 ```
 
-**new干了什么？** 
+**new 干了什么？**
 
 1. var obj = {};
 
@@ -330,33 +332,34 @@ var obj = new Base();
 
 3. Base.call(obj);
 
-- es5使用Object.create()来创建对象 new Object() 字面量写法{}
-使用Object.create()是将对象继承到__proto__属性上，
-Object.create(null)没有继承任何原型方法，也就是说它的原型链没有上一层。
-- es6使用class关键字
+- es5 使用 Object.create()来创建对象 new Object() 字面量写法{}
+  使用 Object.create()是将对象继承到**proto**属性上，
+  Object.create(null)没有继承任何原型方法，也就是说它的原型链没有上一层。
+- es6 使用 class 关键字
 
-- 构造器就是普通的函数,new来作用称为构造方法(构造函数)
+- 构造器就是普通的函数,new 来作用称为构造方法(构造函数)
 
 - 访问原型链会损耗性能,不存在的属性会遍历原型链直到最后一层
 
-- hasOwnProperty 是 JavaScript 中唯一处理属性并且不会遍历原型链的方法。通常在for in循环中使用。
+- hasOwnProperty 是 JavaScript 中唯一处理属性并且不会遍历原型链的方法。通常在 for in 循环中使用。
 
 ### 实现 new 函数
+
 ```js
 function _new(func) {
-    // 第一步 创建新对象
-    let obj= {}; 
-    // 第二步 空对象的_proto_指向了构造函数的prototype成员对象
-    obj.__proto__ = func.prototype;//
-    // 一二步合并就相当于 let obj=Object.create(func.prototype)
+  // 第一步 创建新对象
+  let obj = {};
+  // 第二步 空对象的_proto_指向了构造函数的prototype成员对象
+  obj.__proto__ = func.prototype; //
+  // 一二步合并就相当于 let obj=Object.create(func.prototype)
 
-    // 第三步 使用apply调用构造器函数，属性和方法被添加到 this 引用的对象中
-    let result = func.apply(obj);
-    if (result && (typeof (result) == "object" || typeof (result) == "function")) {
+  // 第三步 使用apply调用构造器函数，属性和方法被添加到 this 引用的对象中
+  let result = func.apply(obj);
+  if (result && (typeof result == "object" || typeof result == "function")) {
     // 如果构造函数执行的结果返回的是一个对象，那么返回这个对象
-        return result;
-    }
-    // 如果构造函数返回的不是一个对象，返回创建的新对象
-    return obj;
+    return result;
+  }
+  // 如果构造函数返回的不是一个对象，返回创建的新对象
+  return obj;
 }
 ```

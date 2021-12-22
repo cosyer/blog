@@ -9,25 +9,29 @@ categories: 工具
 photos:
 ---
 
-## 安装iterm2
+## 安装 iterm2
+
 - [官网下载](https://iterm2.com/)
-下载完，拖到应用程序里即可
+  下载完，拖到应用程序里即可
 
-## iterm2配置配色方案
+## iterm2 配置配色方案
+
 - 下载复制文件内容[](https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/schemes/
-Solarized%20Dark%20Higher%20Contrast.itermcolors)
+  Solarized%20Dark%20Higher%20Contrast.itermcolors)
 
-- 保存为文件SolarizedDarkHigherContrast.itermcolors，双击安装
+- 保存为文件 SolarizedDarkHigherContrast.itermcolors，双击安装
 
-- 打开 iTerm2 终端，依次在菜单栏选择：iTerm2 –> Preferences –> Profiles –> Colors –> Colors Presets –> 
-SolarizedDarkHigherContrast
+- 打开 iTerm2 终端，依次在菜单栏选择：iTerm2 –> Preferences –> Profiles –> Colors –> Colors Presets –>
+  SolarizedDarkHigherContrast
 
-## 恢复iterm2默认设置
+## 恢复 iterm2 默认设置
+
 ```bash
 defaults delete com.googlecode.iterm2
 ```
 
 ## 前置校验
+
 ```bash
 # 1、默认已安装 Homebrew、iTerm2
 # 2、查看是否安装了zsh，查看是否返回 /usr/bin/zsh
@@ -41,9 +45,11 @@ chsh -s /bin/bash     # 设置为bash（Mac自带默认）
 ```
 
 ---
+
 <!--more-->
 
 ## 安装 oh-my-zsh
+
 ```bash
 # 方式一：wegt安装
 wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
@@ -88,7 +94,8 @@ ls ~/.oh-my-zsh/themes
 用bash 环境变量配置文件为 .bash_profile
 ```
 
-## 卸载oh-my-zsh
+## 卸载 oh-my-zsh
+
 ```js
 进入到.oh-my-zsh/tools目录，执行shell命令 ./uninstall.sh
 会提示不让执行shell命令
@@ -100,6 +107,7 @@ ls ~/.oh-my-zsh/themes
 ```
 
 ## 安装 Powerline
+
 ```bash
 # 若显示没有 pip,先安装pip
 sudo easy_install pip
@@ -130,6 +138,7 @@ powerline-daemon
 ```
 
 ## 设置字体
+
 ```bash
 # 1、新建文件夹(如~/Desktop/OpenSource)，文件夹下
 cd ~/Desktop/OpenSource
@@ -144,13 +153,15 @@ cd fonts
 ```
 
 ## 设置配色方案
+
 ```bash
 # 直接下载tar.zip包(包含全部配色)
-# 进入 iTerm2 -> Preferences -> Profiles->Color 
+# 进入 iTerm2 -> Preferences -> Profiles->Color
 # 选择 Color Presets->import 选择解压好的目录下schemes目录中相应配色方案导入
 ```
 
 ## 安装 oh-my-zsh 主题
+
 ```bash
 # 下载安装 agnoster 主题，将主题拷贝到oh my zsh的zsh中
 cd ~/Desktop/OpenSource
@@ -163,6 +174,7 @@ vi ~/.zshrc
 ```
 
 ## 安装插件
+
 ```bash
 # ======================== 高亮插件 ========================
 # 在 ~ 目录下新建文件夹 zsh-plugins(~/.zshrc 默认目录)
@@ -184,7 +196,8 @@ vim .zshrc
 source ~/.oh-my-zsh/plugins/incr/incr*.zsh
 ```
 
-## homebrew安装
+## homebrew 安装
+
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```

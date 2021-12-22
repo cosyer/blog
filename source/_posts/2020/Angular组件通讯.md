@@ -12,6 +12,7 @@ photos:
 组件通讯，意在不同的指令和组件之间共享信息。
 
 ## 父->子 input
+
 ```
 // parent.html
 <child [content]="i"></child>
@@ -21,6 +22,7 @@ photos:
 ```
 
 ## 子->父 output
+
 ```
 // parent.html
 <child (changeNumber)="changeNumber($event)"></child>
@@ -32,9 +34,11 @@ this.changeNumber(1);
 ```
 
 ---
+
 <!-- more -->
 
 ## 子获取父实例
+
 ```
 // child.ts
 import { Component, Input, EventEmitter, Output,Host,Inject,forwardRef } from '@angular/core';
@@ -45,6 +49,7 @@ constructor( @Host() @Inject(forwardRef(() => ParentPage)) app: ParentPage) {
 ```
 
 ## 父获取子实例
+
 ```
 @ViewChild(ChildPage) child:ChildPage;
 
@@ -52,6 +57,7 @@ this.child.content //获取子实例的参数
 ```
 
 ## service 公共的
+
 ```
 // parent.ts
 import{myService}from '../child/myService'
@@ -61,9 +67,11 @@ import{myService}from '../child/myService'
 // child.ts
 service.i
 ```
-记得在app.module.ts 加上providers
+
+记得在 app.module.ts 加上 providers
 
 ## EventEmitter(eventbus)
+
 ```
 // eventbus.service.ts
 import {Component,Injectable,EventEmitter} from '@angular/core';
@@ -84,6 +92,7 @@ service.change.subscribe((value:string)=>{})
 ```
 
 ## 订阅
+
 ```
 // service
 import { Injectable } from '@angular/core';
@@ -111,32 +120,38 @@ ngOnDestroy() {
 
 以上七种组件与组件的通讯方式，可以选择应用于适合的场景。
 
-顺带介绍下重载当前路由，在Angular中，当点击当前路由的链接时，默认是忽略的。
+顺带介绍下重载当前路由，在 Angular 中，当点击当前路由的链接时，默认是忽略的。
 
 ## 糟糕的解决方案
+
 1. 跳出去，再跳回来。
 2. 让浏览器刷新整个页面。
-然而目前我们可以通过 `onSameUrlNavigation` 来解决这个问题。
+   然而目前我们可以通过 `onSameUrlNavigation` 来解决这个问题。
 
 `onSameUrlNavigation` 有两个值'reload'和'ignore'。默认为'ignore'。
+
 - 定义当路由器收到一个导航到当前 URL 的请求时应该怎么做。 默认情况下，路由器将会忽略这次导航。但这样会阻止类似于 "刷新" 按钮的特性。 使用该选项可以配置导航到当前 URL 时的行为。
 
 - 路由启动配置
+
 ```js
 // app.routing.module.ts
-imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})]
+imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: "reload" })];
 ```
-`reload`并不会真正的执行加载工作，它只是重新触发了路由上的events事件循环。也可以动态配置reload
+
+`reload`并不会真正的执行加载工作，它只是重新触发了路由上的 events 事件循环。也可以动态配置 reload
+
 ```js
-this.router.onSameUrlNavigation = 'reload';
+this.router.onSameUrlNavigation = "reload";
 this.router.navigateByUrl(this.router.url).then(() => {
-    this.router.onSameUrlNavigation = 'ignore';
+  this.router.onSameUrlNavigation = "ignore";
 });
 ```
 
-- Route配置
-一系列的路由事件在何种情况下应该被触发，此时我们需要配置 runGuardsAndResolvers 选项，它有3个可选值。
-1. paramsChange 只有当参数变化时才重新启动，例如 'article/:id'，参数指的就是这里的id。
+- Route 配置
+  一系列的路由事件在何种情况下应该被触发，此时我们需要配置 runGuardsAndResolvers 选项，它有 3 个可选值。
+
+1. paramsChange 只有当参数变化时才重新启动，例如 'article/:id'，参数指的就是这里的 id。
 
 2. paramsOrQueryParamsChange 当参数或查询参数变化时重新启动。例如：'article/:category?limit=10，参数指 'category'，查询参数指'limit'；
 
@@ -144,15 +159,16 @@ this.router.navigateByUrl(this.router.url).then(() => {
 
 ```js
 export const routes: Routes = [
-   {
-       path: 'article/:id',
-       component: ArticleComponent,
-       runGuardsAndResolvers: 'paramsChange',
-   }
-]
+  {
+    path: "article/:id",
+    component: ArticleComponent,
+    runGuardsAndResolvers: "paramsChange",
+  },
+];
 ```
 
 - 组件中处理路由事件
+
 ```js
 export class ArticleComponent implement OnInit, OnDestroy {
    subscription: Subscription;

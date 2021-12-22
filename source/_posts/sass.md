@@ -11,18 +11,22 @@ photos:
 ---
 
 ### 简介
+
 Sass 是一款强化 CSS 的辅助工具，它在 CSS 语法的基础上增加了变量 (variables)、嵌套 (nested rules)、混合 (mixins)、导入 (inline imports) 等高级功能，这些拓展令 CSS 更加强大与优雅。
 
 ---
+
 <!--more-->
 
 ### 导入
+
 ```javascript
 @import "reset.css"; // css
 @import "index"; // sass
 ```
 
 ### 变量
+
 ```javascript
 // 普通变量
 $fontSize:16px;
@@ -52,6 +56,7 @@ $heading: (
 ```
 
 ### 插值
+
 插值使用 #{}
 
 ```javascript
@@ -67,6 +72,7 @@ $mySelector: banner;
 ```
 
 ### 跳出嵌套
+
 @at-root (without: rule| all | media)
 
 ```javascript
@@ -96,6 +102,7 @@ $mySelector: banner;
 ```
 
 ### 混合(mixin)
+
 使用 @mixin 声明混合，可以传递参数，参数名以$符号开始，多个参数以逗号分开，也可以给参数设置默认值。
 @mixin 通过 @include 来调用。
 混合器中不仅可以包含属性，也可以包含 css 规则，包含选择器和选择器中的属性，也可以使用 & 上下文。
@@ -146,6 +153,7 @@ $mySelector: banner;
 ```
 
 #### @Content
+
 @content 它可以使 @mixin 接受一整块样式，接受的样式从 @content 开始。
 
 ```javascript
@@ -161,8 +169,9 @@ $mySelector: banner;
 ```
 
 ## 继承
+
 选择器继承可以让选择器继承另一个选择器的所有样式，并联合声明。使用选择器的继承，要使用关键词 @extend，后面紧跟需要继承的选择器。
-继承可以继承默认的元素属性，比如让一个div继承a，那么这 div 看起来就好像 a 一样。
+继承可以继承默认的元素属性，比如让一个 div 继承 a，那么这 div 看起来就好像 a 一样。
 
 ```javascript
 // 继承现有的标签，或类
@@ -176,6 +185,7 @@ h1{
 ```
 
 ## 占位选择器%
+
 可以定义占位选择器 %，如果不调用则不会有任何多余的 css 代码。
 
 ```javascript
@@ -189,7 +199,8 @@ h1{
 ```
 
 ## 函数
-sass定义了很多函数可供使用，当然你也可以自己定义函数，以@fuction开始。
+
+sass 定义了很多函数可供使用，当然你也可以自己定义函数，以@fuction 开始。
 
 使用最多的是颜色函数：
 颜色函数中又以 lighten 减淡和 darken 加深为最，
@@ -209,7 +220,8 @@ div {
 }
 ```
 
-## @if判断
+## @if 判断
+
 @if 可一个条件单独使用，也可以和 @else 结合多条件使用
 
 ```javascript
@@ -225,6 +237,7 @@ p {
 ```
 
 ## 三目判断
+
 语法为：if($condition, $if_true, $if_false) 。三个参数分别表示：条件，条件为真的值，条件为假的值。
 
 ```javascript
@@ -234,9 +247,10 @@ p {
 }
 ```
 
-## for循环
+## for 循环
+
 for 循环有两种形式，分别为：@for $var from [start] through [end] 和 @for $var from [start] to [end]。
-关键字through表示包括end这个数，而to则不包括end这个数。
+关键字 through 表示包括 end 这个数，而 to 则不包括 end 这个数。
 
 ```javascript
 @for $i from 1 through 3 {
@@ -245,6 +259,7 @@ for 循环有两种形式，分别为：@for $var from [start] through [end] 和
 ```
 
 ## @each 循环
+
 语法为：@each $var in [list or map]
 
 ```javascript

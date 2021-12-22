@@ -12,18 +12,19 @@ photos:
 
 ## 防止冒泡
 
-w3c的方法是e.stopPropagation()，IE则是使用e.cancelBubble = true
+w3c 的方法是 e.stopPropagation()，IE 则是使用 e.cancelBubble = true
 
-stopPropagation也是事件对象(Event)的一个方法，作用是阻止目标元素的冒泡事件，但是会不阻止默认行为。什么是冒泡事件？如在一个按钮是绑定一个”click”事件，那么”click”事件会依次在它的父级元素中被触发 。stopPropagation就是阻止目标元素的事件冒泡到父级元素。
+stopPropagation 也是事件对象(Event)的一个方法，作用是阻止目标元素的冒泡事件，但是会不阻止默认行为。什么是冒泡事件？如在一个按钮是绑定一个”click”事件，那么”click”事件会依次在它的父级元素中被触发 。stopPropagation 就是阻止目标元素的事件冒泡到父级元素。
 
 ---
+
 <!-- more -->
 
 ## 阻止默认行为
 
-w3c的方法是e.preventDefault()，IE则是使用e.returnValue = false
+w3c 的方法是 e.preventDefault()，IE 则是使用 e.returnValue = false
 
-preventDefault它是事件对象(Event)的一个方法，作用是取消一个目标元素的默认行为。既然是说默认行为，当然是元素必须有默认行为才能被取消，如果元素本身就没有默认行为，调用当然就无效了。什么元素有默认行为呢？如链接`<a>`，提交按钮`<input type=”submit”>`等。当Event 对象的 cancelable为false时，表示没有默认行为，这时即使有默认行为，调用preventDefault也是不会起作用的。
+preventDefault 它是事件对象(Event)的一个方法，作用是取消一个目标元素的默认行为。既然是说默认行为，当然是元素必须有默认行为才能被取消，如果元素本身就没有默认行为，调用当然就无效了。什么元素有默认行为呢？如链接`<a>`，提交按钮`<input type=”submit”>`等。当 Event 对象的 cancelable 为 false 时，表示没有默认行为，这时即使有默认行为，调用 preventDefault 也是不会起作用的。
 
 ```javascript
  <!DOCTYPE html>

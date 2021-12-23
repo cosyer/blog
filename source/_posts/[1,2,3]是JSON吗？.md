@@ -99,6 +99,16 @@ const body = {
 console.log(JSON.stringify(body)); // {"name":"cosyer"}
 // 格式化JSON
 JSON.stringify(obj, null, "\t");
+// 安全转换JSON.parse
+const safelyParseJson = (jsonStr: string): any => {
+  // 如果JSON.parse失败，会抛错，会出现问题
+  try {
+    const obj = JSON.parse(jsonStr || "");
+    return obj;
+  } catch {
+    return undefined;
+  }
+};
 ```
 
 ```javascript

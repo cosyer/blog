@@ -2189,7 +2189,7 @@ Blob 对象表示一个不可变、原始数据的类文件对象。Blob 表示�
 // const blob = new Blob([JSON.stringify(debug, null, 2)],{type : 'application/json'});
 function createAndDownloadFile(fileName, filePath) {
   const aTag = document.createElement("a");
-  const blob = new Blob([filePath]);
+  const blob = new Blob([filePath]); // or content
   aTag.download = `${fileName}.json`;
   aTag.style.display = "none";
   aTag.href = URL.createObjectURL(blob);
@@ -4390,3 +4390,6 @@ service sshd restart
 pkill pure-ftpd
 service pureftpd start
 ```
+
+## antd 圣诞节🎄彩蛋
+- https://github.com/ant-design/ant-design/commit/00aebeb9756afecc884ad48486084836b9a2707a

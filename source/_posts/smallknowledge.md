@@ -4393,3 +4393,8 @@ service pureftpd start
 
 ## antd 圣诞节🎄彩蛋
 - https://github.com/ant-design/ant-design/commit/00aebeb9756afecc884ad48486084836b9a2707a
+
+## 您没有权限打开应用
+```bash
+安装之前运行 `sudo spctl --master-disable`
+````

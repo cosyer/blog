@@ -86,6 +86,7 @@ xattr -rc directory
 10. Qwerty Learner
 11. TODO Tree
 12. Vetur
+13. Tubor Console Log
 
 ## mac vscode 常用快捷键
 

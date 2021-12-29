@@ -4391,16 +4391,27 @@ pkill pure-ftpd
 service pureftpd start
 ```
 
-## antd 圣诞节🎄彩蛋
+## antd 圣诞节 🎄 彩蛋
+
 - https://github.com/ant-design/ant-design/commit/00aebeb9756afecc884ad48486084836b9a2707a
 
-## mac您没有权限打开应用
+## mac 您没有权限打开应用
+
 ```bash
 安装之前运行 `sudo spctl --master-disable`
 ```
 
 ## typescript advance
+
 - https://www.typescriptlang.org/docs/handbook/advanced-types.html
 
 ## 代码仓库文件可视化分析
+
 - https://next.github.com/projects/repo-visualization
+
+## 浏览器默认非安全端口
+
+`ERR_UNSAFE_PORT`: 不安全端口(每个浏览器出于安全问题,都会禁止一些网络浏览以外的端口)
+
+1. Chrome 谷歌浏览器:6000、6665-6669...
+2. FireFox 火狐浏览器:非 80 端口

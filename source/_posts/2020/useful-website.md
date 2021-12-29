@@ -199,6 +199,11 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 
 - https://openwrite.cn/
 
+## 生成随机用户信息
+
+- https://randomuser.me/
+- https://randomapi.com/
+
 ## 神曲
 
 - 拔剑神曲 GC-βίος

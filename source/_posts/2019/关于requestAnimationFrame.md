@@ -10,7 +10,7 @@ photos:
 top: 300
 ---
 
-在 JS 中，我们可以使用 `setTimeout` 和 `setIntarval` 实现动画，但是 H5 的出现，让我们又多了两种实现动画的方式，分别是 CSS 动画（`transition`、`animation`）和 H5 的`canvas` 实现。除此以外，H5 还提供了一个专门用于请求动画的 API，让 DOM 动画、canvas 动画、svg 动画、webGL 动画等有一个专门的刷新机制。
+在 JS 中，我们可以使用 `setTimeout` 和 `setInterval` 实现动画，但是 H5 的出现，让我们又多了两种实现动画的方式，分别是 CSS 动画（`transition`、`animation`）和 H5 的`canvas` 实现。除此以外，H5 还提供了一个专门用于请求动画的 API，让 DOM 动画、canvas 动画、svg 动画、webGL 动画等有一个专门的刷新机制。
 
 > 传统的 javascript 动画是通过定时器 setTimeout 或者 setInterval 实现的。但是定时器动画一直存在两个问题
 

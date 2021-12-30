@@ -190,6 +190,58 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 
 - https://ghproxy.com/
 
+## github contributor 记录
+
+- https://contrib.rocks/preview
+
+## 兼容性查看
+
+可以到 Can I use 上去查看，官网地址为：[caniuse.com](https://caniuse.com/)
+
+## github 访问量计数
+
+- https://visitor-badge.glitch.me/badge?page_id=cosyer
+
+- https://profile-counter.glitch.me/cosyer/count.svg
+
+```html
+<p align="center"> Visitor count </p>
+<img src="https://profile-counter.glitch.me/cosyer/count.svg" />
+</a>
+```
+
+## github profile 统计
+
+![my github stats](https://github-readme-stats.vercel.app/api?username=cosyer&show_icons=true&hide_border=true&
+hide=contribs,prs)
+
+```html
+<img
+  src="https://github-profile-trophy.vercel.app/?username=cosyer&theme=flat&column=3&margin-w=10&title=Stars,Commit,Issues"
+  alt="logo"
+  height="160"
+  align="center"
+/>
+```
+
+## simple-icons
+
+![github](https://cdn.jsdelivr.net/npm/simple-icons@3.1.0/icons/github.svg)
+
+![github](http://simpleicons.p2hp.com/icons/github.svg)
+
+## github emoji
+
+[slackmojis](https://slackmojis.com/)
+
+## github badge
+
+![](https://img.shields.io/badge/github-cosyer-brightgreen.svg)
+
+## 萌萌计数器
+
+![cosyer](https://count.getloli.com/get/@:cosyer)
+
 ## 在线文件转换
 
 - https://convertio.co/zh/
@@ -203,6 +255,9 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 
 - https://randomuser.me/
 - https://randomapi.com/
+
+## 可视化代码库
+- https://next.github.com/projects/repo-visualization#explore-for-yourself
 
 ## 神曲
 

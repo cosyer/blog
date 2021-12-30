@@ -3908,54 +3908,6 @@ text.onmouseenter = function (e) {
 3. 服务器获得客户端信息之后，pc 端的长连接轮询操作会获得该消息，显示该账号的信息；
 4. pc 端会再开一个长连接与手机端保持通信，等待手机端确认登陆后，获得服务器授权的 token，就可以在 pc 端登陆进行正常通信了
 
-## 兼容性查看
-
-可以到 Can I use 上去查看，官网地址为：[caniuse.com](https://caniuse.com/)
-
-## github 访问量计数
-
-- https://visitor-badge.glitch.me/badge?page_id=cosyer
-
-- https://profile-counter.glitch.me/cosyer/count.svg
-
-```html
-<p align="center"> Visitor count </p>
-<img src="https://profile-counter.glitch.me/cosyer/count.svg" />
-</a>
-```
-
-## github profile 统计
-
-![my github stats](https://github-readme-stats.vercel.app/api?username=cosyer&show_icons=true&hide_border=true&
-hide=contribs,prs)
-
-```html
-<img
-  src="https://github-profile-trophy.vercel.app/?username=cosyer&theme=flat&column=3&margin-w=10&title=Stars,Commit,Issues"
-  alt="logo"
-  height="160"
-  align="center"
-/>
-```
-
-## simple-icons
-
-![github](https://cdn.jsdelivr.net/npm/simple-icons@3.1.0/icons/github.svg)
-
-![github](http://simpleicons.p2hp.com/icons/github.svg)
-
-## github emoji
-
-[slackmojis](https://slackmojis.com/)
-
-## github badge
-
-![](https://img.shields.io/badge/github-cosyer-brightgreen.svg)
-
-## 萌萌计数器
-
-![cosyer](https://count.getloli.com/get/@:cosyer)
-
 ## 手动触发 event
 
 ```js

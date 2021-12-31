@@ -4367,3 +4367,12 @@ service pureftpd start
 
 1. Chrome 谷歌浏览器:6000、6665-6669...
 2. FireFox 火狐浏览器:非 80 端口
+
+## 服务器文件可视化(h5ai)
+- https://larsjung.de/h5ai/
+- 常见问题`[ERR] h5ai sources must be preprocessed to work correctly`
+
+`原因：如果直接从GitHub上下载，则会报这个错误。出现这个错误的原因是GitHub上的是未经过npm编译过的原始代码，下载主页编译好的即可解决。`
+```bash
+curl -O https://release.larsjung.de/h5ai/h5ai-0.30.0.zip
+```

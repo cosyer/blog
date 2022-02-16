@@ -166,7 +166,7 @@ npm docs // 打开包git目录
 
 // 注意：npm build 与 npm start 是项目中常用的命令，注意它们有什么不同
 npm start [--<args>] // 在 package.json 文件中定义的 "scripts" 对象中查找 "start" 属性，执行该属性定义的命令，如果没有定义，默认执行 node server.js 命令
-npm build [<package-folder>] // 其中，<package-folder为其根目录中包含一个 package.json 文件的文件夹，这是由 npm link 命令和 npm install 命令组成的管道命令，通常在安装过程中被调用。如果想要直接运行它，则运行 npm run build
+npm build [<package-folder>] // 其中，package-folder为其根目录中包含一个 package.json 文件的文件夹，这是由 npm link 命令和 npm install 命令组成的管道命令，通常在安装过程中被调用。如果想要直接运行它，则运行 npm run build
 ```
 
 还有其他的 钩子命令，具体项目中我还没用到，你可以自行了解。
@@ -408,13 +408,13 @@ yalc install
 - 安装
 
 ```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 ```
 
 or
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.30.0/install.sh | bash
 ```
 
 - 修改`.bash_profile`

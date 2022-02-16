@@ -69,6 +69,9 @@ This page will collect some useful websets.
 
 - [SM.MS](https://sm.ms/)
 
+## 搜图
+- [pngimg](https://pngimg.com/)
+
 ### ps2020 破解
 
 https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A3%85%E7%A0%B4%E8%A7%A3%E7%89%88%EF%BC%81%EF%BC%882020-09-14-%E4%BA%B2%E6%B5%8B%E5%8F%AF%E7%94%A8%EF%BC%89/
@@ -125,6 +128,7 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 - https://en.softonic.com/
 - http://www.sdifen.com/
 - https://www.macwk.com/
+- https://www.imacso.com/
 
 ## 判断是否支持苹果 M1 芯片
 
@@ -238,6 +242,9 @@ hide=contribs,prs)
 
 ![](https://img.shields.io/badge/github-cosyer-brightgreen.svg)
 
+## github starts
+[starchart](https://starchart.cc/)
+
 ## 萌萌计数器
 
 ![cosyer](https://count.getloli.com/get/@:cosyer)
@@ -258,6 +265,9 @@ hide=contribs,prs)
 
 ## 可视化代码库
 - https://next.github.com/projects/repo-visualization#explore-for-yourself
+
+## mock
+[fast mock](https://www.fastmock.site/)
 
 ## 神曲
 

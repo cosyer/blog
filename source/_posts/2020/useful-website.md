@@ -42,6 +42,7 @@ This page will collect some useful websets.
 ## 组件 UI 开发工具
 
 - [storybook](https://github.com/storybookjs/storybook)
+- [dumi](https://d.umijs.org/zh-CN)
 
 ## 文档站
 
@@ -71,6 +72,11 @@ This page will collect some useful websets.
 
 ## 搜图
 - [pngimg](https://pngimg.com/)
+- [图片api裁剪](https://imgix.com/)
+
+## 斗图
+- [imgflip](https://imgflip.com/)
+- [斗图网](https://www.pkdoutu.com/)
 
 ### ps2020 破解
 
@@ -268,6 +274,14 @@ hide=contribs,prs)
 
 ## mock
 [fast mock](https://www.fastmock.site/)
+
+## JS TIPS
+- [jstips](https://www.jstips.co/zh_CN/)
+- [dmitripavlutin](https://dmitripavlutin.com/)
+
+## Navicat替代
+- [sequelpro](https://www.sequelpro.com/)
+- idea内置数据库管理工具
 
 ## 神曲
 

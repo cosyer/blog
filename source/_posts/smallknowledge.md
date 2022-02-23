@@ -3605,7 +3605,7 @@ Tree-shaking, 也被称为 "live code inclusion," 通常用于打包时移除 js
 - tree shaking
 - scope hoisting
 - 代码压缩混淆(UglifyJsPlugin)
-- 图片压缩： imagemin、image-webpack-loader
+- 图片压缩：imagemin、image-webpack-loader
 
 ### css 优化
 

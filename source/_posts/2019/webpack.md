@@ -12,7 +12,9 @@ top: 260
 
 ## 谈谈你对 webpack 的看法
 
-webpack 是一个模块打包工具，可以使用它管理项目中的模块依赖，并编译输出模块所需的静态文件。它可以很好地管理、打包开发中所用到的 HTML,CSS,JavaScript 和静态文件（图片，字体）等，让开发更高效。对于不同类型的依赖，webpack 有对应的模块加载器，而且会分析模块间的依赖关系，最后合并生成优化的静态资源。
+webpack 是一个用于JS应用程序的静态模块打包工具，可以使用它管理项目中的模块依赖，并编译输出模块所需的静态文件。它可以很好地管理、打包开发中所用到的 HTML,CSS,JavaScript 和静态文件（图片，字体）等，让开发更高效。对于不同类型的依赖，webpack 有对应的模块加载器，而且会分析模块间的依赖关系，最后合并生成优化的静态资源(一个或者多个bundles)。
+
+从 v4.0.0 开始，可以不在引入配置文件来打包项目。
 
 > webpack 最出色的功能之一就是，除了 JavaScript，还可以通过 loader 引入任何其他类型的文件。
 
@@ -60,18 +62,74 @@ webpack 是一个模块打包工具，可以使用它管理项目中的模块依
 
 - webpack 是一个模块打包工具，可以递归地打包项目中的所有模块，最终生成几个打包后的文件。
 - 区别：webpack 支持代码分割，模块化（AMD,CommonJ,ES2015），全局分析。gulp 是任务执行器(task runner)：就是用来自动化处理常见的开发任务，例如项目的检查(lint)、构建(build)、测试(test)
+- 构建阶段从 entry 开始递归解析资源与资源的依赖，在 compilation 对象内逐步构建出 module 集合以及 module 之间的依赖关系
 
 ## 什么是 entry,output?
 
 - entry 入口，告诉 webpack 要使用哪个模块作为构建项目的起点，默认为./src/index.js
-- output 出口，告诉 webpack 在哪里输出它打包好的代码以及如何命名，默认为./dist
+- output 出口，告诉 webpack 在哪里输出它打包好的代码以及如何命名，默认为./dist/main.js
+```js
+module.exports = {
+  //...
+  output: {
+    path: '/home/proj/cdn/assets/[fullhash]',
+    publicPath: 'https://cdn.example.com/assets/[fullhash]/',
+  },
+};
+// 如果在编译时，不知道最终输出文件的 publicPath 是什么地址，则可以将其留空，并且在运行时通过入口起点文件中的 __webpack_public_path__ 动态设置。
+// argv.mode可以获取到配置的mode选项
+module.exports = (env, argv) => {
+
+ if (argv.mode === 'development') {
+  // 返回开发环境的配置选项
+  return { ... }
+ }else if (argv.mode === 'production') {
+  // 返回生产环境的配置选项
+  return { ... }
+ }
+};
+```
 
 ## 什么是 loader，plugins?
 
-- loader 是用来告诉 webpack 如何转换某一类型的文件，并且引入到打包出的文件中
+- loader 是用来告诉 webpack 如何转换某一类型的文件，并且引入到打包出的文件中, webpack 默认只能理解 JavaScript 和 JSON 文件。
+- loader 取值/执行顺序从右到左，从下到上。支持链式调用，可以是同步也可以是异步的。
+
+```js
+// webpack.config.js 配置方式
+const path = require('path');
+
+module.exports = {
+  output: {
+    filename: 'my-first-webpack.bundle.js',
+  },
+  module: {
+    rules: [{ test: /\.txt$/, use: 'raw-loader' }],
+  },
+};
+// 当你碰到「在 require()/import 语句中被解析为 '.txt' 的路径」时，在你对它打包之前，先 use(使用) raw-loader 转换一下。
+
+// 内联方式不推荐
+import Styles from 'style-loader!css-loader?modules!./styles.css';
+```
+
+
 - plugins(插件)作用更大，可以打包优化，资源管理和注入环境变量(plugin 是一个含有 apply 方法的类)
 
 apply 方法中接收一个 compiler 参数，也就是 webpack 实例。由于该参数的存在 plugin 可以很好的运用 webpack 的生命周期钩子，在不同的时间节点做一些操作。
+
+```js
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack'); // 用于访问内置插件
+
+module.exports = {
+  module: {
+    rules: [{ test: /\.txt$/, use: 'raw-loader' }],
+  },
+  plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
+};
+// html-webpack-plugin 为应用程序生成一个 HTML 文件，并自动将生成的所有 bundle 注入到此文件中
+```
 
 ### 手写一个 loader
 
@@ -127,6 +185,20 @@ class DemoWebpackPlugin {
 module.exports = DemoWebpackPlugin;
 ```
 
+```js
+// node-api方式
+const webpack = require('webpack'); // 访问 webpack 运行时(runtime)
+const configuration = require('./webpack.config.js');
+
+let compiler = webpack(configuration);
+
+new webpack.ProgressPlugin().apply(compiler);
+
+compiler.run(function (err, stats) {
+  // ...
+});
+```
+
 ## 什么是 bundle,chunk,module?
 
 bundle 是 webpack 打包出来的文件，chunk 是 webpack 在进行模块的依赖分析的时候，代码分割出来的代码块，module 是开发中的单个模块。
@@ -162,12 +234,30 @@ module.exports = {
 };
 
 // 多页面应用程序
-module.entrys = {
+module.exports = {
   entry: {
     pageOne: "./src/pageOne/index.js",
     pageTwo: ["./src/pageTwo/index.js", "./src/pageTwo/main.js"],
+    a3: {
+      import: './a',
+    },
+    b3: {
+      import: './b',
+      dependOn: 'a3',
+    },
   },
 };
+// runtime运行时 chunk 的名字。runtime 和 dependOn 不应在同一个入口上同时使用，不能指向已存在的入口名称
+// dependOn不能循环引用
+
+// 常见场景分离应用程序和第三方库入口
+module.exports = {
+  entry: {
+    main: './src/app.js',
+    vendor: './src/vendor.js',
+  },
+};
+// 为什么？ 这样你就可以在 vendor.js 中存入未做修改的必要 library 或文件（例如 Bootstrap, jQuery, 图片等），然后将它们打包在一起成为单独的 chunk。内容哈希保持不变，这使浏览器可以独立地缓存它们，从而减少了加载时间。
 ```
 
 多入口可以通过 HtmlWebpackPlugin 分开注入

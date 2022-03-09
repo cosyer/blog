@@ -113,6 +113,57 @@ module.exports = {
 import Styles from 'style-loader!css-loader?modules!./styles.css';
 ```
 
+### 函数组合的两种方式compose 和 pipe
+```js
+// compose 函数式编程中一般的实现方式是从右往左
+const compose = (...fns) => x => fns.reduceRight((v, f) => f(v), x)
+const add1 = n => n + 1
+const double = n => n * 2
+
+const add1ThenDouble = compose(double, add1)
+add1ThenDouble(2)
+
+// pipe reduce
+module: {
+  rules: [
+    {
+      test: /\.js$/,
+      use: [
+        {
+          loader: require.resolve('./src/loaders/loader1.js'),
+        },
+        {
+          loader: require.resolve('./src/loaders/loader2.js'),
+        },
+        {
+          loader: require.resolve('./src/loaders/loader3.js'),
+        }
+      ]
+    },
+  ]
+}
+// 先正序执行pitching过程 后倒序执行normal过程
+// https://cdn.jsdelivr.net/gh/cosyer/images/2022/loader-process-1.png
+
+// pitch return值有内容 会跳过之后的步骤直接来到上一个loader的normal过程
+// https://cdn.jsdelivr.net/gh/cosyer/images/2022/loader-process-2.png
+
+// rule enforce配置 post/normal/pre
+// https://cdn.jsdelivr.net/gh/cosyer/images/2022/loader-process-3.png
+
+// inline-loader
+// https://cdn.jsdelivr.net/gh/cosyer/images/2022/loader-process-4.png
+// !表示所有的normal loader全部不执行（执行pre,post和inline loader）
+// -！表示所有的normal loader和pre loader都不执行（执行post和inline loader）
+// !! 表示所有的normal pre 和 post loader全部不执行（只执行inline loader）
+// style-loader -> css-loader -> sass-loader真实的执行顺序其实是：
+
+// 先经过style-loader的pitching，此时pitching返回值有内容，简化为require('!!css-loader/index.js!sass-loader/dist/cjs.js!./index.sass')，第一轮直接结束。
+// 因为style-loader的pitching返回了内容，所以剩下的loader阶段都不执行，转而执行inline-loader的内容（inline-loader中又包含了两个loader，是从后向前执行的，即现sass-loader再css-loader）
+// 在inline-loader中，sass-loader对index.sass处理，将sass内容处理成css。
+// css-loader对 “3” 中执行之后内容进行处理，css-loader将css转换成js字符串。
+// 此时回到style-loader中的pitching，“4”之后的结果将被style-loader剩下的逻辑处理'addStyles'，即加到style标签上再append到dom上。
+```
 
 - plugins(插件)作用更大，可以打包优化，资源管理和注入环境变量(plugin 是一个含有 apply 方法的类)
 

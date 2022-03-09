@@ -4376,3 +4376,15 @@ service pureftpd start
 ```bash
 curl -O https://release.larsjung.de/h5ai/h5ai-0.30.0.zip
 ```
+
+## react 16 google自动翻译
+- https://github.com/facebook/react/issues/11538
+
+## localStorage.getItem('xxx')/localStorage['xxx']
+```js
+localStorage.getItem('xxx') // null ✅
+localStorage['xxx'] // undefined
+
+localStorage.getItem('length') // 含义问题 
+localStorage.length
+```

@@ -9,7 +9,7 @@ categories: 工具
 photos:
 ---
 
-This page will collect some useful websets.
+This page will collect some useful websites.
 
 - [ss free account](https://github.com/Alvin9999/new-pac/wiki/ss%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7)
 - [v2ray free account](https://github.com/Alvin9999/new-pac/wiki/v2ray%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7)
@@ -157,6 +157,7 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 - [processon](https://www.processon.com/diagrams)
 - [draw.io](https://app.diagrams.net/)
 - [百度脑图](https://naotu.baidu.com/)
+- [手绘图](https://excalidraw.com/)
 
 ## 政府留言
 
@@ -167,7 +168,7 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 
 - https://metrics.lecoq.io/cosyer
 
-## 生成项目结构
+## 生成项目结构/代码分析
 
 - https://octo.github.com/projects/repo-visualization
 
@@ -203,6 +204,7 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 ## github contributor 记录
 
 - https://contrib.rocks/preview
+- https://github.com/jstrieb/github-stats 自动更新github-status
 
 ## 兼容性查看
 
@@ -282,6 +284,12 @@ hide=contribs,prs)
 ## Navicat替代
 - [sequelpro](https://www.sequelpro.com/)
 - idea内置数据库管理工具
+
+## 记录历史复制内容
+- [clipy](https://clipy-app.com/)
+
+## 【哈佛】计算机科学CS50-哈佛大学 
+- https://b23.tv/ugfmOjI
 
 ## 神曲
 

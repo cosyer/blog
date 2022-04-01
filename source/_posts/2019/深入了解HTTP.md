@@ -119,10 +119,10 @@ Session 的实现依赖于 Cookie，如果 Cookie 被禁用，那么 session 也
 
 - 如何防范 CSRF 攻击？
 
-1. 关键操作只接受 POST 请求，get 不修改数据
-2. 验证码 强制用户必须与应用进行交互。
+1. 验证码验证 token验证 保证是从a站前端发起的请求 
+2. 做好请求校验，cookie same-site属性 禁止第三方网站携带本网站的cookie信息
 3. 检测 referer 通过 Referer 识别 根据 HTTP 协议，在 HTTP 头中有一个字段叫 Referer，它记录了该 HTTP 请求的来源地址。在通常情况下，访问一个安全受限的页面的请求都来自于同一个网站。
-4. 请求校验
+4. 关键操作只接受 POST 请求，get 不修改数据 并不准确 构造一个form表单
 
 #### XSS（Cross Site Scripting，跨站脚本攻击）
 
@@ -137,7 +137,20 @@ XSS（跨站脚本攻击）是指攻击者在返回的 HTML 中嵌入 js 脚本�
 - 如何防范 XSS
 
 1. cookie 设置 http-only，不允许 js 修改访问 cookie
-2. 输入检查、输出检查，对变量输入到 HTML 页面的代码进行编码或转义
+2. 输入检查、输出检查，对变量输入到 HTML 页面的代码进行编码或转义 尖括号、单双引号等特殊字符转义
+3. 浏览器自带的防御机制 x-xss-protection 0 关闭 1打开 默认打开
+4. CSP安全策略：指定哪些内容可执行 header头或者meta标签
+
+### 点击劫持攻击
+第三方将iframe内嵌到网站伪装触发请求操作
+1. js禁止内嵌iframe
+```js
+if (top.location != window.location) {
+  //如果不相等，说明使用了iframe，可进行相关的操作
+}
+```
+2. http响应头 X-Frame-Options：有三个值 DENY（禁止内嵌） SAMEORIGIN（只允许同域名页面内嵌） ALLOW-FROM（指定可以内嵌的地址）
+3. 一些辅助手段，比如添加验证码，提高用户的防范意识
 
 ### http 缓存
 

@@ -68,7 +68,7 @@ class CustomTextInput extends React.Component {
   }
   focusTextInput() {
     if (this.myTextInput !== null) {
-      this.textInput.current.focus();
+      this.myTextInput.current.focus();
     }
   }
   render() {

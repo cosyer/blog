@@ -200,7 +200,7 @@ Cache-Control: no-cache(服务端禁止客户端缓存页面数据)
     </details>
   - 303 See Other
     <details>
-      <summary>同302，但此处因采用GET方法</summary>
+      <summary>同302，但此处因采用GET方法</summary>
       该状态码表示由于请求对应的资源存在着另一个 URI，应使用 GET方法定向获取请求的资源。303 状态码和 302 Found 状态码有着相同的功能，但 303 状态码明确表示客户端应当采用 GET 方法获取资源，这点与 302 状态码有区别。
     </details>
   - 304 Not Modified

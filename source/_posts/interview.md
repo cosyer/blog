@@ -488,7 +488,7 @@ arr1.push(...arr2);
 
 - window.onload:用于当页面的所有元素，包括外部引用文件，图片等都加载完毕时运行函数内的函数。load 方法只能执行一次，如果在 js 文件里写了多个，只能执行最后一个。
 
-- $(document).ready(function(){})和$(function(){})都是用于当页面的标准 DOM 元素被解析成 DOM 树后就执行内部函数。这个函数是可以在 js 文件里多次编写的，对于多人共同编写的 js 就有很大的优势，因为所有行为函数都会执行到。而且$(document).ready()函数在 HMTL 结构加载完后就可以执行，不需要等大型文件加载或者不存在的连接等耗时工作完成才执行，效率高。
+- $(document).ready(function(){})和$(function(){})都是用于当页面的标准 DOM 元素被解析成 DOM 树后就执行内部函数。这个函数是可以在 js 文件里多次编写的，对于多人共同编写的 js 就有很大的优势，因为所有行为函数都会执行到。而且$(document).ready()函数在 HTML 结构加载完后就可以执行，不需要等大型文件加载或者不存在的连接等耗时工作完成才执行，效率高。
 
 ## 简述下 this 和定义属性和方法的时候有什么区别?Prototype？
 
@@ -1692,6 +1692,12 @@ onload/onerror
 ## setTimeout 和 setInterval 的区别，包含内存方面的分析？
 
 setTimeout 表示间隔一段时间之后执行一次调用，而 setInterval 则是每间隔一段时间循环调用，直至 clearInterval 结束。 内存方面，setTimeout 只需要进入一次队列，不会造成内存溢出，setInterval 因为不计算代码执行时间，有可能同时执行多次代码， 导致内存溢出。
+
+> setTimeout的最小时间受系统和浏览器版本的不同影响，HTML5定义的最小时间间隔是4毫秒。
+
+> canvas在绘制复杂的绘图中重点在于路径值的计算和优化；
+> 使用requestAnimationFrame而不是setTimeout，根据浏览器的刷新率来实现高帧数的动画效果；
+> canvas图像处理基于img或video标签的获取和像素点值的计算。
 
 ## addEventListener 有哪些参数？
 

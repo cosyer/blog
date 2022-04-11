@@ -1,7 +1,7 @@
 ---
 title: Go学习之路
 tags:
-  - react
+  - go
 copyright: true
 comments: true
 date: 2021-9-13 11:32:11
@@ -501,7 +501,7 @@ func main() {
 - 特性
 
 1. 关键字 `defer` 用于注册延迟调用。
-2. 这些调用直到 return 前才被执。因此，可以用来做资源清理。
+2. 这些调用直到 return 前才被执行。因此，可以用来做资源清理。
 3. 多个 defer 语句，按先进后出的方式执行。
 4. defer 语句中的变量，在 defer 声明时就决定了。
 
@@ -522,7 +522,6 @@ func main() {
         defer func() { fmt.Println(i) }()
     }
 }
-// 闭包44444
 
 package main
 

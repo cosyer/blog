@@ -4435,3 +4435,6 @@ JupyterLab：是一个基于网络的交互式开发环境，用于Jupyter笔记
 4. 接口的过滤、限流、监控
 5. 记录中间层接口日志
 6. 接口数据可靠性修复
+
+## antd menu item 使用其他icon收起时展示异常
+- https://github.com/ant-design/ant-design/issues/30605

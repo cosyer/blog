@@ -305,6 +305,7 @@ docker exec -it containerId /bin/bash # 进入容器
 docker attach # 本机输入到容器中
 docker cp 本机路径 容器id:文件路径 # 主机内容拷贝到容器
 docker cp 容器id:文件路径 本机路径 # 容器拷贝内容到主机
+docker rename oldContainerName newContainerName
 ```
 
 ![docker](http://cdn.mydearest.cn/blog/images/docker.png)
@@ -515,4 +516,83 @@ docker-compose pull info
 docker-compose stop info
 docker-compose rm info
 docker-compose up -d info # -d 代表后台运行
+```
+
+### docker 可视化工具
+- 下载镜像 docker pull docker.io/portainer/portainer
+- 启动容器
+```bash
+docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock --name portainer docker.io/portainer/portainer
+# -d 后台启动 ## -it 启动并进入容器
+# -p 主机端口：容器端口，即容器内启动的服务9000，主机访问9000端口即可访问容器服务
+# -v 数据卷 数据的持久存储，文件数据不会因容器停止或重启而丢失
+# --name 容器名
+# –restart 标志会检查容器的退出代码，并据此来决定是否要重启容器，默认是不会重启。
+# –restart=always 自动重启该容器
+# -v /var/run/docker.sock:/var/run/docker.sock 把宿主机的Docker守护进程(Docker daemon)默认监听的Unix域套接字挂载到容器中
+# -v portainer_data:/data ：把宿主机portainer_data数据卷挂载到容器/data目录
+
+# docker运行报错docker0: iptables: No chain/target/match by that name
+# 修改iptables 增加了端口后 service iptables restart 还需要重启下docker service docker restart
+```
+- 汉化
+```bash
+mkdir -p /data/portainer/data
+cd /data/portainer
+wget https://labx.me/dl/4nat/public.zip
+unzip public.zip
+
+docker run -d --restart=always --name portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v /data/portainer/data:/data -v /data/portainer/public:/public docker.io/portainer/portainer
+```
+
+- 安装启动jenkins
+```bash
+docker run \
+  -u root \
+  -d \
+  -p 8080:8080 \
+  -p 50000:50000 \
+  -v jenkins-data:/var/jenkins_home \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  jenkinsci/blueocean
+# --rm 关闭时自动删除Docker容器
+# 8080 本地服务端口
+# 50000 与Jenkins主站进行通信的端口
+# -v 在docker内使用docker需要挂载/var/run/docker.sock，用于在同一主机上的进程之间进行通信。Docker守护程序默认情况下侦听docker.sock
+# /var/lib/docker/volumes/jenkins-data
+
+# 进入容器获取密码
+docker container exec -it xxx /bin/bash
+cat /var/jenkins_home/secrets/initialAdminPassword
+
+# 设置站点 hudson.model.UpdateCenter.xml
+http://ip:8080/pluginManager/advanced
+
+# 清华 https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json
+# 华为 https://mirrors.huaweicloud.com/jenkins/updates/update-center.json
+# 腾讯 https://cdn.jsdelivr.net/gh/lework/jenkins-update-center/updates/tencent/update-center.json
+
+# 修改检测的地址
+vi /var/lib/jenkins_home/updates/default.json
+```
+
+### jenkins中文网
+- https://www.jenkins.io/zh/
+
+### 多阶段构建
+- 在 Dockerfile 中使用多个基础镜像，并将编译成品、配置文件等从一个阶段复制到另一个阶段，这样我们就可以丢弃不需要的东西（源代码，node_module等）
+
+> 像java、golang这类语言的镜像，原始的都很大。docker出了这类语言轻量级的alpine镜像，但golang-alpine镜像也有300多M，直接在golang-alpine中编译代码制作容器，随随便便就有四五百M了。但是go有个很好的特性就是，它可以编译成可执行文件。这个可执行文件可以不用安装go和依赖库，在环境中直接就可以运行。于是我们可以先在golang-alpine镜像中编译代码为可执行文件，再将可执行文件放到alpine镜像中运行
+
+```bash
+FROM golang:alpine AS development
+WORKDIR $GOPATH/src
+COPY . .
+RUN go build -o app
+
+FROM alpine:latest AS production
+WORKDIR /root/
+COPY --from=development /go/src/app .
+EXPOSE 8080
+ENTRYPOINT ["./app"]
 ```

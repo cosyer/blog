@@ -159,3 +159,23 @@ mongorestore -h dbhost -d book --dir D:\iview-book-admin\static\js\book
 ## 安装 java
 
 - https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
+
+## 安装 node
+```bash
+curl -O https://nodejs.org/dist/v16.14.2/node-v16.14.2-linux-x64.tar.gz
+
+wget https://nodejs.org/dist/v16.14.2/node-v16.14.2-linux-x64.tar.gz
+
+tar -xzvf node-v16.14.2-linux-x64.tar.gz
+
+mv ./node-v16.14.2-linux-x64 /usr/local/node
+
+vi /etc/profile
+# 最后加上这句话：export PATH=$PATH:/usr/local/node/bin
+# 让新加的配置生效：source /etc/profile
+
+# 配软连接：
+# 相当于全局变量，在任何文件夹都能查看版本信息
+ln -s /usr/local/node/bin/node /usr/local/bin/
+ln -s /usr/local/node/bin/npm /usr/local/bin/
+```

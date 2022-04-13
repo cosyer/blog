@@ -68,6 +68,8 @@ nodemon app.js
 ```javascript
 nohup node index.js &
 nohup node index.js > myLog.log 2>&1 &
+// npm install -g babel-cli
+nohup babel-node index.js > myLog.log 2>&1 &
 ```
 
 nohup 问题:

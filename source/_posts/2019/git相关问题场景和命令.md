@@ -468,8 +468,18 @@ git show 302063e31742cbce7c5fdb917edf520183154cc1 > D:\recovery\backup.txt
 解决方案：
 
 1. 如果账号密码有变动 用这个命令 `git config --system --unset credential.helper` (清除用户名密码)重新输入账号密码应该就能解决了
-2. 如果用了第一个命令 还不能解决问题那么 用这个命令：
+2. 如果用了第一个命令 还不能解决问题 那么用这个命令：
    `git config –global http.emptyAuth true`
+
+### linux git clone
+- ssh key
+- Personal access tokens 
+
+```bash
+git clone https://token@github.com/cosyer/xxx.git
+# error: RPC failed; result=35, HTTP code = 0 设置Git的http缓存大小
+git config --global http.postBuffer 50M
+```
 
 ### 查看 git 上个人代码量
 

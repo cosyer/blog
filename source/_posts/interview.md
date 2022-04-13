@@ -1093,7 +1093,7 @@ console.log(obj) // { a:1, arr: [1,2] };
 var deepCopy= function(source) {
     var result={};
     for (var key in source) {
-        result[key] = typeof source[key]==='object'? deepCoypy(source[key]): source[key];
+        result[key] = typeof source[key]==='object'? deepCopy(source[key]): source[key];
      }
    return result;
 }

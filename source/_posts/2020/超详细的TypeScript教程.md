@@ -1375,6 +1375,15 @@ cosyer.#name;
 }
 ```
 
+## 代码示例
+```ts
+const d = () => 1
+
+type CallbackType<E> = E extends (...args: any) => infer U ? U : never
+
+type G = CallbackType(typeof d) // number
+```
+
 ## 仓库代码
 
 [typescript-learn](https://github.com/cosyer/typescript-learn)

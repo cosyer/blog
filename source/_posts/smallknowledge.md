@@ -3702,6 +3702,10 @@ plugins: [
 在引入一些第三方模块时，例如 momentJS、dayJS，其内部会做 i18n 处理，所以会包含很多语言包，而语言包打包时会比较占用空间，如果项目只需要用到中文或者少数语言，可以忽略掉所有的语言包，然后按需引
 入语言包，从而使得构建效率更高，打包生成的文件更小
 
+## 启动优化
+在webpack4.0的时代，optimization下的splitchunk配置较多，尤其是cacheControls的权重配置，在4.0到5.0之间有一种过渡的使用缓存的方式，打包很快，借助
+hard-source-webpack-plugin
+
 ## 分析优化
 
 在打包时，合理使用插件 speed-measure-webpack-plugin 和 webpack-bundle-analyzer，可以对项目构建过程中的每个 loader、plugin 等进行耗时统计，并针对耗时的操作进行优化，打包结果可以进行体积的大

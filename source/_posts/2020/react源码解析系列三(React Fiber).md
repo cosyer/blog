@@ -33,7 +33,7 @@ sibling; // 兄弟节点
 
 > 用于记录组件状态的改变
 >
-> 存放于 Fiber 对象的 UpdateQueue 中：UpdateQue 单项链表的结构
+> 存放于 Fiber 对象的 UpdateQueue 中：UpdateQueue 单项链表的结构
 >
 > 多个 Update 可以同时存在：例如一个事件里面存在三个 setState，创建三个 update 放到 UpdateQueue 中
 

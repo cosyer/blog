@@ -94,3 +94,6 @@ go run main.go
 # 测试
 curl http://localhost:8080/ping
 ```
+
+## 参考
+- [Gin](https://laravelacademy.org/books/gin-tutorial)

@@ -1680,7 +1680,7 @@ app.config.globalProperties.$http = () => {};
 
 2. el-table 当注入的 data 经过过滤，所对应的$index 还是原来的，导致删除 splice 对应的 index 不准确
 
-3. 在 disabled 的 button 上使用 Tooltip 失效， el-tooltip 不显示(disable 属性)
+3. 在 disabled 的 button 上使用 Tooltip 失效，el-tooltip 不显示(disable 属性)
 
 4. input-number 输入精度 precision 既要编辑又要显示超出最小值
 
@@ -1688,10 +1688,12 @@ app.config.globalProperties.$http = () => {};
 
 6. 自动刷新，记录状态且不能打断操作
 
-7. 分页删除
+7. 分页删除pageNum没变但这也没数据了
 
 8. abort 上个页面的接口
 
 9. Input Number 计数器触控板点击 bug https://github.com/ElemeFE/element/issues/19088
 
 10. hterm 火狐浏览器发生嵌套 https://github.com/dbkaplun/hterm-umdjs/issues/6
+
+11. 切换路由，上个路由的异步接口setState，取消接口

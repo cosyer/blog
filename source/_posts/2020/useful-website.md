@@ -299,6 +299,9 @@ hide=contribs,prs)
 ## 记录历史复制内容
 - [clipy](https://clipy-app.com/)
 
+## 新闻
+- [有据](https://chinafactcheck.com/)
+
 ## 【哈佛】计算机科学CS50-哈佛大学 
 - https://b23.tv/ugfmOjI
 

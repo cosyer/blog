@@ -1223,6 +1223,42 @@ React Hooks 只能用于函数组件，而每一次函数组件被渲染，都�
 每一个全新的开始，所有的局部变量全都重来，全体失忆；
 每一次全新的开始，只有 Hooks 函数（比如 useEffect）具有上一次渲染的“记忆”；
 
+## 自定义hooks 解决Can't perform a React state update on an unmounted component
+> 原因都知道在已卸载的组件上执行setState，解决方案有很多，在卸载的时候对所有的操作进行清除、增加一个标记页面卸载的时候重置这个标记等等。
+
+```js
+import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+
+/**
+ * useUnmounted
+ * @returns boolean
+ * whether the component is unmounted
+ */
+export function useUnmounted() {
+  const unmountedRef = useRef(false);
+  useEffect(() => {
+    return () => {
+      unmountedRef.current = true;
+    };
+  }, []);
+  return unmountedRef.current;
+}
+/**
+ * @method useAsyncState
+ * Prevent React state update on an unmounted component.
+ */
+export function useAsyncState<S>(initialState?: S | (() => S)): [S | undefined, Dispatch<SetStateAction<S>>] {
+  const unmountedRef = useUnmounted();
+  const [state, setState] = useState(initialState);
+  const setAsyncState = useCallback((s) => {
+    if (unmountedRef) return;
+    setState(s);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return [state, setAsyncState];
+}
+```
+
 ## 仓库代码
 
 [react-hooks-demo](https://github.com/cosyer/react-hooks-demo)

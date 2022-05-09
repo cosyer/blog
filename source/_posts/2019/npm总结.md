@@ -344,7 +344,7 @@ npm config set sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
 
 ```bash
 # 查看本机版本
-ndoe -v
+node -v
 
 # 清除cache
 sudo npm cache clean -f

@@ -302,6 +302,9 @@ hide=contribs,prs)
 ## 新闻
 - [有据](https://chinafactcheck.com/)
 
+## 天气
+- [windy](https://windy.com)
+
 ## 【哈佛】计算机科学CS50-哈佛大学 
 - https://b23.tv/ugfmOjI
 

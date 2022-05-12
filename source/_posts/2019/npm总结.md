@@ -455,7 +455,7 @@ npm install -g mz-fis # 安装 mz-fis 模块至全局目录，安装完成的路
 nvm use 0 # 切换至 0.12.7 版本
 npm install -g react-native-cli #安装 react-native-cli 模块至全局目录，安装完成的路径是 /Users/<你的用户名>/.nvm/versions/node/v4.2.2/lib/react-native-cli
 
-nvm alias default 0.12.7 #设置默认 node 版本为 0.12.7
+nvm alias default v14.19.2 #设置默认 node 版本为 v14.19.2
 
 nvm ls #列出已安装实例
 nvm ls-remote #列出远程服务器上所有的可用版本
@@ -469,6 +469,16 @@ nvm ls available #windows
 cd ~
 rm -rf .nvm
 # 移除掉~/.profile, ~/.bash_profile, ~/.zshrc, ~/.bashrc文件中关于nvm的配置
+```
+
+- 不支持m1芯片安装v16以下的版本 https://github.com/nvm-sh/nvm/issues/2667
+```bash
+# 查看README-Macs with M1 chip 或者 iterm2打开 Open using Rosetta
+softwareupdate --install-rosetta
+
+arch -x86_64 zsh
+
+nvm install v12
 ```
 
 ### npx 运行文件夹下的 module(npm 从 v5.2 开始，增加了 npx 命令)
@@ -485,3 +495,8 @@ npx mocha --version
 ```
 
 `npx 的原理很简单，就是运行的时候，会到node_modules/.bin路径和环境变量$PATH里面，检查命令是否存在。`
+
+### Node Sass could not find a binding for your current environment: OS X 64-bit with Node.js 12.x
+```js
+npm rebuild node-sass
+```

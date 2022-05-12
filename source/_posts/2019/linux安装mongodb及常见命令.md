@@ -126,6 +126,18 @@ db.changeUserPassword('tank2','test')
 db.updateUser("cosyer",{roles:[ {role:"root",db:"admin"} ]})
 ```
 
+## 权限说明
+Read：允许用户读取指定数据库
+readWrite：允许用户读写指定数据库
+dbAdmin：允许用户在指定数据库中执行管理函数，如索引创建、删除，查看统计或访问system.profile
+userAdmin：允许用户向system.users集合写入，可以找指定数据库里创建、删除和管理用户
+clusterAdmin：只在admin数据库中可用，赋予用户所有分片和复制集相关函数的管理权限。
+readAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读权限
+readWriteAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读写权限
+userAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的userAdmin权限
+dbAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的dbAdmin权限。
+root：只在admin数据库中可用。超级账号，超级权限
+
 #### mongoose 账号密码连接
 
 ```js
@@ -178,4 +190,9 @@ vi /etc/profile
 # 相当于全局变量，在任何文件夹都能查看版本信息
 ln -s /usr/local/node/bin/node /usr/local/bin/
 ln -s /usr/local/node/bin/npm /usr/local/bin/
+```
+
+## 卸载node
+```bash
+ -rf /usr/local/{bin/{node,npm},lib/node_modules/npm,lib/node,share/man/*/node.*}
 ```

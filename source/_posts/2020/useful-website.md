@@ -308,6 +308,15 @@ hide=contribs,prs)
 ## 【哈佛】计算机科学CS50-哈佛大学 
 - https://b23.tv/ugfmOjI
 
+## 数据库管理工具
+- [sequel-ace](https://sequel-ace.com/)
+- [sqlprostudio](https://www.sqlprostudio.com/)
+
+## 检测996强度
+```bash
+/bin/bash -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/hellodigua/code996/bin/code996.sh)"
+```
+
 ## 神曲
 
 - 拔剑神曲 GC-βίος

@@ -104,3 +104,15 @@ pm2 monit // 查看cpu和内存使用
 pm2 logs // 实时集中log处理
 pm2 web // 浏览器查看
 ```
+
+## java 数据库驱动名称
+- oracle : oracle.jdbc.driver.OracleDriver
+- mysql : com.mysql.jdbc.Driver
+- postgresql : org.postgresql.Driver
+
+## PostgreSQL
+```bash
+sudo su - postgres
+/Library/PostgreSQL/13/bin/pg_ctl stop -D /Library/PostgreSQL/13/data
+/Library/PostgreSQL/13/bin/pg_ctl start -D /Library/PostgreSQL/13/data
+```

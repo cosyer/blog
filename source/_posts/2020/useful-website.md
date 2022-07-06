@@ -71,10 +71,12 @@ This page will collect some useful websites.
 - [SM.MS](https://sm.ms/)
 
 ## 搜图
+
 - [pngimg](https://pngimg.com/)
-- [图片api裁剪](https://imgix.com/)
+- [图片 api 裁剪](https://imgix.com/)
 
 ## 斗图
+
 - [imgflip](https://imgflip.com/)
 - [斗图网](https://www.pkdoutu.com/)
 
@@ -205,7 +207,7 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 ## github contributor 记录
 
 - https://contrib.rocks/preview
-- https://github.com/jstrieb/github-stats 自动更新github-status
+- https://github.com/jstrieb/github-stats 自动更新 github-status
 
 ## 兼容性查看
 
@@ -252,6 +254,7 @@ hide=contribs,prs)
 ![](https://img.shields.io/badge/github-cosyer-brightgreen.svg)
 
 ## github starts
+
 [starchart](https://starchart.cc/)
 
 ## 萌萌计数器
@@ -273,49 +276,83 @@ hide=contribs,prs)
 - https://randomapi.com/
 
 ## 可视化代码库
+
 - https://next.github.com/projects/repo-visualization#explore-for-yourself
 
 ## mock
+
 - [fast mock](https://www.fastmock.site/)
 - [Postman](https://www.postman.com/)
 - [Postwoman](https://hoppscotch.io/cn)
 - [insomnia](https://insomnia.rest/)
-- [Apifox](https://apifox.apipark.cn/) 比Apipost好用 Postman + Swagger + Mock
+- [Apifox](https://apifox.apipark.cn/) 比 Apipost 好用 Postman + Swagger + Mock
 - [Apipost](https://www.apipost.cn/)
 
 ## 绘图
+
 - [konvajs](http://konvajs-doc.bluehymn.com/docs/sandbox/Free_Drawing.html)
 - [fabricjs](http://fabricjs.com/freedrawing)
 - [reactflow](https://reactflow.dev/docs/examples/overview/)
 
 ## JS TIPS
+
 - [jstips](https://www.jstips.co/zh_CN/)
 - [dmitripavlutin](https://dmitripavlutin.com/)
 
-## Navicat替代
+## Navicat 替代
+
 - [sequelpro](https://www.sequelpro.com/)
-- idea内置数据库管理工具
+- idea 内置数据库管理工具
 
 ## 记录历史复制内容
+
 - [clipy](https://clipy-app.com/)
 
 ## 新闻
+
 - [有据](https://chinafactcheck.com/)
 
 ## 天气
+
 - [windy](https://windy.com)
 
-## 【哈佛】计算机科学CS50-哈佛大学 
+## 【哈佛】计算机科学 CS50-哈佛大学
+
 - https://b23.tv/ugfmOjI
 
 ## 数据库管理工具
+
 - [sequel-ace](https://sequel-ace.com/)
 - [sqlprostudio](https://www.sqlprostudio.com/)
 
-## 检测996强度
+## 检测 996 强度
+
 ```bash
 /bin/bash -c "$(curl -fsSL https://fastly.jsdelivr.net/gh/hellodigua/code996/bin/code996.sh)"
 ```
+
+## 修改手机定位
+
+- 安卓(悟空分身)
+- ios(爱思助手)
+
+## 工具箱
+
+- [tool](https://github.com/bestxtools/awesome-toolbox-chinese)
+
+## 一键抠图
+- [removeBg](https://www.remove.bg/zh/upload)
+
+## 论坛
+- [v2ex](https://www.v2ex.com/)
+- [nuomiphp](https://www.nuomiphp.com/)
+
+## ui库
+- [tailwindcss](https://www.tailwindcss.cn/)
+- [bootcss](https://www.bootcss.com/)
+
+## 数据状态管理
+- [agile](https://github.com/agile-ts/documentation)
 
 ## 神曲
 
@@ -326,3 +363,5 @@ hide=contribs,prs)
 - 断剑神曲 Perfect Time
 - 反击神曲 AZ-Keep on keeping on
 - 窒息神曲 AZ-BRE@TH//LESS
+
+vanilla JS 😄

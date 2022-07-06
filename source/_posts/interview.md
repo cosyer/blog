@@ -2645,8 +2645,9 @@ worker.onmessage = function (event) {
 用 url 定位资源，用 http 描述操作
 [RESTful API 设计指南](http://www.ruanyifeng.com/blog/2014/05/restful_api.html)
 [为什么 RESTful 很糟糕](https://blog.csdn.net/weixin_41423450/article/details/85228482)
+[一把梭：REST API 全用 POST](https://coolshell.cn/articles/22173.html)
 
-## 设备像素比（DPR device pixel redio）
+## 设备像素比（DPR device pixel radio）
 
 1DPR = 物理像素/分辨率 也就是物理像素在屏幕上最佳的逻辑像素大小
 

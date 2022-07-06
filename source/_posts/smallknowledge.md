@@ -4384,6 +4384,20 @@ curl -O https://release.larsjung.de/h5ai/h5ai-0.30.0.zip
 ## react 16 google自动翻译
 - https://github.com/facebook/react/issues/11538
 
+```html
+<!-- 想禁用google翻译的话: 在html 标签中加入属性 translate="no" -->
+
+<html lang="en" translate="no">
+
+<!-- 或者在html文件的head中加入 -->
+
+<meta name="google" content="notranslate">
+
+<!-- 或者在不想被翻译的元素中加入class="notranslate"， 可以是html、div 等各种元素 -->
+
+<div class="notranslate">
+```
+
 ## localStorage.getItem('xxx')/localStorage['xxx']
 ```js
 localStorage.getItem('xxx') // null ✅
@@ -4442,3 +4456,71 @@ JupyterLab：是一个基于网络的交互式开发环境，用于Jupyter笔记
 
 ## antd menu item 使用其他icon收起时展示异常
 - https://github.com/ant-design/ant-design/issues/30605
+
+## axios取消请求 https://github.com/axios/axios#abortcontroller
+- Cancel Token deprecated v0.22.0以下版本
+```js
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
+
+axios.get('/user/12345', {
+  cancelToken: source.token
+}).catch(function (thrown) {
+  if (axios.isCancel(thrown)) {
+    console.log('Request canceled', thrown.message);
+  } else {
+    // handle error
+  }
+});
+
+axios.post('/user/12345', {
+  name: 'new name'
+}, {
+  cancelToken: source.token
+})
+
+// cancel the request (the message parameter is optional)
+source.cancel('Operation canceled by the user.');
+```
+或者
+```js
+const CancelToken = axios.CancelToken;
+let cancel;
+
+axios.get('/user/12345', {
+  cancelToken: new CancelToken(function executor(c) {
+    // An executor function receives a cancel function as a parameter
+    cancel = c;
+  })
+});
+
+// cancel the request
+cancel();
+```
+
+- AbortController v0.22.0以上版本
+```js
+axios.get('/foo/bar', {
+   signal: controller.signal
+}).then(function(response) {
+   //...
+});
+// cancel the request
+controller.abort()
+```
+
+## Axios异步并发（多个不同接口/同个接口频繁点击）导致数据覆盖的解决方法：取消重复请求，只保留最后一次请求
+- https://blog.csdn.net/qq_16785561/article/details/124317043
+
+
+```bash
+# .env.development
+PORT=3001
+
+# package.json
+cross-env NODE_ENV=development
+```
+
+## ovirt 和 dolphinscheduler 的二次开发
+1. https://github.com/apache/dolphinscheduler
+2. https://github.com/oVirt/ovirt-web-ui

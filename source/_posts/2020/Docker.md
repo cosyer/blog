@@ -93,7 +93,8 @@ sh install-docker.sh # 执行安装脚本
 ```
 
 - Mac
-  https://download.docker.com/mac/stable/Docker.dmg
+  1. Homebrew brew install --cask --appdir=/Applications docker
+  2. 手动安装 https://download.docker.com/mac/stable/Docker.dmg
 
 - windows
   https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe

@@ -98,12 +98,9 @@ npm install 步骤
 3. 若不存在 npm 向 registry 查询模块压缩包的网址、下载压缩包，存放在根目录下的.npm 目录里、解压压缩包到当前项目的 node_modules 目录
 
 ### 五. npm devDependencies 与 dependencies
+npm install -D 就是 npm install --save-dev npm insatll -S 就是npm install --save
 
-`--save-dev`
-
-或
-
-`—save`
+`--save-dev` 或 `—save`
 
 首先需要说明的是 Dependencies 一词的中文意思是依赖和附属的意思，而 dev 则是 develop（开发）的简写。
 

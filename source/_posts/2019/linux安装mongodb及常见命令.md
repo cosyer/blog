@@ -100,6 +100,7 @@ mongo
 
 use admin
 
+## 创建用户在对应的数据库添加
 db.createUser(
   {
     user: "testuser",

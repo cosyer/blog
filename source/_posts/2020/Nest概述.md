@@ -93,7 +93,7 @@ npm run start
 
 ## 控制器
 
-> 控制器负责处理传入的 请求 和向客户端返回 响应 。
+> 控制器负责处理传入的请求和向客户端返回响应。
 
 ![控制器](http://cdn.mydearest.cn/blog/images/nest-controller.png)
 
@@ -1168,6 +1168,19 @@ export function Auth(...roles: Role[]) {
 @Get('users')
 @Auth('admin')
 findAllUsers() {}
+```
+
+### swagger
+1. v5 should be used with Nest v8 typescript v4+
+2. v4 should be used with Nest v7
+
+### rxjs
+1. v7 should be used with Nest v8
+2. v6 should be used with Nest v7
+
+### nest升级
+```bash
+nest update -f -t
 ```
 
 结束 🔚，有时间再介绍下`GraphQL`。

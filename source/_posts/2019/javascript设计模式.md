@@ -165,7 +165,7 @@ button.removeEventListener("click", bindFn);
 不使用实现的 bind 方法，我们也可以用原生的 bind
 
 ```js
-let bindFN = demoFn.bind();
+let bindFn = demoFn.bind();
 ```
 
 ### 函数柯里化

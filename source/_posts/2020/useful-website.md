@@ -158,6 +158,7 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 
 - [processon](https://www.processon.com/diagrams)
 - [draw.io](https://app.diagrams.net/)
+- [cloudcraft](https://www.cloudcraft.co/)
 - [百度脑图](https://naotu.baidu.com/)
 - [手绘图](https://excalidraw.com/)
 - [丝滑](https://www.tldraw.com/)
@@ -353,6 +354,19 @@ hide=contribs,prs)
 
 ## 数据状态管理
 - [agile](https://github.com/agile-ts/documentation)
+
+## 代理
+- [clashX](https://github.com/yichengchen/clashX)
+
+## google 认证考试 react-google-login react-ga
+1. https://github.com/google/google-api-javascript-client/blob/master/docs/start.md
+2. https://developers.google.com/identity/protocols/oauth2
+
+## 个人简介
+- [About Me](https://about.me/)
+
+## 前端利器/工具库
+- [FileSaver](https://www.npmjs.com/package/file-saver)
 
 ## 神曲
 

@@ -658,7 +658,7 @@ tel = tel.replace(reg, "$1****$2");
 ## 转换树形结构数据
 
 ```javascript
-let arr=[{"departmentId":"2807369902638080","departmentName":"SHEIN","departmentDesc":"xxx","createTime":null,"hasChild":false,"parentId":null},{"departmentId":"2805950137730048","departmentName":"产品策划部","departmentDesc":null,"createTime":null,"hasChild":true,"parentId":null},{"departmentId":"2805949110338560","departmentName":"研发中心","departmentDesc":null,"createTime":null,"hasChild":true,"parentId":null}];
+let arr=[{"departmentId":"2807369902638080","departmentName":"SHEIN","departmentDesc":"xxx","createTime":null,"hasChild":false,"parentId":null},{"departmentId":"2805950137730048","departmentName":"产品策划部","departmentDesc":null,"createTime":null,"hasChild":true,"parentId":"2807369902638080"},{"departmentId":"2805949110338560","departmentName":"研发中心","departmentDesc":null,"createTime":null,"hasChild":true,"parentId":"2807369902638080"}];
 
 function fn(data, p_id) {
   var result = [],
@@ -677,7 +677,7 @@ function fn(data, p_id) {
   return result;
 }
 
-let treeData=fn(treeData,null) // 传入原始数据/parentId
+let treeData=fn(arr,null) // 传入原始数据/parentId
 适用于ant design和element-ui等树形结构数据
 ```
 
@@ -4524,3 +4524,21 @@ cross-env NODE_ENV=development
 ## ovirt 和 dolphinscheduler 的二次开发
 1. https://github.com/apache/dolphinscheduler
 2. https://github.com/oVirt/ovirt-web-ui
+
+## csv文件规则
+- 字段内包含逗号，双引号，或是换行符的字段必须放在双引号内
+- 字段内包含引号必须在其前面增加一个引号，来实现引号的转码
+- 元素中的换行符将被保留下来
+- 分隔符逗号前后的空格仍然会被保留
+
+## 京东脚本
+
+```bash
+ql repo https://js.dayplus.xyz/https://github.com/6dylan6/jdpro.git "jd_|jx_|jddj_" "backUp" "^jd[^_]|USER|JD|function|sendNotify"
+
+# 京豆脚本拉取任务-zero205/JD_tencent_scf
+# 0 35 0/2 * * *	
+
+ql repo https://hub.fastgit.xyz/zero205/JD_tencent_scf.git "jd_|jx_|jdCookie" "backUp|icon" "^jd[^_]|USER|sendNotify|
+sign_graphics_validate|JDJR|JDSign|ql" "main"
+```

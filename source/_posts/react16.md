@@ -133,3 +133,21 @@ ReactDOM.unstable_createRoot(rootEl).render(<App />);
 
 - cpu 的瓶颈 (1 帧中 16.6ms 预留出 5ms 给 js 线程，其余时间处理样式布局和绘制)
 - io 的瓶颈
+
+## useState 伪代码
+```js
+// 全局变量 数组 队列 render
+let state = [] // 存储声明的多个状态
+let setters = [] // 存储声明的多个状态的修改方法
+let index = 0 // 存储对应的索引
+function useState(initValue) {
+  state[index] = state[index] || initValue
+  setters.push(createSetter(index))
+  return [state[index, setters[index]]]
+}
+function createSetter() {
+  return function (newState) {
+    state[index] = newState
+  }
+}
+```

@@ -369,9 +369,13 @@ hide=contribs,prs)
 - [FileSaver](https://www.npmjs.com/package/file-saver)
 - [StackBlitz在线IDE](https://stackblitz.com/)
 <!-- https://stackblitz.com/github/cosyer/{仓库名} -->
+- [混淆加密](https://github.com/javascript-obfuscator/javascript-obfuscator)
 
 ## 问卷
 - [问卷星](http://wjx.cn/)
+
+## 在线讨论
+- [slido](https://www.slido.com/)
 
 ## 神曲
 

@@ -4542,3 +4542,51 @@ ql repo https://js.dayplus.xyz/https://github.com/6dylan6/jdpro.git "jd_|jx_|jdd
 ql repo https://hub.fastgit.xyz/zero205/JD_tencent_scf.git "jd_|jx_|jdCookie" "backUp|icon" "^jd[^_]|USER|sendNotify|
 sign_graphics_validate|JDJR|JDSign|ql" "main"
 ```
+
+## 不改动原有函数代码获取参数和结果
+```js
+function add(a, b) {
+  return a + b
+}
+
+let original_add = add
+add = function() {
+  console.log('arguments', arguments)
+  let result = original_add.apply(this, arguments)
+  console.log('result', result)
+  return result
+}
+```
+
+## mac中文乱码(Windows 系统上很多文本编辑器用的是 GB18030 编码来保存汉字，而 macOS 上使用的则是 UTF-8 编码)
+```
+iconv -f GB18030 -t utf-8 test.md > test.txt
+```
+
+## 判断是否嵌入iframe
+```js
+var url = window.location != window.parent.location ? 
+  document.referrer :
+  document.location.href;
+
+function getAncestorOrigins() {
+  if (location.ancestorOrigins !== undefined) {
+    return [...location.ancestorOrigins];
+  }
+  const urls = [];
+  let parentWin = window;
+  while (parentWin !== window.top) {
+    if (parentWin.document.referrer) {
+      try {
+        const url = new URL(parentWin.document.referrer);
+        urls.push(url.origin);
+      } catch (e) {
+        // console.error
+      }
+    }
+    // @ts-ignore
+    parentWin = parentWin.parent;
+  }
+  return urls;
+}
+```

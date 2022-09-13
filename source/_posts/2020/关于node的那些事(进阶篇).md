@@ -214,3 +214,8 @@ readStream
   })
   .on("finish", () => console.log("finish"));
 ```
+
+## ORM库防止SQL注入的漏洞
+- TypeORM
+- Sequelize
+- Mongoose

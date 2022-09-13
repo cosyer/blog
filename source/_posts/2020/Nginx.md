@@ -204,6 +204,14 @@ server_name www.toutiao.com;
 // server_name xxxx.cn xxxx.xxxx.cn;
 // rewrite ^/(.*) https://xxx.xxxx.cn permanent; #跳转到Https
 
+// rewrite "^/api/(.*)$" /$1 break
+
+// rewrite (.*) /test break;
+
+// location  /api/  {
+//   rewrite /api/(.*) /$1 break;
+// }
+
 location / {
     proxy_pass http://localhost:3000;
   }

@@ -380,6 +380,9 @@ hide=contribs,prs)
 ## by paas分流抢票
 - [bypass](https://www.bypass.cn/)
 
+## 放到世界随意某个位置
+- [randomstreetview](https://randomstreetview.com)
+
 ## 神曲
 
 - 拔剑神曲 GC-βίος

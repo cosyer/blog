@@ -4613,3 +4613,10 @@ function getAncestorOrigins() {
   box-shadow: 0 0 0 1px #fff;
 }
 ```
+
+## curl访问接口
+```bash
+curl --location --request POST 'xxx' \
+--header 'Content-Type: application/json' \
+--data-raw '{"system":"xxx","token":"xxx"}'
+```

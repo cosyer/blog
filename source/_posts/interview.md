@@ -1097,6 +1097,7 @@ var deepCopy= function(source) {
      }
    return result;
 }
+6. structuredClone api 兼容性
 ```
 
 ## 判断一个变量是否是数组

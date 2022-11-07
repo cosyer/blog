@@ -135,8 +135,11 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 - https://www.softpedia.com/
 - https://en.softonic.com/
 - http://www.sdifen.com/
-- https://www.macwk.com/
+- https://www.macwk.com/ (已关停)
 - https://www.imacso.com/
+- https://www.macz.com/
+- https://www.macbl.com/
+- https://xclient.info/
 
 ## 判断是否支持苹果 M1 芯片
 
@@ -183,6 +186,10 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 ## 在线笔记
 
 - http://laverna.github.io/static-laverna/#notes
+
+## 在线PS
+- https://www.tuyitu.com/
+- https://m.kantu.com/
 
 ## 手绘 UI 库
 

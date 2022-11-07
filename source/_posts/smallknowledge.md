@@ -4620,3 +4620,18 @@ curl --location --request POST 'xxx' \
 --header 'Content-Type: application/json' \
 --data-raw '{"system":"xxx","token":"xxx"}'
 ```
+
+## card title前缀
+```css
+.title:before {
+  background-color: #197afa;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  content: "";
+  display: inline-block;
+  height: 100%;
+  margin-right: 5px;
+  vertical-align: bottom;
+  width: 3px;
+}
+```

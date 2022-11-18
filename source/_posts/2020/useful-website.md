@@ -38,6 +38,7 @@ This page will collect some useful websites.
 - [netlify](https://www.netlify.com/)
 - [vercel](https://vercel.com/)
   - https://zhuanlan.zhihu.com/p/164585697
+- [cloudflare](https://www.cloudflare.com/zh-cn/)
 
 ## 组件 UI 开发工具
 
@@ -145,6 +146,9 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 
 - https://isapplesiliconready.com/zh/app/Tower
 
+## 库分析
+- https://bundlephobia.com/package/utils-pro@1.3.5
+
 ## emoji
 
 - https://emoji.svend.cc/
@@ -178,6 +182,9 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 ## 生成项目结构/代码分析
 
 - https://octo.github.com/projects/repo-visualization
+
+## github star history
+- https://star-history.com/
 
 ## 玩耍聊天
 

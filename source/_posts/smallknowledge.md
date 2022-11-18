@@ -4424,9 +4424,11 @@ TP99：满足百分之九十九的网络请求所需要的最低耗时
 
 > 帧数(fps)代表GPU渲染画面的频率，赫兹(Hz)代表显示器刷新屏幕的频率，两者没有相关联系。
 
-EMR：为云端托管的集群平台，个人/企业构建的大数据集群可以由该平台进行管理
+EMR：为云端托管的集群平台，个人/企业构建的大数据集群可以由该平台进行管理。托管的大数据集群平台，可以用来处理和分析海量数据。
 
 JupyterLab：是一个基于网络的交互式开发环境，用于Jupyter笔记本、代码和数据
+
+NLP：自然语言处理(Natural Language Processing)
 
 ## 人月神话
 - https://blog.csdn.net/hellobabygogo3/article/details/41010389
@@ -4617,6 +4619,7 @@ function getAncestorOrigins() {
 ## curl访问接口
 ```bash
 curl --location --request POST 'xxx' \
+--header 'Accept: */*' \
 --header 'Content-Type: application/json' \
 --data-raw '{"system":"xxx","token":"xxx"}'
 ```

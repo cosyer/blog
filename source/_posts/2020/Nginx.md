@@ -217,3 +217,12 @@ location / {
   }
 }
 ```
+
+6. 超时时间
+```js
+proxy_connect_timeout 3600s;
+proxy_read_timeout 3600s;
+proxy_send_timeout 3600s;
+proxy_set_header  X-Real-IP  $remote_addr;
+proxy_set_header  X-Forwarded-For  $proxy_add_x_forwarded_for;
+```

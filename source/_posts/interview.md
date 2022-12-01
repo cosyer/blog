@@ -2783,8 +2783,8 @@ transition: transform 2s ease, border-radius 3s ease-out;
 
 ## 快速下载 git、nodejs
 
-https://npm.taobao.org/mirrors/git-for-windows/
-https://npm.taobao.org/mirrors/node/
+https://registry.npmmirror.com/binary.html?path=git-for-windows/
+https://registry.npmmirror.com/binary.html?path=node/
 科学计数法 1e3 === 1000
 
 ## 双边距重叠问题（外边距折叠）

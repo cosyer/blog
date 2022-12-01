@@ -44,6 +44,20 @@ switch (number) {
     console.log(name);
 }
 // Uncaught SyntaxError: Identifier 'name' has already been declared
+
+let number = 1;
+switch (number) {
+  case 1:
+    let name = "cosyer";
+    break;
+  case 2: {
+    let name = "yu";
+    break;
+  }
+  default:
+    console.log(name);
+}
+// ok
 ```
 
 ## 可能存在的问题

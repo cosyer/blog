@@ -248,6 +248,10 @@ grep dbrootpwd options.conf #显示数据库root密码
 ./reset_db_root_password.sh -f #重置密码
 ```
 
+## 设置远程连接
+- https://oneinstack.com/question/oneinstack-how-to-configure-mysql-remote-connection/
+- https://www.cnblogs.com/cosyer/p/6566078.html
+
 ## mysql5.6和8.0版本sql 8.0 => 5.6(Unknown collation: 'utf8mb4_0900_ai_ci')
 1. 把文件中的所有的utf8mb4_0900_ai_ci替换为utf8_general_ci
 2. 以及utf8mb4替换为utf8

@@ -535,6 +535,7 @@ docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock --name p
 
 # docker运行报错docker0: iptables: No chain/target/match by that name
 # 修改iptables 增加了端口后 service iptables restart 还需要重启下docker service docker restart
+# -A INPUT -p tcp -m tcp --dport 3306 -j ACCEPT
 ```
 - 汉化
 ```bash
@@ -544,6 +545,20 @@ wget https://labx.me/dl/4nat/public.zip
 unzip public.zip
 
 docker run -d --restart=always --name portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v /data/portainer/data:/data -v /data/portainer/public:/public docker.io/portainer/portainer
+
+# 忘记密码
+docker stop containerId
+find / -name portainer.key
+docker run --rm -v /var/lib/docker/volumes/18698e218025bec26ea5bfe4b203dc4fe8c874718df58a96d9b9af1e35281891/_data:/data portainer/helper-reset-password
+# 获取密码登录
+```
+- 汉化镜像
+```bash
+docker pull 6053537/portainer-ce  #直接用汉化版镜像
+mkdir -p /data/portainer/data
+docker run -d --name portainer -p 9000:9000 --restart=always \
+     -v /var/run/docker.sock:/var/run/docker.sock \
+     -v /data/portainer/data:/data  6053537/portainer-ce
 ```
 
 - 安装启动jenkins

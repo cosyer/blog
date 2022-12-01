@@ -195,5 +195,5 @@ ln -s /usr/local/node/bin/npm /usr/local/bin/
 
 ## 卸载node
 ```bash
- -rf /usr/local/{bin/{node,npm},lib/node_modules/npm,lib/node,share/man/*/node.*}
+rm -rf /usr/local/{bin/{node,npm},lib/node_modules/npm,lib/node,share/man/*/node.*}
 ```

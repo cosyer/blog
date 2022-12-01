@@ -69,7 +69,7 @@ photos:
 
 <!--more-->
 
-### 二. 版本号规范
+### 二. semver版本号规范
 
 - **指定版本**：比如`1.2.2`，遵循“大版本.次要版本.小版本”的格式规定，安装时只安装指定版本。
 - **波浪号（tilde）+指定版本**：比如`~1.2.2`，表示安装 1.2.x 的最新版本（不低于 1.2.2），但是不安装 1.3.x，也就是说安装时不改变大版本号和次要版本号。
@@ -323,17 +323,17 @@ npm cache clean --force
 3. 淘宝镜像
 
 ```js
-npm config set registry https://registry.npm.taobao.org
+npm config set registry https://registry.npmmirror.com
 
 // cnpm
-npm install -g cnpm --registry=https://registry.npm.taobao.org
+npm install -g cnpm --registry=https://registry.npmmirror.com
 
 // 还原
 npm config set registry https://registry.npmjs.org
 
 // 处理一些包下载
-npm install chromedriver --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver
-npm config set sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
+npm install chromedriver --chromedriver_cdnurl=https://cdn.npmmirror.com/binaries/chromedriver
+npm config set sass_binary_site=https://registry.npmmirror.com/binary.html?path=node-sass/
 
 ```
 

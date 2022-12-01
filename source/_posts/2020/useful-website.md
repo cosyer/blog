@@ -194,6 +194,10 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 
 - http://laverna.github.io/static-laverna/#notes
 
+## Notion
+
+- https://www.notion.so/
+
 ## 在线PS
 - https://www.tuyitu.com/
 - https://m.kantu.com/
@@ -393,6 +397,9 @@ hide=contribs,prs)
 
 ## by paas分流抢票
 - [bypass](https://www.bypass.cn/)
+
+## freecodecamp
+- [freecodecamp](https://www.freecodecamp.org/chinese/learn/)
 
 ## 放到世界随意某个位置
 - [randomstreetview](https://randomstreetview.com)

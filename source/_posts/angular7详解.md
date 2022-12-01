@@ -35,7 +35,7 @@ ng new ng7demo
 > 可 ctrl+c 取消自动安装 node_modules，手动进入项目 npm install
 > node-sass 安装不上可切换淘宝镜像库或者用 cnpm 安装
 
-1. npm config set registry https://registry.npm.taobao.org
+1. npm config set registry https://registry.npmmirror.com
    npm install
 
 or

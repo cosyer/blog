@@ -95,12 +95,12 @@ db.adminCommand({ "shutdown" : 1 })
 ## 权限登录
 mongo admin -u cosyer -p xxx
 
-## 创建管理员
+## 第一次创建管理员
 mongo
 
 use admin
 
-## 创建用户在对应的数据库添加
+## 创建用户在对应的数据库添加 role root
 db.createUser(
   {
     user: "testuser",
@@ -110,7 +110,7 @@ db.createUser(
 )
 
 ## 认证登录
-db.auth("admin", "password")
+db.auth("testuser", "testpassword")
 
 ## 显示当前系统用户
 db.system.users.find()

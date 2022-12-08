@@ -380,6 +380,9 @@ hide=contribs,prs)
 1. https://github.com/google/google-api-javascript-client/blob/master/docs/start.md
 2. https://developers.google.com/identity/protocols/oauth2
 
+## ChatGPT
+- [ChatGPT](https://openai.com/blog/chatgpt/)
+
 ## 个人简介
 - [About Me](https://about.me/)
 

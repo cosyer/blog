@@ -392,8 +392,31 @@ hide=contribs,prs)
 <!-- https://stackblitz.com/github/cosyer/{仓库名} -->
 - [混淆加密](https://github.com/javascript-obfuscator/javascript-obfuscator)
 
+
+## 加速拉库
+- [gitclone](https://gitclone.com/)
+- [gitee](https://gitee.com/mirrors)
+
+- hub.fastgit.xyz：https://doc.fastgit.org/
+- GitHub 文件加速：https://gh.api.99988866.xyz/
+- Github 仓库加速：https://github.zhlh6.cn/
+- Github 仓库加速：http://toolwa.com/github/
+- help.kgithub.com
+
+```bash
+# 配置git自动替换
+git config --global url."https://hub.fastgit.org".insteadOf https://github.com
+
+# 取消设置
+git config --global --unset url.https://github.com/.insteadof
+```
+
+## 错误报告
+- [sentry](https://sentry.io/)
+
 ## 问卷
 - [问卷星](http://wjx.cn/)
+- [问卷喵](https://www.wjcat.com) admin10086
 
 ## 在线讨论
 - [slido](https://www.slido.com/)

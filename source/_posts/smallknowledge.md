@@ -4659,3 +4659,7 @@ web: esm/umd
 ```bash
 chown -fR www:www ./*
 ```
+
+## typescript design limit union type 限制25
+- https://github.com/microsoft/TypeScript/issues/43283
+- https://github.com/microsoft/TypeScript/issues 问题搜索union 25 in:title

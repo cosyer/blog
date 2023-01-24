@@ -44,7 +44,7 @@ setTimeout( later, 1000 );
 
 不能修改arguments
 不能在函数内定义arguments变量
-不能使用arugment.caller和argument.callee。因此如果你要引用匿名函数，需要对匿名函数命名。
+不能使用argument.caller和argument.callee。因此如果你要引用匿名函数，需要对匿名函数命名。
 ```
 
 `严格模式`的优点：

@@ -322,6 +322,8 @@ hide=contribs,prs)
 
 - [sequelpro](https://www.sequelpro.com/)
 - idea 内置数据库管理工具
+- [sqlprostudio](https://www.sqlprostudio.com/)
+- [dbeaver](https://dbeaver.io/)
 
 ## 记录历史复制内容
 
@@ -411,6 +413,9 @@ git config --global url."https://hub.fastgit.org".insteadOf https://github.com
 git config --global --unset url.https://github.com/.insteadof
 ```
 
+## CS自学指南
+- https://csdiy.wiki/
+
 ## 错误报告
 - [sentry](https://sentry.io/)
 
@@ -429,6 +434,8 @@ git config --global --unset url.https://github.com/.insteadof
 
 ## 放到世界随意某个位置
 - [randomstreetview](https://randomstreetview.com)
+
+## cordcloud
 
 ## 神曲
 

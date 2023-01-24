@@ -4663,3 +4663,5 @@ chown -fR www:www ./*
 ## typescript design limit union type 限制25
 - https://github.com/microsoft/TypeScript/issues/43283
 - https://github.com/microsoft/TypeScript/issues 问题搜索union 25 in:title
+
+## 类型收敛 用 in 判断字段

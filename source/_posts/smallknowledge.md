@@ -4540,8 +4540,8 @@ cross-env NODE_ENV=development
 ```bash
 ql repo https://js.dayplus.xyz/https://github.com/6dylan6/jdpro.git "jd_|jx_|jddj_" "backUp" "^jd[^_]|USER|JD|function|sendNotify"
 
-# 京豆脚本拉取任务-zero205/JD_tencent_scf
-# 0 35 0/2 * * *	
+# 京东脚本拉取任务-zero205/JD_tencent_scf
+# 0 35 0/2 * * *
 
 ql repo https://hub.fastgit.xyz/zero205/JD_tencent_scf.git "jd_|jx_|jdCookie" "backUp|icon" "^jd[^_]|USER|sendNotify|
 sign_graphics_validate|JDJR|JDSign|ql" "main"
@@ -4665,3 +4665,35 @@ chown -fR www:www ./*
 - https://github.com/microsoft/TypeScript/issues 问题搜索union 25 in:title
 
 ## 类型收敛 用 in 判断字段
+
+## 表格首行插入
+```js
+// prepend
+tbody.prepend(tr);
+
+// insertRow
+<table id="TableA">
+  <tr>
+    <td>Old top row</td>
+  </tr>
+</table>
+<script type="text/javascript">
+  function addRow(tableID) {
+    // Get a reference to the table
+    var tableRef = document.getElementById(tableID);
+
+    // Insert a row in the table at row index 0
+    var newRow = tableRef.insertRow(0);
+
+    // Insert a cell in the row at index 0
+    var newCell = newRow.insertCell(0);
+
+    // Append a text node to the cell
+    var newText = document.createTextNode("New top row");
+    newCell.appendChild(newText);
+  }
+
+  // Call addRow() with the ID of a table
+  addRow("TableA");
+</script>
+```

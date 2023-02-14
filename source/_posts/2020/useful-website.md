@@ -413,6 +413,9 @@ git config --global url."https://hub.fastgit.org".insteadOf https://github.com
 git config --global --unset url.https://github.com/.insteadof
 ```
 
+## 数据api
+- [天行数据](https://www.tianapi.com/)
+
 ## CS自学指南
 - https://csdiy.wiki/
 

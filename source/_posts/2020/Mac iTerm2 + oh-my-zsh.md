@@ -112,6 +112,10 @@ ls ~/.oh-my-zsh/themes
 # 若显示没有 pip,先安装pip
 sudo easy_install pip
 
+# 其他方法
+# wget https://bootstrap.pypa.io/get-pip.py
+# python get-pip.py
+
 # 1、检测是否已经安装，若有版本信息则已安装
 pip show powerline-status
 

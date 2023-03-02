@@ -641,7 +641,7 @@ function goback() {
 ### 方法 1 substr 方法
 
 ```javascript
-let phone = "18883269663";
+let phone = "18888888888";
 let phone1 = phone.substr(0, 3) + "****" + phone.substr(7);
 ```
 
@@ -3049,7 +3049,6 @@ Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
   text-overflow: ellipsis;
 }
 ```
-
 ## 如何实现 sleep 效果
 
 ### while
@@ -4697,3 +4696,25 @@ tbody.prepend(tr);
   addRow("TableA");
 </script>
 ```
+
+## prober.php
+Prober.php是一个开源的PHP文件，可以用于检查Web服务器的配置和性能。如果在服务器上运行prober.php探针，可能会导致磁盘空间占用过高的问题。
+
+可能的原因是prober.php探针记录了大量的日志数据，导致磁盘空间占用过高。您可以通过以下方式解决该问题：
+
+删除prober.php探针日志文件：找到prober.php探针生成的日志文件并删除它们。这些文件通常位于与prober.php文件相同的目录中。您可以使用命令行工具，如rm或del，或通过FTP客户端删除这些文件。
+
+更改prober.php探针的配置：您可以通过更改prober.php探针的配置来限制日志记录。打开prober.php文件并查找以下行：
+
+```php
+define('DEBUG_MODE', true);
+define('DEBUG_FILENAME', 'debug.log');
+```
+
+将DEBUG_MODE设置为false，这将禁用调试模式。您还可以更改DEBUG_FILENAME，这是探针将日志写入的文件名。如果您将其更改为“/dev/null”，则会将所有日志写入空设备，并防止生成日志文件。
+
+请注意，在更改prober.php探针配置之前，最好创建备份文件，以便在需要时可以恢复原始配置。
+
+## kubernetes管理界面
+- [kubesphere](https://kubesphere.io/zh/)
+- [dashboard](https://github.com/kubernetes/dashboard)

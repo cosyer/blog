@@ -158,3 +158,6 @@ function createSetter() {
 - [拖拽排序react-dnd](https://github.com/react-dnd/react-dnd)
 - [react-draggable](https://github.com/react-grid-layout/react-draggable)
 - [容器大小react-resizable](https://github.com/react-grid-layout/react-resizable)
+
+## 走马灯
+- [react-slick](https://react-slick.neostack.com/docs/api)

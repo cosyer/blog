@@ -612,3 +612,14 @@ COPY --from=development /go/src/app .
 EXPOSE 8080
 ENTRYPOINT ["./app"]
 ```
+
+### 青龙
+```bash
+docker run -dit \
+  -v $PWD/ql/data:/ql/data \
+  -p 9663:5700 \
+  --name qinglong \
+  --hostname qinglong \
+  --restart unless-stopped \
+  whyour/qinglong:latest
+```

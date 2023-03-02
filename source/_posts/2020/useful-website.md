@@ -141,6 +141,7 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 - https://www.macz.com/
 - https://www.macbl.com/
 - https://xclient.info/
+- https://appstorrent.ru/
 
 ## 判断是否支持苹果 M1 芯片
 
@@ -169,6 +170,10 @@ https://justcode.ikeepstudying.com/2020/09/photoshop-2020-for-mac-%E5%AE%89%E8%A
 - [百度脑图](https://naotu.baidu.com/)
 - [手绘图](https://excalidraw.com/)
 - [丝滑](https://www.tldraw.com/)
+
+## 设计
+- [figma](https://www.figma.com/)
+- [modao](https://modao.cc/)
 
 ## 政府留言
 
@@ -301,6 +306,7 @@ hide=contribs,prs)
 ## mock
 
 - [fast mock](https://www.fastmock.site/)
+- [easy mock](https://github.com/easy-mock/easy-mock)
 - [Postman](https://www.postman.com/)
 - [Postwoman](https://hoppscotch.io/cn)
 - [insomnia](https://insomnia.rest/)
@@ -439,6 +445,13 @@ git config --global --unset url.https://github.com/.insteadof
 - [randomstreetview](https://randomstreetview.com)
 
 ## cordcloud
+
+## 探针
+- [雅黑探针官网](http://www.yahei.net/)
+- [X探针Github](https://github.com/kmvan/x-prober)
+
+## 失信被执行人查询
+- http://zxgk.court.gov.cn/zhzxgk
 
 ## 神曲
 

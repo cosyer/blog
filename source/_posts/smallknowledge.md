@@ -4627,7 +4627,7 @@ curl --location --request POST 'xxx' \
 
 ## card title前缀
 ```css
-.title:before {
+.title::before {
   background-color: #197afa;
   -webkit-border-radius: 2px;
   border-radius: 2px;

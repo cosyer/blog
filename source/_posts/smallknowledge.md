@@ -4718,3 +4718,10 @@ define('DEBUG_FILENAME', 'debug.log');
 ## kubernetes管理界面
 - [kubesphere](https://kubesphere.io/zh/)
 - [dashboard](https://github.com/kubernetes/dashboard)
+
+## 最后一个字符
+```js
+var str = 'Hello World!'
+// str.charAt(str.length - 1);
+// str.slice(-1);
+```

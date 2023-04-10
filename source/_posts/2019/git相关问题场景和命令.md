@@ -541,3 +541,4 @@ git remote set-url origin xxx
 ### 练习
 
 - [Git 命令可视化学习](https://github.com/pcottle/learnGitBranching)
+- [Git alias](https://blog.51cto.com/u_15127659/4602156)

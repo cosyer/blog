@@ -390,6 +390,8 @@ hide=contribs,prs)
 
 ## ChatGPT
 - [ChatGPT](https://openai.com/blog/chatgpt/)
+- [freegpt](https://freegpt.one/)
+- [chat2ai](https://www.chat2ai.cn/)
 
 ## 个人简介
 - [About Me](https://about.me/)
@@ -452,6 +454,18 @@ git config --global --unset url.https://github.com/.insteadof
 
 ## 失信被执行人查询
 - http://zxgk.court.gov.cn/zhzxgk
+
+## 教育
+- [教学工具导航](https://edui123.com/)
+- [评语生成](https://class.acagrid.com/pc/comment)
+
+## AI绘画
+- [数画](https://www.shuxuehua.com/)
+- [文心一格](https://yige.baidu.com/)
+- [文心大模型](https://wenxin.baidu.com/moduleApi/ernieVilg)
+- [盗梦师](https://printidea.art/)
+- [意间AI绘画](http://www.yjai.art/)
+- 微信小程序 => 智绘ai/MuseArt AI
 
 ## 神曲
 

@@ -111,14 +111,13 @@ tar xzvf redis-4.0.8.tar.gz
 
 # 安装
 cd redis-4.0.8
-make
 cd src
 make install PREFIX=/usr/local/redis
 
 # 移动配置文件
 cp ./redis.conf /usr/local/redis/bin/
 
-# 配置redis为后台启动 /usr/local/redis/redis.conf
+# 配置redis为后台启动 /usr/local/redis/bin/redis.conf
 将daemonize no 改成daemonize yes
 
 # 启动

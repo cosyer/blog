@@ -161,3 +161,7 @@ function createSetter() {
 
 ## 走马灯
 - [react-slick](https://react-slick.neostack.com/docs/api)
+
+## 多页签
+- [react-router-cache-route](https://github.com/CJY0208/react-router-cache-route)
+- [react-activation](https://github.com/CJY0208/react-activation)
